@@ -1,5 +1,6 @@
 package com.samgye.orderapp.api
 
+import android.util.Log
 import com.samgye.orderapp.api.network.ApiFactory
 import com.samgye.orderapp.api.request.LoginRequest
 import com.samgye.orderapp.api.response.LoginResult
@@ -14,8 +15,10 @@ class ApiClient (
         apiService.loginKakao(loginRequest).enqueue(object : Callback<LoginResult> {
             override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
                 if (response.isSuccessful) {
+                    Log.d("TEST", "success")
                     callback(response.body(), null)
                 } else {
+                    Log.d("TEST", "fail")
                     callback(null, Throwable(response.errorBody()?.string()))
                 }
             }
