@@ -7,7 +7,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="main_view_model"
+            name="home_view_model"
             type="com.samgye.orderapp.activity.viewmodel.HomeViewModel" />
     </data>
 
@@ -42,9 +42,11 @@
                     app:layout_constraintBottom_toTopOf="@id/cl_annotation">
 
                     <ImageView
+                        android:id="@+id/iv_menu"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/icon_menu"
+                        android:onClick="@{(v)->home_view_model.menuClick(v)}"
                         android:padding="5dp"
                         android:layout_margin="10dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -144,6 +146,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/cl_dummy"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_dummy_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:background="@color/dummy_background_color"
+                    android:onClick="@{(v)->home_view_model.menuClick(v)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_menu"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/dummy_color"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
