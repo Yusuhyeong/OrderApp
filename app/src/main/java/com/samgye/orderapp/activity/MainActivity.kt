@@ -12,12 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val loginRequest = LoginRequest(
-            snsType = "kakao",
-            snsId = "UUID"
-        )
-
-        ApiClient.instance.loginKakao(loginRequest) { result, error ->
+        ApiClient.instance.loginKakao("1234", "kakao") { result, error ->
             if (error != null) {
                 // 에러 처리
                 Log.e("LoginError", "Login failed: ${error.message}")

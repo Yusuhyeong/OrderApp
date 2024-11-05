@@ -9,28 +9,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ApiClient (
-    private val apiAuthService: ApiAuthService = ApiFactory.apiAuth.create(ApiAuthService::class.java),
     private val apiBearer: ApiBearerService = ApiFactory.apiBearer.create(ApiBearerService::class.java),
     private val manager: AuthApiManager = AuthApiManager.instance,
     private val tokenManagerProvider: TokenManagerProvider = TokenManagerProvider.instance
 ) {
-    fun loginKakao(loginRequest: LoginRequest, callback: (TokenResponse?, error: Throwable?) -> Unit) {
-        apiAuthService.login(loginRequest).enqueue(object : Callback<TokenResponse> {
-            override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
-                if (response.isSuccessful) {
-                    Log.d("TEST", "success")
-                    callback(response.body(), null)
-                } else {
-                    Log.d("TEST", "fail")
-                    callback(null, Throwable(response.errorBody()?.string()))
-                }
-            }
-
-            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
-                callback(null, t) // 네트워크 실패 시 에러 반환
-            }
-        })
-    }
+    fun loginKakao(
+        id: String,
+        type: String = "kakao",
+        callback: (token: TokenResponse?, error: Throwable?) -> Unit
+    ) = manager.login(LoginRequest(snsId = id, snsType = type), callback)
 
     /**
      * 기존 토큰을 갱신합니다
