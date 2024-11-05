@@ -1,8 +1,9 @@
-package com.samgye.orderapp
+package com.samgye.orderapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.samgye.orderapp.R
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.api.request.LoginRequest
 
