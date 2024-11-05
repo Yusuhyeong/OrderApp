@@ -34,10 +34,23 @@ object ApiFactory {
         return@lazy interceptor
     }
 
-    val itsApi by lazy {
+    val apiAuth by lazy {
         withClientAndAdapter(
             Constants.BASE_URL,
             OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .callTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(100, TimeUnit.SECONDS)
+        )
+    }
+
+    val apiBearer by lazy {
+        withClientAndAdapter(
+            Constants.BASE_URL,
+            OkHttpClient.Builder()
+                .addInterceptor(AccessTokenInterceptor())
                 .addInterceptor(loggingInterceptor)
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .callTimeout(100, TimeUnit.SECONDS)
