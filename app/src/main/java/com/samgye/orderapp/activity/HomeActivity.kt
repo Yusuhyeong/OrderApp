@@ -3,7 +3,6 @@ package com.samgye.orderapp.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.R
@@ -12,7 +11,7 @@ import com.samgye.orderapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private var isMenuVisible = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -25,38 +24,21 @@ class HomeActivity : AppCompatActivity() {
         binding.homeViewModel = viewModel
         binding.lifecycleOwner = this
 
-//        viewModel.isMenuVisible.observe(this) { isVisible ->
-//            if (isVisible) {
-//                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_in))
-//                binding.clMenu.visibility = View.VISIBLE
-//            } else {
-//                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_out))
-//                binding.clMenu.visibility = View.GONE
-//            }
-//        }
+        viewModel.is_menu_visible.observe(this) { visible ->
+            Log.d("HomeActivity", "menu status : $visible")
+
+            if (visible) {
+                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_in))
+            } else {
+                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_out))
+            }
+        }
 
         viewModel.selected_id.observe(this) { id ->
             Log.d("HomeActivity", "onClick : ${id.toString()}")
             when(id) {
-                R.id.cl_dummy_menu.toString() -> {
-                    if (isMenuVisible) {
-                        binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_out))
-                        binding.clMenu.visibility = View.GONE
-                        binding.clDummyMenu.visibility = View.GONE
-                        isMenuVisible = false
-                    }
-                }
-
-                R.id.iv_menu.toString() -> {
-                    if (!isMenuVisible) {
-                        binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_in))
-                        binding.clMenu.visibility = View.VISIBLE
-                        binding.clDummyMenu.visibility = View.VISIBLE
-                        isMenuVisible = true
-                    }
-                }
+                // id별 행동 추가
             }
-
         }
     }
 }
