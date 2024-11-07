@@ -5,9 +5,11 @@ import com.google.gson.annotations.Expose
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UserInfoResponse(
+data class UsernameResponse(
     @Expose
-    val username: String,
+    val code: Int,
     @Expose
-    val email: String
-    ) : Parcelable
+    val msg: String,
+    @Expose
+    val data: Int
+): Parcelable

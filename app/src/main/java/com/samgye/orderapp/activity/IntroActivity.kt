@@ -34,25 +34,32 @@ class IntroActivity : AppCompatActivity() {
         if (isNetwork)  {
             Handler(Looper.getMainLooper()).postDelayed({
                 if (ApiClient.instance.hasToken()) {
-                    ApiClient.instance.userInfo() { result, error ->
+                    ApiClient.instance.refreshAccessToken() { _, error ->
                         if (error != null) {
-                            // 에러
-                            Log.e(TAG, "userInfo failed: ${error.message}")
-                            // 팝업 후 finish (에러 코드)
+                            Log.e(TAG, "refresh token error")
                             finish() // 임시 코드
-                        } else if(result != null) {
-                            Log.d(TAG, "UserInfoSuccess")
-                            if (result.username == null) {
-                                Log.d(TAG, "username is empty. go to set username")
-                                val userNameIntent = Intent(this, UserNameActivity::class.java)
-                                startActivity(userNameIntent)
-                                finish()
-                            } else {
-                                Log.d("UserInfoSuccess", "username is not empty")
-                                val homeIntent = Intent(this, HomeActivity::class.java)
-                                homeIntent.putExtra("userInfo", result)
-                                startActivity(homeIntent)
-                                finish()
+                        } else {
+                            ApiClient.instance.userInfo() { result, error ->
+                                if (error != null) {
+                                    // 에러
+                                    Log.e(TAG, "userInfo failed: ${error.message}")
+                                    // 팝업 후 finish (에러 코드)
+                                    finish() // 임시 코드
+                                } else if(result != null) {
+                                    Log.d(TAG, "UserInfoSuccess")
+                                    if (result.username == null) {
+                                        Log.d(TAG, "username is empty. go to set username")
+                                        val userNameIntent = Intent(this, UserNameActivity::class.java)
+                                        startActivity(userNameIntent)
+                                        finish()
+                                    } else {
+                                        Log.d("UserInfoSuccess", "username is not empty")
+                                        val homeIntent = Intent(this, HomeActivity::class.java)
+                                        homeIntent.putExtra("userInfo", result)
+                                        startActivity(homeIntent)
+                                        finish()
+                                    }
+                                }
                             }
                         }
                     }

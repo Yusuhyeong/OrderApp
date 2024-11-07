@@ -3,8 +3,10 @@ package com.samgye.orderapp.api
 import android.util.Log
 import com.samgye.orderapp.api.network.ApiFactory
 import com.samgye.orderapp.api.request.LoginRequest
+import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.api.response.TokenResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
+import com.samgye.orderapp.api.response.UsernameResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,7 +53,7 @@ class ApiClient (
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { info ->
-                        Log.d("UserInfoResponse", "snsType: ${info.snsType}")
+                        Log.d("UserInfoResponse", "snsType: ${info.email}")
                         Log.d("UserInfoResponse", "username: ${info.username}")
                         callback(info, null)
                         return
@@ -66,6 +68,30 @@ class ApiClient (
                 t: Throwable) {
                 callback(null, t)
             }
+        })
+    }
+
+    fun updateUserName(usernameRequest: UsernameRequest, callback: (data: UsernameResponse?, error: Throwable?) -> Unit) {
+        apiBearer.updateUsername(usernameRequest).enqueue(object : Callback<UsernameResponse> {
+            override fun onResponse(
+                call: Call<UsernameResponse>,
+                response: Response<UsernameResponse>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { data ->
+                        callback(data, null)
+                        return
+                    }
+                    callback(null, Throwable("응답오류. no Body"))
+                } else {
+                    callback(null, Throwable(response.errorBody().toString()))
+                }
+            }
+
+            override fun onFailure(call: Call<UsernameResponse>, t: Throwable) {
+                callback(null, t)
+            }
+
         })
     }
 
