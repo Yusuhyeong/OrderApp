@@ -21,6 +21,7 @@ class ApiClient (
     ) = manager.login(LoginRequest(snsId = id, snsType = type), callback)
 
     fun hasToken(): Boolean {
+        Log.d("ApiClient", "hasToken : ${manager.hasToken()}")
         return manager.hasToken()
     }
 

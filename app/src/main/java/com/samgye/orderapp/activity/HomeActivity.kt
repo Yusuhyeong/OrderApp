@@ -24,15 +24,15 @@ class HomeActivity : AppCompatActivity() {
         binding.homeViewModel = viewModel
         binding.lifecycleOwner = this
 
-//        viewModel.is_menu_visible.observe(this) { visible ->
-//            Log.d("HomeActivity", "menu status : $visible")
-//
-//            if (visible) {
-//                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_in))
-//            } else {
-//                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_out))
-//            }
-//        }
+        viewModel.is_menu_visible.observe(this) { visible ->
+            Log.d("HomeActivity", "menu status : $visible")
+
+            if (visible) {
+                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_in))
+            } else {
+                binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_out))
+            }
+        }
 
         viewModel.selected_id.observe(this) { id ->
             Log.d("HomeActivity", "onClick : ${id.toString()}")
