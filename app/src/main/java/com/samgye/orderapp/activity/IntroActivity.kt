@@ -42,16 +42,16 @@ class IntroActivity : AppCompatActivity() {
                             finish() // 임시 코드
                         } else if(result != null) {
                             Log.d(TAG, "UserInfoSuccess")
-                            if (result.username.isNotEmpty()) {
+                            if (result.username == null) {
+                                Log.d(TAG, "username is empty. go to set username")
+                                val userNameIntent = Intent(this, UserNameActivity::class.java)
+                                startActivity(userNameIntent)
+                                finish()
+                            } else {
                                 Log.d("UserInfoSuccess", "username is not empty")
                                 val homeIntent = Intent(this, HomeActivity::class.java)
                                 homeIntent.putExtra("userInfo", result)
                                 startActivity(homeIntent)
-                                finish()
-                            } else {
-                                Log.d(TAG, "username is empty. go to set username")
-                                val userNameIntent = Intent(this, UserNameActivity::class.java)
-                                startActivity(userNameIntent)
                                 finish()
                             }
                         }

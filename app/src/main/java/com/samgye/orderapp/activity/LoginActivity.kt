@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
                     if (error != null) {
                         // 팝업 후 finish
                         finish() // 임시 코드
-                    } else if (result?.username.toString().isNotEmpty()) {
+                    } else if (result?.username != null) {
                         val resultIntent = Intent().apply {
                             putExtra("result", result)
                         }
@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                     if (error != null) {
                         // 팝업 후 finish
                         finish() // 임시 코드
-                    } else if (result?.username.toString().isNotEmpty()) {
+                    } else if (result?.username != null) {
                         val resultIntent = Intent().apply {
                             putExtra("result", result)
                         }

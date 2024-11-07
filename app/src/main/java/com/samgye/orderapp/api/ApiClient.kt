@@ -53,6 +53,7 @@ class ApiClient (
                     response.body()?.let { info ->
                         Log.d("UserInfoResponse", "snsType: ${info.snsType}")
                         Log.d("UserInfoResponse", "username: ${info.username}")
+                        callback(info, null)
                         return
                     }
                     callback(null, Throwable("응답오류. No Body"))
