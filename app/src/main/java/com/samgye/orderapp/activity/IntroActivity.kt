@@ -11,11 +11,14 @@ import android.os.Looper
 import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.util.Utility
 import com.samgye.orderapp.R
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.databinding.ActivityIntroBinding
 
 class IntroActivity : AppCompatActivity() {
+    private val TAG = this::class.java.simpleName
     private lateinit var binding: ActivityIntroBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,23 +33,15 @@ class IntroActivity : AppCompatActivity() {
     private fun startTimer (isNetwork: Boolean) {
         if (isNetwork)  {
             Handler(Looper.getMainLooper()).postDelayed({
-                /*
-                1. hasToken 유무 확인
-                    1.1. 있으면 userInfo 조회
-                        1.1.1 userInfo 조회 후 username 유무 확인
-                            1.1.1.1 username 있으면 userInfoResponse intent 저장 후 HomeActivity 이동
-                            1.1.1.2 username 없으면 UserNameActivity로 이동
-                    1.2. 없으면 HomeActivity로 이동
-                 */
                 if (ApiClient.instance.hasToken()) {
                     ApiClient.instance.userInfo() { result, error ->
                         if (error != null) {
                             // 에러
-                            Log.e("UserInfoError", "userInfo failed: ${error.message}")
+                            Log.e(TAG, "userInfo failed: ${error.message}")
                             // 팝업 후 finish (에러 코드)
                             finish() // 임시 코드
                         } else if(result != null) {
-                            Log.d("UserInfoSuccess", "UserInfoSuccess")
+                            Log.d(TAG, "UserInfoSuccess")
                             if (result.username.isNotEmpty()) {
                                 Log.d("UserInfoSuccess", "username is not empty")
                                 val homeIntent = Intent(this, HomeActivity::class.java)
@@ -54,7 +49,7 @@ class IntroActivity : AppCompatActivity() {
                                 startActivity(homeIntent)
                                 finish()
                             } else {
-                                Log.d("UserInfoSuccess", "username is empty. go to set username")
+                                Log.d(TAG, "username is empty. go to set username")
                                 val userNameIntent = Intent(this, UserNameActivity::class.java)
                                 startActivity(userNameIntent)
                                 finish()
@@ -62,7 +57,7 @@ class IntroActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    Log.d("UserInfoSuccess", "user has not token")
+                    Log.d(TAG, "user has not token")
                     val homeIntent = Intent(this, HomeActivity::class.java)
                     homeIntent.putExtra("userInfo", "")
                     startActivity(homeIntent)
