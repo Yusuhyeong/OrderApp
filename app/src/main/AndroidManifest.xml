@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.UserNameActivity"
             android:exported="false" />
         <activity
@@ -47,7 +50,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakaoe1625c91b92367b550db25405ba1d235e" />
+                    android:scheme="kakao1625c91b92367b550db25405ba1d235e" />
             </intent-filter>
         </activity>
     </application>

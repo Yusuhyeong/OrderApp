@@ -169,7 +169,21 @@
                     android:visibility="@{home_view_model.is_menu_visible ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent" >
+
+                    <TextView
+                        android:id="@+id/tv_test_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="로그인 테스트"
+                        android:textSize="20dp"
+                        android:onClick="@{(v)->home_view_model.menuClick(v)}"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
