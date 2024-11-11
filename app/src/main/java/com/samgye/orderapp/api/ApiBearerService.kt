@@ -1,6 +1,7 @@
 package com.samgye.orderapp.api
 
 import com.samgye.orderapp.api.request.UsernameRequest
+import com.samgye.orderapp.api.response.BaseResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.api.response.UsernameResponse
 import com.samgye.orderapp.utils.Constants
@@ -12,8 +13,8 @@ import retrofit2.http.POST
 interface ApiBearerService {
     // Login
     @GET(Constants.USER_INFO_PATH)
-    fun getUserInfo(): Call<UserInfoResponse>
+    fun getUserInfo(): Call<BaseResponse<UserInfoResponse>>
 
     @POST(Constants.USERNAME_UPDATE)
-    fun updateUsername(@Body usernameRequest: UsernameRequest): Call<UsernameResponse>
+    fun updateUsername(@Body usernameRequest: UsernameRequest): Call <BaseResponse<UsernameResponse>>
 }

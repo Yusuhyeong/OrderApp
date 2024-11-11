@@ -4,6 +4,7 @@ import android.util.Log
 import com.samgye.orderapp.api.network.ApiFactory
 import com.samgye.orderapp.api.request.LoginRequest
 import com.samgye.orderapp.api.request.UsernameRequest
+import com.samgye.orderapp.api.response.BaseResponse
 import com.samgye.orderapp.api.response.TokenResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.api.response.UsernameResponse
@@ -46,16 +47,16 @@ class ApiClient (
      * @param callback 보유 token에 대한 [UserInfoResponse] 반환.
      */
     fun userInfo(callback: (info: UserInfoResponse?, error: Throwable?) -> Unit) {
-        apiBearer.getUserInfo().enqueue(object : Callback<UserInfoResponse> {
+        apiBearer.getUserInfo().enqueue(object : Callback<BaseResponse<UserInfoResponse>> {
             override fun onResponse(
-                call: Call<UserInfoResponse>,
-                response: Response<UserInfoResponse>
+                call: Call<BaseResponse<UserInfoResponse>>,
+                response: Response<BaseResponse<UserInfoResponse>>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { info ->
-                        Log.d("UserInfoResponse", "snsType: ${info.email}")
-                        Log.d("UserInfoResponse", "username: ${info.username}")
-                        callback(info, null)
+                        Log.d("UserInfoResponse", "snsType: ${info.data?.snsType}")
+                        Log.d("UserInfoResponse", "username: ${info.data?.username}")
+                        callback(info.data, null)
                         return
                     }
                     callback(null, Throwable("응답오류. No Body"))
@@ -64,7 +65,7 @@ class ApiClient (
                 }
             }
             override fun onFailure(
-                call: Call<UserInfoResponse>,
+                call: Call<BaseResponse<UserInfoResponse>>,
                 t: Throwable) {
                 callback(null, t)
             }
@@ -72,14 +73,14 @@ class ApiClient (
     }
 
     fun updateUserName(usernameRequest: UsernameRequest, callback: (data: UsernameResponse?, error: Throwable?) -> Unit) {
-        apiBearer.updateUsername(usernameRequest).enqueue(object : Callback<UsernameResponse> {
+        apiBearer.updateUsername(usernameRequest).enqueue(object : Callback<BaseResponse<UsernameResponse>> {
             override fun onResponse(
-                call: Call<UsernameResponse>,
-                response: Response<UsernameResponse>
+                call: Call<BaseResponse<UsernameResponse>>,
+                response: Response<BaseResponse<UsernameResponse>>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { data ->
-                        callback(data, null)
+                        callback(data.data, null)
                         return
                     }
                     callback(null, Throwable("응답오류. no Body"))
@@ -88,7 +89,7 @@ class ApiClient (
                 }
             }
 
-            override fun onFailure(call: Call<UsernameResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<UsernameResponse>>, t: Throwable) {
                 callback(null, t)
             }
 

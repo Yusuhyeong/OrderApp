@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
@@ -54,8 +55,12 @@ class IntroActivity : AppCompatActivity() {
                                         finish()
                                     } else {
                                         Log.d("UserInfoSuccess", "username is not empty")
+                                        val bundle = Bundle()
+                                        bundle.putParcelable("userInfo", result)
+
                                         val homeIntent = Intent(this, HomeActivity::class.java)
-                                        homeIntent.putExtra("userInfo", result)
+                                        homeIntent.putExtras(bundle)
+
                                         startActivity(homeIntent)
                                         finish()
                                     }

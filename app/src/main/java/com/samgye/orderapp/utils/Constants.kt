@@ -7,8 +7,8 @@ object Constants {
     const val BEARER = "Bearer"
     const val AUTHORIZATION = "Authorization"
 
-    const val BASE_URL = "http://10.112.59.189:8081/"
-//    const val BASE_URL = "http://10.112.60.173:8081/"
+    const val BASE_URL = "http://10.112.59.189:8081/" // ㄷㅅ
+//    const val BASE_URL = "http://10.112.60.173:8081/" // ㅅㅎ
 
     const val LOGIN_PATH = "api/auth/login"
     const val REFRESH_PATH = "api/auth/refresh"

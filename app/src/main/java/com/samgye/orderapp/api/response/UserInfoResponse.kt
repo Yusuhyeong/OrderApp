@@ -9,5 +9,5 @@ data class UserInfoResponse(
     @Expose
     val username: String,
     @Expose
-    val email: String
+    val snsType: String
     ) : Parcelable

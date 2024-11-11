@@ -2,6 +2,7 @@ package com.samgye.orderapp.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.R
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
+import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
@@ -24,6 +26,10 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        val userInfoResponse = intent.getParcelableExtra<UserInfoResponse>("userInfo")
+
+        Log.d(TAG, "username : ${userInfoResponse?.username}, snsType : ${userInfoResponse?.snsType}")
 
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
