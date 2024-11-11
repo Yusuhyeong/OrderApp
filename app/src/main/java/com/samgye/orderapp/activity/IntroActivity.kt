@@ -55,14 +55,28 @@ class IntroActivity : AppCompatActivity() {
                                         finish()
                                     } else {
                                         Log.d("UserInfoSuccess", "username is not empty")
+                                        val homeIntent = Intent(this, HomeActivity::class.java)
                                         val bundle = Bundle()
                                         bundle.putParcelable("userInfo", result)
 
-                                        val homeIntent = Intent(this, HomeActivity::class.java)
-                                        homeIntent.putExtras(bundle)
+                                        ApiClient.instance.userPointInfo() { point, error ->
+                                            if (error != null) {
+                                                Log.e(TAG, "pointInfo fail:  ${error.message}")
+                                                // 팝업 후 finish (에러 코드)
+                                                finish()
+                                            } else if (point != null) {
+                                                Log.d(TAG, "point is not null, point : $point")
+                                                bundle.putInt("userPoint", point.point)
+                                                homeIntent.putExtras(bundle)
 
-                                        startActivity(homeIntent)
-                                        finish()
+                                                startActivity(homeIntent)
+                                                finish()
+                                            } else {
+                                                Log.d(TAG, "point is null")
+                                                // 팝업 후 finish (에러 코드)
+                                                finish()
+                                            }
+                                        }
                                     }
                                 }
                             }

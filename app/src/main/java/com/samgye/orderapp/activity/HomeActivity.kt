@@ -34,7 +34,9 @@ class HomeActivity : AppCompatActivity() {
             intent.getParcelableExtra<UserInfoResponse>("userInfo")
         }
 
-        Log.d(TAG, "username : ${userInfoResponse?.username}, snsType : ${userInfoResponse?.snsType}")
+        val userPoint = intent.getIntExtra("userPoint", 0)
+
+        Log.d(TAG, "username : ${userInfoResponse?.username}, snsType : ${userInfoResponse?.snsType}, point : $userPoint")
 
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {

@@ -7,6 +7,7 @@ import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.api.response.BaseResponse
 import com.samgye.orderapp.api.response.TokenResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
+import com.samgye.orderapp.api.response.UserPointResponse
 import com.samgye.orderapp.api.response.UsernameResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,6 +70,31 @@ class ApiClient (
                 t: Throwable) {
                 callback(null, t)
             }
+        })
+    }
+
+    fun userPointInfo(callback: (point: UserPointResponse?, error: Throwable?) -> Unit) {
+        apiBearer.getUserPoint().enqueue(object : Callback<BaseResponse<UserPointResponse>> {
+            override fun onResponse(
+                call: Call<BaseResponse<UserPointResponse>>,
+                response: Response<BaseResponse<UserPointResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { info ->
+                        Log.d("PointInfoResponse", "point: ${info.data?.point}")
+                        callback(info.data, null)
+                        return
+                    }
+                    callback(null, Throwable("응답오류. No Body"))
+                } else {
+                    callback(null, Throwable(response.errorBody().toString()))
+                }
+            }
+
+            override fun onFailure(call: Call<BaseResponse<UserPointResponse>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
         })
     }
 
