@@ -72,11 +72,11 @@ class ApiClient (
         })
     }
 
-    fun updateUserName(usernameRequest: UsernameRequest, callback: (data: UsernameResponse?, error: Throwable?) -> Unit) {
-        apiBearer.updateUsername(usernameRequest).enqueue(object : Callback<BaseResponse<UsernameResponse>> {
+    fun updateUserName(usernameRequest: UsernameRequest, callback: (data: Int?, error: Throwable?) -> Unit) {
+        apiBearer.updateUsername(usernameRequest).enqueue(object : Callback<BaseResponse<Int>> {
             override fun onResponse(
-                call: Call<BaseResponse<UsernameResponse>>,
-                response: Response<BaseResponse<UsernameResponse>>
+                call: Call<BaseResponse<Int>>,
+                response: Response<BaseResponse<Int>>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { data ->
@@ -89,7 +89,7 @@ class ApiClient (
                 }
             }
 
-            override fun onFailure(call: Call<BaseResponse<UsernameResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Int>>, t: Throwable) {
                 callback(null, t)
             }
 

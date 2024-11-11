@@ -16,5 +16,5 @@ interface ApiBearerService {
     fun getUserInfo(): Call<BaseResponse<UserInfoResponse>>
 
     @POST(Constants.USERNAME_UPDATE)
-    fun updateUsername(@Body usernameRequest: UsernameRequest): Call <BaseResponse<UsernameResponse>>
+    fun updateUsername(@Body usernameRequest: UsernameRequest): Call <BaseResponse<Int>>
 }

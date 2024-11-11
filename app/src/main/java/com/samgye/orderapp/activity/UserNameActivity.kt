@@ -19,7 +19,7 @@ class UserNameActivity : AppCompatActivity() {
                 Log.d("TEST", "ERROR")
             } else {
                 if (data != null) {
-                    if (data.code == 2000) {
+                    if (data == 1) {
                         Log.d("TEST", "SUCCESS")
                     } else {
                         Log.d("TEST", "NOT SUCCESS")
