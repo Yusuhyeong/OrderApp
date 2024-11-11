@@ -137,6 +137,7 @@
                     app:layout_constraintTop_toTopOf="@id/cl_event"
                     app:layout_constraintBottom_toBottomOf="@id/cl_event" />
 
+                <!-- 하단 메뉴 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_user_info"
                     android:layout_width="match_parent"
@@ -146,7 +147,101 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/cl_dummy"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent" >
+
+                    <!-- 비로그인 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_un_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="@{home_view_model.is_login_status ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <TextView
+                            android:id="@+id/tv_login_request"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="로그인 후 사용하세요"
+                            android:textSize="20dp"
+                            android:fontFamily="@font/pretendard_bold"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_login_request"
+                            app:layout_constraintBottom_toBottomOf="parent" >
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_test_store_eat"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:background="@drawable/border_radius_40dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/cl_test_take_out" />
+
+                            <TextView
+                                android:id="@+id/tv_delivery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="매장식사"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/pretendard_regular"
+                                android:textSize="18dp"
+                                app:layout_constraintStart_toStartOf="@id/cl_test_store_eat"
+                                app:layout_constraintEnd_toEndOf="@id/cl_test_store_eat"
+                                app:layout_constraintTop_toBottomOf="@id/cl_test_store_eat"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_test_take_out"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:background="@drawable/border_radius_40dp"
+                                app:layout_constraintStart_toEndOf="@id/cl_test_store_eat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_take_out"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="포장하기"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/pretendard_regular"
+                                android:textSize="18dp"
+                                app:layout_constraintStart_toStartOf="@id/cl_test_take_out"
+                                app:layout_constraintEnd_toEndOf="@id/cl_test_take_out"
+                                app:layout_constraintTop_toBottomOf="@id/cl_test_take_out"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- 로그인 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="@{home_view_model.is_login_status ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_dummy_menu"
@@ -177,6 +272,7 @@
                         android:layout_height="wrap_content"
                         android:text="로그인 테스트"
                         android:textSize="20dp"
+                        android:visibility="@{home_view_model.is_login_status ? View.GONE : View.VISIBLE}"
                         android:onClick="@{(v)->home_view_model.menuClick(v)}"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"

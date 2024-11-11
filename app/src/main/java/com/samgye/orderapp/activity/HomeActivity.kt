@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.R
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
+import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.databinding.ActivityHomeBinding
 
@@ -27,19 +28,25 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val userInfoResponse = intent.getParcelableExtra<UserInfoResponse>("userInfo")
+        val userInfoResponse = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra<UserInfoResponse>("userInfo", UserInfoResponse::class.java)
+        } else {
+            intent.getParcelableExtra<UserInfoResponse>("userInfo")
+        }
 
         Log.d(TAG, "username : ${userInfoResponse?.username}, snsType : ${userInfoResponse?.snsType}")
 
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val resultData = result.data?.getStringExtra("result")
-                if (resultData.isNullOrEmpty()) {
+                val resultData = result.data?.getParcelableExtra<UserInfoResponse>("result")
+                if (resultData == null) {
                     // 팝업 후 finish
                     Log.d(TAG, "data 없음")
                     finish() // 임시 코드
                 } else {
                     Log.d(TAG, "data 있음")
+                    Log.d(TAG, "username : ${resultData.username}, snsType : ${resultData.snsType}")
+                    binding.homeViewModel?.setLoginStatus(ApiClient.instance.hasToken())
                 }
             }
         }
