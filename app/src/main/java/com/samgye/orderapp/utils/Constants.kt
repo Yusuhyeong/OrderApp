@@ -14,8 +14,8 @@ object Constants {
     const val REFRESH_PATH = "api/auth/refresh"
     const val USER_INFO_PATH = "api/user/me"
     const val USERNAME_UPDATE_PATH = "api/userInfo/updateUserName"
-    const val USER_POINT_INFO_PATH = "api/userPoint/getUserPoint"
-
+//    const val USER_POINT_INFO_PATH = "api/userPoint/getUserPoint"
+    const val USER_POINT_INFO_PATH = "api/userDetail/getUserDetail"
     const val SEARCH_PATH = "/search"
 
     // LOGIN CODE

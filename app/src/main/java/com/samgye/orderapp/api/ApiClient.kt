@@ -7,8 +7,7 @@ import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.api.response.BaseResponse
 import com.samgye.orderapp.api.response.TokenResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
-import com.samgye.orderapp.api.response.UserPointResponse
-import com.samgye.orderapp.api.response.UsernameResponse
+import com.samgye.orderapp.api.response.UserDetailResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,11 +72,11 @@ class ApiClient (
         })
     }
 
-    fun userPointInfo(callback: (point: UserPointResponse?, error: Throwable?) -> Unit) {
-        apiBearer.getUserPoint().enqueue(object : Callback<BaseResponse<UserPointResponse>> {
+    fun userPointInfo(callback: (point: UserDetailResponse?, error: Throwable?) -> Unit) {
+        apiBearer.getUserPoint().enqueue(object : Callback<BaseResponse<UserDetailResponse>> {
             override fun onResponse(
-                call: Call<BaseResponse<UserPointResponse>>,
-                response: Response<BaseResponse<UserPointResponse>>
+                call: Call<BaseResponse<UserDetailResponse>>,
+                response: Response<BaseResponse<UserDetailResponse>>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { info ->
@@ -91,7 +90,7 @@ class ApiClient (
                 }
             }
 
-            override fun onFailure(call: Call<BaseResponse<UserPointResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<UserDetailResponse>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 
