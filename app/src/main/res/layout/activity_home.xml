@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:onClick="@{(v)->home_view_model.menuClick(v)}"
+                    android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -151,28 +151,48 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/cl_dummy" >
 
-                    <TextView
-                        android:id="@+id/tv_login_annotation"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_login_annotation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="로그인 후 이용해주세요"
-                        android:textSize="20dp"
-                        android:visibility="@{home_view_model.is_login_status ? View.GONE : View.VISIBLE}"
-                        android:fontFamily="@font/pretendard_bold"
                         android:layout_marginTop="15dp"
+                        android:visibility="@{home_view_model.is_login_status ? View.GONE : View.VISIBLE}"
+                        android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
                         app:layout_constraintStart_toStartOf="@id/cl_store_eat"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" >
+
+                        <TextView
+                            android:id="@+id/tv_login_annotation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="로그인 후 이용해주세요"
+                            android:textSize="20dp"
+                            android:fontFamily="@font/pretendard_bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/icon_arrow_right"
+                            android:layout_marginRight="10dp"
+                            app:layout_constraintStart_toEndOf="@id/tv_login_annotation"
+                            app:layout_constraintTop_toTopOf="@id/tv_login_annotation"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_login_annotation" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20dp"
+                        android:textSize="22dp"
                         android:layout_marginTop="15dp"
                         android:visibility="@{home_view_model.is_login_status ? View.VISIBLE : View.GONE}"
                         android:fontFamily="@font/pretendard_bold"
                         app:layout_constraintStart_toStartOf="@id/cl_store_eat"
-                        app:layout_constraintTop_toBottomOf="@id/tv_login_annotation"
+                        app:layout_constraintTop_toBottomOf="@id/cl_login_annotation"
                         android:text="@{home_view_model.userData.userName}" />
 
                     <TextView
@@ -182,7 +202,6 @@
                         android:visibility="@{home_view_model.is_login_status ? View.VISIBLE : View.GONE}"
                         android:fontFamily="@font/pretendard_bold"
                         app:layout_constraintStart_toEndOf="@id/tv_username"
-                        app:layout_constraintTop_toTopOf="@id/tv_username"
                         app:layout_constraintBottom_toBottomOf="@id/tv_username"
                         android:text="님 안녕하세요" />
 
@@ -226,7 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:onClick="@{(v)->home_view_model.menuClick(v)}"
+                        android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/cl_take_out"
                         app:layout_constraintTop_toBottomOf="@id/tv_point_info" >
@@ -261,7 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:onClick="@{(v)->home_view_model.menuClick(v)}"
+                        android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
                         app:layout_constraintStart_toEndOf="@id/cl_store_eat"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/cl_store_eat"

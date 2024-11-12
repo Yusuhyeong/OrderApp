@@ -38,8 +38,6 @@ class HomeActivity : AppCompatActivity() {
             viewModel.setUserData(myData)
         } else {
             Log.d(TAG, "No UserData...")
-//            val myData = MyData("d", "d", 0)
-//            viewModel.setUserData(myData)
         }
 
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -62,7 +60,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         viewModel.is_menu_visible.observe(this) { visible ->
-            Log.d("HomeActivity", "menu status : $visible")
+            Log.d(TAG, "menu status : $visible")
 
             if (visible) {
                 binding.clMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_slide_in))
@@ -72,12 +70,31 @@ class HomeActivity : AppCompatActivity() {
         }
 
         viewModel.selected_id.observe(this) { id ->
-            Log.d("HomeActivity", "onClick menu : ${id.toString()}")
+            Log.d(TAG, "onClick menu : ${id.toString()}")
             when(id) {
                 // id별 행동 추가
-                R.id.tv_test_login.toString() -> { // 카카오 로그인
+                R.id.tv_test_login.toString() -> { // 카카오 로그인 (상단 메뉴 화면)
+                    Log.d(TAG, "상단 메뉴 화면 카카오 로그인 클릭")
                     val loginIntent = Intent(this, LoginActivity::class.java)
                     loginLauncher.launch(loginIntent)
+                }
+
+                R.id.cl_login_annotation.toString() -> { // 카카오 로그인 (홈 화면)
+                    Log.d(TAG, "홈 화면 카카오 로그인 클릭")
+                    val loginIntent = Intent(this, LoginActivity::class.java)
+                    loginLauncher.launch(loginIntent)
+                }
+
+                R.id.cl_store_eat.toString() -> { // 매장 식사
+                    Log.d(TAG, "매장 식사 클릭")
+                }
+
+                R.id.cl_take_out.toString() -> { // 매장 식사
+                    Log.d(TAG, "포장 주문 클릭")
+                }
+
+                R.id.cl_annotation.toString() -> {
+                    Log.d(TAG, "공지 사항 클릭")
                 }
             }
         }
