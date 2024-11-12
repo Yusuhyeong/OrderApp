@@ -11,7 +11,6 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiBearerService {
-    // Login
     @GET(Constants.USER_INFO_PATH)
     fun getUserInfo(): Call<BaseResponse<UserInfoResponse>>
     @GET(Constants.USER_POINT_INFO_PATH)
