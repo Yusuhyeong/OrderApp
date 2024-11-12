@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import com.samgye.orderapp.MyData
 import com.samgye.orderapp.R
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
 import com.samgye.orderapp.api.ApiClient
@@ -27,35 +28,38 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        binding.homeViewModel = viewModel
+        binding.lifecycleOwner = this
 
-        val userInfoResponse = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra<UserInfoResponse>("userInfo", UserInfoResponse::class.java)
+        if (initUserData() != null) {
+            Log.d(TAG, "username : ${initUserData()?.userName}, snsType : ${initUserData()?.snsType}, point : ${initUserData()?.point}")
+            val myData = MyData(initUserData()?.userName, initUserData()?.snsType, initUserData()?.point)
+            viewModel.setUserData(myData)
         } else {
-            intent.getParcelableExtra<UserInfoResponse>("userInfo")
+            Log.d(TAG, "No UserData...")
+//            val myData = MyData("d", "d", 0)
+//            viewModel.setUserData(myData)
         }
-
-        val userPoint = intent.getIntExtra("userPoint", 0)
-
-        Log.d(TAG, "username : ${userInfoResponse?.username}, snsType : ${userInfoResponse?.snsType}, point : $userPoint")
 
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
+                Log.d(TAG, "Result Ok from LoginActivity")
                 val resultData = result.data?.getParcelableExtra<UserInfoResponse>("result")
-                if (resultData == null) {
+                val point = result.data?.getIntExtra("userPoint", 0)
+                if (resultData == null || point == null) {
                     // 팝업 후 finish
                     Log.d(TAG, "data 없음")
                     finish() // 임시 코드
                 } else {
                     Log.d(TAG, "data 있음")
-                    Log.d(TAG, "username : ${resultData.username}, snsType : ${resultData.snsType}")
+                    val myData = MyData(resultData.username, resultData.snsType, point)
+                    viewModel.setUserData(myData)
+                    Log.d(TAG, "username : ${myData.userName}, snsType : ${myData.snsType}, point : ${myData.point}")
                     binding.homeViewModel?.setLoginStatus(ApiClient.instance.hasToken())
                 }
             }
         }
-
-        val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        binding.homeViewModel = viewModel
-        binding.lifecycleOwner = this
 
         viewModel.is_menu_visible.observe(this) { visible ->
             Log.d("HomeActivity", "menu status : $visible")
@@ -76,6 +80,23 @@ class HomeActivity : AppCompatActivity() {
                     loginLauncher.launch(loginIntent)
                 }
             }
+        }
+    }
+
+    private fun initUserData(): MyData? {
+        val userInfoResponse = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra<UserInfoResponse>("userInfo", UserInfoResponse::class.java)
+        } else {
+            intent.getParcelableExtra<UserInfoResponse>("userInfo")
+        }
+
+        val userPoint = intent.getIntExtra("userPoint", 0)
+
+        return if (userInfoResponse == null) {
+            Log.d(TAG, "userInfoResponse is null")
+            null
+        } else {
+            MyData(userInfoResponse.username, userInfoResponse.snsType, userPoint)
         }
     }
 }

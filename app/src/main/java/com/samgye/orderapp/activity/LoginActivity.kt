@@ -37,8 +37,18 @@ class LoginActivity : AppCompatActivity() {
                         val resultIntent = Intent().apply {
                             putExtra("result", result)
                         }
-                        setResult(Activity.RESULT_OK, resultIntent)
-                        finish()
+
+                        ApiClient.instance.userPointInfo() {point, error ->
+                            if (error != null) {
+                                // 팝업 후 finish
+                                finish() // 임시 코드
+                            } else {
+                                resultIntent.putExtra("userPoint", point?.point)
+
+                                setResult(Activity.RESULT_OK, resultIntent)
+                                finish()
+                            }
+                        }
                     }
                 }
             }
@@ -57,8 +67,18 @@ class LoginActivity : AppCompatActivity() {
                         val resultIntent = Intent().apply {
                             putExtra("result", result)
                         }
-                        setResult(Activity.RESULT_OK, resultIntent)
-                        finish()
+
+                        ApiClient.instance.userPointInfo() {point, error ->
+                            if (error != null) {
+                                // 팝업 후 finish
+                                finish() // 임시 코드
+                            } else {
+                                resultIntent.putExtra("userPoint", point?.point)
+
+                                setResult(Activity.RESULT_OK, resultIntent)
+                                finish()
+                            }
+                        }
                     } else {
                         // username 설정 화면으로 이동
                         val userNameIntent = Intent(this, UserNameActivity::class.java)

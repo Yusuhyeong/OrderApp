@@ -85,7 +85,10 @@ class IntroActivity : AppCompatActivity() {
                 } else {
                     Log.d(TAG, "user has not token")
                     val homeIntent = Intent(this, HomeActivity::class.java)
-                    homeIntent.putExtra("userInfo", "")
+                    val bundle = Bundle()
+                    bundle.putParcelable("userInfo", null)
+                    bundle.putInt("userPoint", 0)
+                    homeIntent.putExtras(bundle)
                     startActivity(homeIntent)
                     finish()
                 }

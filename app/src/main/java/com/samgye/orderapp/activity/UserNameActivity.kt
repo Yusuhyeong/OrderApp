@@ -1,5 +1,6 @@
 package com.samgye.orderapp.activity
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,9 @@ class UserNameActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            setResult(Activity.RESULT_OK, null)
+            finish()
         }
     }
 }
