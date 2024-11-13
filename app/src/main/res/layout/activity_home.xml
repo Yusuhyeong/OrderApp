@@ -82,7 +82,7 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginStart="5dp"
-                        android:src="@drawable/icon_annotation"
+                        android:src="@drawable/icon_annotation_red"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/tv_annotation"
                         app:layout_constraintStart_toStartOf="parent"
@@ -377,6 +377,7 @@
             app:layout_constraintBottom_toBottomOf="parent" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_menu_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="15dp"
@@ -572,6 +573,245 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_category_in_menu"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_menu_info"
+                app:layout_constraintBottom_toTopOf="@id/cl_category_to_bottom_line" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_order_in_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/cl_order_list_in_menu"
+                    app:layout_constraintBottom_toTopOf="@id/cl_find_store_in_menu"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" >
+
+                    <ImageView
+                        android:id="@+id/iv_order_in_menu"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_order"
+                        app:layout_constraintBottom_toTopOf="@id/tv_order_in_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_order_in_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="주문하기"
+                        android:textSize="16dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_order_in_menu"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_order_list_in_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintStart_toEndOf="@id/cl_order_in_menu"
+                    app:layout_constraintBottom_toTopOf="@id/cl_annotation_in_menu"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:id="@+id/iv_order_list_in_menu"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_order_list"
+                        app:layout_constraintBottom_toTopOf="@id/tv_order_list_in_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_order_list_in_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="주문목록"
+                        android:textSize="16dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_order_list_in_menu"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_find_store_in_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/cl_annotation_in_menu"
+                    app:layout_constraintBottom_toTopOf="@id/cl_event_in_menu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_order_in_menu" >
+
+                    <ImageView
+                        android:id="@+id/iv_find_store_in_menu"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/icon_find_store"
+                        android:padding="10dp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_find_store_in_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_find_store_in_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="가게찾기"
+                        android:textSize="16dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_find_store_in_menu"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_annotation_in_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/cl_dummy_in_menu"
+                    app:layout_constraintStart_toEndOf="@id/cl_find_store_in_menu"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_order_list_in_menu" >
+
+                    <ImageView
+                        android:id="@+id/iv_annotation_in_menu"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/icon_annotation_black"
+                        android:padding="10dp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_annotation_in_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_annotation_in_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="공지사항"
+                        android:textSize="16dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_annotation_in_menu"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_event_in_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cl_dummy_in_menu"
+                    app:layout_constraintTop_toBottomOf="@id/cl_find_store_in_menu"
+                    app:layout_constraintBottom_toBottomOf="parent" >
+
+                    <ImageView
+                        android:id="@+id/iv_event_in_menu"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/icon_event"
+                        android:padding="10dp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_event_in_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_event_in_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="이벤트"
+                        android:textSize="16dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_event_in_menu"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_dummy_in_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintStart_toEndOf="@id/cl_event_in_menu"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_annotation_in_menu"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_category_to_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#FFD5D5D5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_category_in_menu" >
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/iv_menu_bottom_logo"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:src="@drawable/logo4"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_category_to_bottom_line"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
