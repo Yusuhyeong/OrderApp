@@ -73,28 +73,34 @@ class HomeActivity : AppCompatActivity() {
             Log.d(TAG, "onClick menu : ${id.toString()}")
             when(id) {
                 // id별 행동 추가
-                R.id.tv_test_login.toString() -> { // 카카오 로그인 (상단 메뉴 화면)
+                R.id.tv_menu_login_btn.toString() -> { // 카카오 로그인 (상단 메뉴 화면)
                     Log.d(TAG, "상단 메뉴 화면 카카오 로그인 클릭")
                     val loginIntent = Intent(this, LoginActivity::class.java)
                     loginLauncher.launch(loginIntent)
                 }
-
                 R.id.cl_login_annotation.toString() -> { // 카카오 로그인 (홈 화면)
                     Log.d(TAG, "홈 화면 카카오 로그인 클릭")
                     val loginIntent = Intent(this, LoginActivity::class.java)
                     loginLauncher.launch(loginIntent)
                 }
-
                 R.id.cl_store_eat.toString() -> { // 매장 식사
                     Log.d(TAG, "매장 식사 클릭")
                 }
-
                 R.id.cl_take_out.toString() -> { // 매장 식사
                     Log.d(TAG, "포장 주문 클릭")
                 }
-
                 R.id.cl_annotation.toString() -> {
                     Log.d(TAG, "공지 사항 클릭")
+                }
+                R.id.tv_menu_logout.toString() -> { // 로그아웃
+                    Log.d(TAG, "로그 아웃 클릭")
+                    ApiClient.instance.logout()
+                    val loginIntent = Intent(this, LoginActivity::class.java)
+                    startActivity(loginIntent)
+                    finish()
+                }
+                R.id.tv_menu_my_info.toString() -> { // 내정보
+                    Log.d(TAG, "내정보 클릭")
                 }
             }
         }
