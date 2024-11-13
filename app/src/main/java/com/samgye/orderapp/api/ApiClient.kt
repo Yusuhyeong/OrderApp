@@ -28,6 +28,11 @@ class ApiClient (
         return manager.hasToken()
     }
 
+    fun logout() {
+        Log.d("ApiClient", "${manager.hasToken()} logout")
+        manager.logout()
+    }
+
     /**
      * 기존 토큰을 갱신합니다
      *
