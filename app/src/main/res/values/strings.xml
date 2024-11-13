@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">OrderApp</string>
+    <string name="login_request">로그인 후 이용해주세요.</string>
+    <string name="user_high">님</string>
+    <string name="user_hello">님 안녕하세요.</string>
+    <string name="hello">안녕하세요.</string>
+    <string name="point">포인트</string>
+    <string name="p">P</string>
+    <string name="store_eat">매장 식사</string>
+    <string name="take_out">포장 주문</string>
+    <string name="login">로그인</string>
+    <string name="logout">로그아웃</string>
+    <string name="my_info">내정보</string>
+    <string name="order">주문하기</string>
+    <string name="order_list">주문내역</string>
+    <string name="find_store">매장찾기</string>
+    <string name="annotation">공지사항</string>
+    <string name="event">이벤트</string>
 </resources>

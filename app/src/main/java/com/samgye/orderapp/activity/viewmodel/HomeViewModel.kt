@@ -4,8 +4,9 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.samgye.orderapp.MyData
+import com.samgye.orderapp.data.MyData
 import com.samgye.orderapp.api.ApiClient
+import com.samgye.orderapp.data.NoticeInfo
 
 class HomeViewModel : ViewModel() {
     private val _selected_id = MutableLiveData<String>()
@@ -20,6 +21,9 @@ class HomeViewModel : ViewModel() {
     private val _userData = MutableLiveData<MyData>()
     val userData: LiveData<MyData>
         get() = _userData
+    private val _noticeData = MutableLiveData<NoticeInfo>()
+    val noticeData: LiveData<NoticeInfo>
+        get() = _noticeData
 
     fun menuClick(view: View) {
         _selected_id.value = view.id.toString()
@@ -36,6 +40,10 @@ class HomeViewModel : ViewModel() {
 
     fun setUserData(data: MyData) {
         _userData.value = data
+    }
+
+    fun setNoticeInfo(noticeInfo: NoticeInfo) {
+        _noticeData.value = noticeInfo
     }
 
     fun clearHome() {

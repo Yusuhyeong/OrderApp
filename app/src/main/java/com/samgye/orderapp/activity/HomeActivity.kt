@@ -10,11 +10,12 @@ import android.view.animation.AnimationUtils
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import com.samgye.orderapp.MyData
+import com.samgye.orderapp.data.MyData
 import com.samgye.orderapp.R
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.api.response.UserInfoResponse
+import com.samgye.orderapp.data.NoticeInfo
 import com.samgye.orderapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
@@ -39,6 +40,25 @@ class HomeActivity : AppCompatActivity() {
         } else {
             Log.d(TAG, "No UserData...")
         }
+
+        ApiClient.instance.getLatestNotice() { notice, error ->
+            if (error != null) {
+                Log.e(TAG, "getLatestNotice error")
+            } else {
+                if (notice != null) {
+                    val noticeInfo = NoticeInfo(notice.data?.noticeSeq, notice.data?.noticeTitle)
+                    viewModel.setNoticeInfo(noticeInfo)
+                }
+            }
+        }
+
+//        ApiClient.instance.getNotice() {  notice, error ->
+//            if (error != null) {
+//                Log.d(TAG, "ERROR")
+//            } else {
+//                Log.d(TAG, "SUCCESS")
+//            }
+//        }
 
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -91,9 +111,6 @@ class HomeActivity : AppCompatActivity() {
                     Log.d(TAG, "로그 아웃 클릭")
                     ApiClient.instance.logout()
                     viewModel.clearHome()
-//                    val loginIntent = Intent(this, LoginActivity::class.java)
-//                    startActivity(loginIntent)
-//                    finish()
                 }
                 R.id.tv_menu_my_info.toString() -> { // 내정보
                     Log.d(TAG, "내정보 클릭")
