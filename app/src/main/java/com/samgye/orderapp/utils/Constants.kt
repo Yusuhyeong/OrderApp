@@ -16,9 +16,7 @@ object Constants {
     const val USERNAME_UPDATE_PATH = "api/userInfo/updateUserName"
 //    const val USER_POINT_INFO_PATH = "api/userPoint/getUserPoint"
     const val USER_POINT_INFO_PATH = "api/userDetail/getUserDetail"
-    const val SEARCH_PATH = "/search"
-
-    // LOGIN CODE
-    const val KAKAO_LOGIN_ERROR = "KAKAO_LOGIN_ERROR"
-    const val UNREGISTERED_USER = "UNREGISTERED_USER"
+    const val LATEST_NOTICE_PATH = "api/notice/getLatestNoticeInfo"
+    const val All_NOTICE_PATH = "api/notice/getNoticeInfo"
+    const val NOTICE_DETAIL_PATH = "api/notice/getNoticeDetail"
 }

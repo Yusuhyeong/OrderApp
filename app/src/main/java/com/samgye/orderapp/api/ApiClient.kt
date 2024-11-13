@@ -3,8 +3,11 @@ package com.samgye.orderapp.api
 import android.util.Log
 import com.samgye.orderapp.api.network.ApiFactory
 import com.samgye.orderapp.api.request.LoginRequest
+import com.samgye.orderapp.api.request.NoticeDetailRequest
 import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.api.response.BaseResponse
+import com.samgye.orderapp.api.response.NoticeDetailResponse
+import com.samgye.orderapp.api.response.NoticeInfoResponse
 import com.samgye.orderapp.api.response.TokenResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.api.response.UserDetailResponse
@@ -15,7 +18,8 @@ import retrofit2.Response
 class ApiClient (
     private val apiBearer: ApiBearerService = ApiFactory.apiBearer.create(ApiBearerService::class.java),
     private val manager: AuthApiManager = AuthApiManager.instance,
-    private val tokenManagerProvider: TokenManagerProvider = TokenManagerProvider.instance
+    private val tokenManagerProvider: TokenManagerProvider = TokenManagerProvider.instance,
+    private val apiBasic: ApiBasicService = ApiFactory.apiBasic.create(ApiBasicService::class.java)
 ) {
     fun loginKakao(
         id: String,
@@ -120,6 +124,81 @@ class ApiClient (
             }
 
             override fun onFailure(call: Call<BaseResponse<Int>>, t: Throwable) {
+                callback(null, t)
+            }
+
+        })
+    }
+
+    fun getDetailNotice(noticeSeq: NoticeDetailRequest, callback: (notice: BaseResponse<NoticeDetailResponse>?, error: Throwable?) -> Unit) {
+        apiBasic.getNoticeDetail(noticeSeq).enqueue(object : Callback<BaseResponse<NoticeDetailResponse>> {
+            override fun onResponse(
+                call: Call<BaseResponse<NoticeDetailResponse>>,
+                response: Response<BaseResponse<NoticeDetailResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { notice ->
+                        callback(notice, null)
+                        return
+                    }
+                    callback(null, Throwable("응답오류. no Body"))
+                } else {
+                    callback(null, Throwable(response.errorBody().toString()))
+                }
+            }
+
+            override fun onFailure(call: Call<BaseResponse<NoticeDetailResponse>>, t: Throwable) {
+                callback(null, t)
+            }
+
+        })
+    }
+
+    fun getLatestNotice(callback: (notice: BaseResponse<NoticeInfoResponse>?, error: Throwable?) -> Unit) {
+        apiBasic.getLatestNoticeTitle().enqueue(object : Callback<BaseResponse<NoticeInfoResponse>> {
+            override fun onResponse(
+                call: Call<BaseResponse<NoticeInfoResponse>>,
+                response: Response<BaseResponse<NoticeInfoResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { notice ->
+                        callback(notice, null)
+                        return
+                    }
+                    callback(null, Throwable("응답오류. no Body"))
+                } else {
+                    callback(null, Throwable(response.errorBody().toString()))
+                }
+            }
+
+            override fun onFailure(call: Call<BaseResponse<NoticeInfoResponse>>, t: Throwable) {
+                callback(null, t)
+            }
+
+        })
+    }
+
+    fun getAllNotice(callback: (notice: BaseResponse<List<NoticeInfoResponse>>?, error: Throwable?) -> Unit) {
+        apiBasic.getAllNoticeTitle().enqueue(object : Callback<BaseResponse<List<NoticeInfoResponse>>> {
+            override fun onResponse(
+                call: Call<BaseResponse<List<NoticeInfoResponse>>>,
+                response: Response<BaseResponse<List<NoticeInfoResponse>>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { notice ->
+                        callback(notice, null)
+                        return
+                    }
+                    callback(null, Throwable("응답오류. no Body"))
+                } else {
+                    callback(null, Throwable(response.errorBody().toString()))
+                }
+            }
+
+            override fun onFailure(
+                call: Call<BaseResponse<List<NoticeInfoResponse>>>,
+                t: Throwable
+            ) {
                 callback(null, t)
             }
 

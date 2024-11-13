@@ -1,4 +1,4 @@
-package com.samgye.orderapp
+package com.samgye.orderapp.data
 
 data class MyData(
     val userName: String? = "",

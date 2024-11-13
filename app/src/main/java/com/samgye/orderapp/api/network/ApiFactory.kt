@@ -58,4 +58,16 @@ object ApiFactory {
                 .writeTimeout(100, TimeUnit.SECONDS)
         )
     }
+
+    val apiBasic by lazy {
+        withClientAndAdapter(
+            Constants.BASE_URL,
+            OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .callTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(100, TimeUnit.SECONDS)
+        )
+    }
 }
