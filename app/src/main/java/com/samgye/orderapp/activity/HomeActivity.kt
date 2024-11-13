@@ -78,24 +78,34 @@ class HomeActivity : AppCompatActivity() {
                     val loginIntent = Intent(this, LoginActivity::class.java)
                     loginLauncher.launch(loginIntent)
                 }
-                R.id.cl_store_eat.toString() -> { // 매장 식사
+                R.id.cl_store_eat.toString(), R.id.cl_order_in_menu.toString() -> { // 매장 식사
                     Log.d(TAG, "매장 식사 클릭")
                 }
                 R.id.cl_take_out.toString() -> { // 매장 식사
                     Log.d(TAG, "포장 주문 클릭")
                 }
-                R.id.cl_annotation.toString() -> {
+                R.id.cl_annotation.toString(), R.id.cl_annotation_in_menu.toString() -> {
                     Log.d(TAG, "공지 사항 클릭")
                 }
                 R.id.tv_menu_logout.toString() -> { // 로그아웃
                     Log.d(TAG, "로그 아웃 클릭")
                     ApiClient.instance.logout()
-                    val loginIntent = Intent(this, LoginActivity::class.java)
-                    startActivity(loginIntent)
-                    finish()
+                    viewModel.clearHome()
+//                    val loginIntent = Intent(this, LoginActivity::class.java)
+//                    startActivity(loginIntent)
+//                    finish()
                 }
                 R.id.tv_menu_my_info.toString() -> { // 내정보
                     Log.d(TAG, "내정보 클릭")
+                }
+                R.id.cl_order_list_in_menu.toString() -> { // 주문 내역
+                    Log.d(TAG, "주문 내역 클릭")
+                }
+                R.id.cl_find_store_in_menu.toString() -> { // 가게 찾기
+                    Log.d(TAG, "가게 찾기 클릭")
+                }
+                R.id.cl_event_in_menu.toString() -> { // 이벤트
+                    Log.d(TAG, "이벤트 클릭")
                 }
             }
         }

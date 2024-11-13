@@ -37,4 +37,10 @@ class HomeViewModel : ViewModel() {
     fun setUserData(data: MyData) {
         _userData.value = data
     }
+
+    fun clearHome() {
+        _userData.value = null
+        _is_login_status.value = false
+        _is_menu_visible.value = false
+    }
 }
