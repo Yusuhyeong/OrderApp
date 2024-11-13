@@ -1,11 +1,13 @@
 package com.samgye.orderapp.activity.viewmodel
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.samgye.orderapp.data.MyData
 import com.samgye.orderapp.api.ApiClient
+import com.samgye.orderapp.api.request.NoticeDetailRequest
 import com.samgye.orderapp.data.NoticeInfo
 
 class HomeViewModel : ViewModel() {
@@ -24,6 +26,32 @@ class HomeViewModel : ViewModel() {
     private val _noticeData = MutableLiveData<NoticeInfo>()
     val noticeData: LiveData<NoticeInfo>
         get() = _noticeData
+
+    init {
+        ApiClient.instance.getLatestNotice() { notice, error ->
+            if (error != null) {
+                Log.e("HomeViewModel", "getLatestNotice error")
+            } else {
+                if (notice != null) {
+                    val noticeInfo = NoticeInfo(notice.data?.noticeSeq, notice.data?.noticeTitle)
+                    setNoticeInfo(noticeInfo)
+                }
+            }
+        }
+    }
+
+    fun noticeClick() {
+        val noticeDetailRequest = NoticeDetailRequest(noticeData.value?.noticeSeq)
+        ApiClient.instance.getDetailNotice(noticeDetailRequest) {notice, error ->
+            if (error != null) {
+                Log.e("HomeViewModel", "getDetailNotice error")
+            } else {
+                if (notice != null) {
+                    Log.d("HomeViewModel", "SUCCESS")
+                }
+            }
+        }
+    }
 
     fun menuClick(view: View) {
         _selected_id.value = view.id.toString()

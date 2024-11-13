@@ -1,5 +1,10 @@
 package com.samgye.orderapp.api.request
 
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-data class NoticeDetailRequest(@Expose val noticeSeq: Int)
+data class NoticeDetailRequest(
+    @SerializedName("noticeSeq")
+    @Expose
+    val noticeSeq: Int?
+)

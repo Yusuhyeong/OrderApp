@@ -68,28 +68,28 @@
                 android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_annotation"
+                    android:id="@+id/cl_notice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
+                    android:onClick="@{(v)->home_view_model.noticeClick()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/iv_annotation"
+                        android:id="@+id/iv_notice"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginStart="5dp"
-                        android:src="@drawable/icon_annotation_red"
+                        android:src="@drawable/icon_notice_red"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_annotation"
+                        app:layout_constraintEnd_toStartOf="@id/tv_notice"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_annotation"
+                        android:id="@+id/tv_notice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -97,14 +97,14 @@
                         android:text="@{home_view_model.noticeData.noticeTitle}"
                         android:textColor="@color/font"
                         android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_annotation"
-                        app:layout_constraintEnd_toStartOf="@id/iv_annotation_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_notice"
+                        app:layout_constraintEnd_toStartOf="@id/iv_notice_arrow"
                         app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toEndOf="@id/iv_annotation"
-                        app:layout_constraintTop_toTopOf="@id/iv_annotation" />
+                        app:layout_constraintStart_toEndOf="@id/iv_notice"
+                        app:layout_constraintTop_toTopOf="@id/iv_notice" />
 
                     <ImageView
-                        android:id="@+id/iv_annotation_arrow"
+                        android:id="@+id/iv_notice_arrow"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginStart="5dp"
@@ -112,7 +112,7 @@
                         android:src="@drawable/icon_arrow_right"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_annotation"
+                        app:layout_constraintStart_toEndOf="@id/tv_notice"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_goneMarginEnd="5dp" />
 
@@ -127,7 +127,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_annotation"
+                    app:layout_constraintTop_toBottomOf="@id/cl_notice"
                     app:layout_constraintVertical_bias="0" >
 
                     <ImageView
@@ -630,7 +630,7 @@
                     android:layout_margin="10dp"
                     android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
                     app:layout_constraintStart_toEndOf="@id/cl_order_in_menu"
-                    app:layout_constraintBottom_toTopOf="@id/cl_annotation_in_menu"
+                    app:layout_constraintBottom_toTopOf="@id/cl_notice_in_menu"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" >
 
@@ -668,7 +668,7 @@
                     android:layout_height="0dp"
                     android:layout_margin="10dp"
                     android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
-                    app:layout_constraintEnd_toStartOf="@id/cl_annotation_in_menu"
+                    app:layout_constraintEnd_toStartOf="@id/cl_notice_in_menu"
                     app:layout_constraintBottom_toTopOf="@id/cl_event_in_menu"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cl_order_in_menu" >
@@ -702,7 +702,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_annotation_in_menu"
+                    android:id="@+id/cl_notice_in_menu"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_margin="10dp"
@@ -713,29 +713,29 @@
                     app:layout_constraintTop_toBottomOf="@id/cl_order_list_in_menu" >
 
                     <ImageView
-                        android:id="@+id/iv_annotation_in_menu"
+                        android:id="@+id/iv_notice_in_menu"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:src="@drawable/icon_annotation_black"
+                        android:src="@drawable/icon_notice_black"
                         android:padding="10dp"
-                        app:layout_constraintBottom_toTopOf="@id/tv_annotation_in_menu"
+                        app:layout_constraintBottom_toTopOf="@id/tv_notice_in_menu"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_annotation_in_menu"
+                        android:id="@+id/tv_notice_in_menu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="@string/annotation"
+                        android:text="@string/notice"
                         android:textSize="16dp"
                         android:textColor="@color/font"
                         android:fontFamily="@font/pretendard_medium"
                         android:gravity="center"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_annotation_in_menu"
+                        app:layout_constraintTop_toBottomOf="@id/iv_notice_in_menu"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -786,7 +786,7 @@
                     android:layout_margin="10dp"
                     app:layout_constraintStart_toEndOf="@id/cl_event_in_menu"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_annotation_in_menu"
+                    app:layout_constraintTop_toBottomOf="@id/cl_notice_in_menu"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

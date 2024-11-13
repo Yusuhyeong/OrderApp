@@ -14,6 +14,6 @@
     <string name="order">주문하기</string>
     <string name="order_list">주문내역</string>
     <string name="find_store">매장찾기</string>
-    <string name="annotation">공지사항</string>
+    <string name="notice">공지사항</string>
     <string name="event">이벤트</string>
 </resources>

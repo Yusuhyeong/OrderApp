@@ -41,25 +41,6 @@ class HomeActivity : AppCompatActivity() {
             Log.d(TAG, "No UserData...")
         }
 
-        ApiClient.instance.getLatestNotice() { notice, error ->
-            if (error != null) {
-                Log.e(TAG, "getLatestNotice error")
-            } else {
-                if (notice != null) {
-                    val noticeInfo = NoticeInfo(notice.data?.noticeSeq, notice.data?.noticeTitle)
-                    viewModel.setNoticeInfo(noticeInfo)
-                }
-            }
-        }
-
-//        ApiClient.instance.getNotice() {  notice, error ->
-//            if (error != null) {
-//                Log.d(TAG, "ERROR")
-//            } else {
-//                Log.d(TAG, "SUCCESS")
-//            }
-//        }
-
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 Log.d(TAG, "Result Ok from LoginActivity")
@@ -103,9 +84,6 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.cl_take_out.toString() -> { // 매장 식사
                     Log.d(TAG, "포장 주문 클릭")
-                }
-                R.id.cl_annotation.toString(), R.id.cl_annotation_in_menu.toString() -> {
-                    Log.d(TAG, "공지 사항 클릭")
                 }
                 R.id.tv_menu_logout.toString() -> { // 로그아웃
                     Log.d(TAG, "로그 아웃 클릭")
