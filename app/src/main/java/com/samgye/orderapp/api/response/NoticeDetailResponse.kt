@@ -7,15 +7,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class NoticeDetailResponse(
     @Expose
-    val noticeSeq: Int,
+    val noticeSeq: Int?,
     @Expose
-    val noticeTitle: String,
+    val noticeTitle: String?,
     @Expose
-    val noticeCont: String,
+    val noticeCont: String?,
     @Expose
-    val regDttm: String,
+    val regDttm: String?,
     @Expose
-    val regrUuid: String,
+    val regrUuid: String?,
     @Expose
-    val noticeImg: String
+    val noticeImg: String?
     ) : Parcelable

@@ -104,6 +104,16 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+
+        viewModel.is_category_notice_click.observe(this) { isFromCategory ->
+            if (!isFromCategory) {
+                Log.d(TAG, "공지사항 클릭, isFromCategory : $isFromCategory")
+                val noticeIntent = Intent(this, NoticeActivity::class.java)
+                noticeIntent.putExtra("isFromCategory", isFromCategory)
+                noticeIntent.putExtra("noticeSeq", viewModel.noticeData.value?.noticeSeq)
+                startActivity(noticeIntent)
+            }
+        }
     }
 
     private fun initUserData(): MyData? {

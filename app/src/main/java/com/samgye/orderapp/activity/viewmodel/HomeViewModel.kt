@@ -26,6 +26,9 @@ class HomeViewModel : ViewModel() {
     private val _noticeData = MutableLiveData<NoticeInfo>()
     val noticeData: LiveData<NoticeInfo>
         get() = _noticeData
+    private val _is_category_notice_click = MutableLiveData<Boolean>()
+    val is_category_notice_click: LiveData<Boolean>
+        get() = _is_category_notice_click
 
     init {
         ApiClient.instance.getLatestNotice() { notice, error ->
@@ -41,16 +44,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun noticeClick() {
-        val noticeDetailRequest = NoticeDetailRequest(noticeData.value?.noticeSeq)
-        ApiClient.instance.getDetailNotice(noticeDetailRequest) {notice, error ->
-            if (error != null) {
-                Log.e("HomeViewModel", "getDetailNotice error")
-            } else {
-                if (notice != null) {
-                    Log.d("HomeViewModel", "SUCCESS")
-                }
-            }
-        }
+        _is_category_notice_click.value = false
     }
 
     fun menuClick(view: View) {

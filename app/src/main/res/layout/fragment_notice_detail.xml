@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="notice_view_model"
+            type="com.samgye.orderapp.activity.viewmodel.NoticeViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.NoticeDetailFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/tv_notice_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{notice_view_model.noticeData.noticeTitle}"
+                android:textSize="24dp"
+                android:gravity="left"
+                android:textColor="@color/font"
+                android:fontFamily="@font/pretendard_bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_notice_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="left"
+                android:text="@{notice_view_model.noticeData.regDttm}"
+                android:textSize="18dp"
+                android:textColor="@color/font"
+                android:fontFamily="@font/pretendard_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_notice_title" />
+
+            <TextView
+                android:id="@+id/tv_notice_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{notice_view_model.noticeData.regrUuid}"
+                android:textSize="18dp"
+                android:textColor="@color/font"
+                android:fontFamily="@font/pretendard_medium"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_notice_date" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_notice_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFD5D5D5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_notice_name" />
+
+            <ImageView
+                android:id="@+id/iv_notice_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="@{notice_view_model.is_notice_img ? View.GONE : View.VISIBLE}"
+                android:src="@drawable/img_test_store_eat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_notice_line" />
+
+            <TextView
+                android:id="@+id/tv_notice_cont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{notice_view_model.noticeData.noticeCont}"
+                android:textSize="18dp"
+                android:textColor="@color/font"
+                android:fontFamily="@font/pretendard_medium"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_notice_img" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>
