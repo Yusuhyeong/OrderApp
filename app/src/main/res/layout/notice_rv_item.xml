@@ -23,24 +23,37 @@
             android:id="@+id/cl_notice_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="#FFD5D5D5"
-            android:layout_marginTop="10dp"
+            android:background="@color/line"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@id/tv_notice_title"
-            app:layout_constraintEnd_toEndOf="@id/tv_notice_title"
+            app:layout_constraintEnd_toEndOf="@id/tv_notice_date"
             app:layout_constraintTop_toBottomOf="@id/tv_notice_title" />
 
         <TextView
             android:id="@+id/tv_notice_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{notice_item.component2()}"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:gravity="left"
             android:fontFamily="@font/pretendard_medium"
             android:textColor="@color/font"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_notice_date"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_notice_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@{notice_item.component3()}"
+            android:textSize="10dp"
+            android:textColor="@color/font_down"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

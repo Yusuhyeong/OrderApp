@@ -4,8 +4,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#FFFEE9</color>
     <color name="font">#1D1D1D</color>
+    <color name="font_down">#ECECEC</color>
     <color name="default_color">#E7E4DD</color>
 
     <color name="dummy_color">#8A8A8A</color>
     <color name="dummy_background_color">#808A8A8A</color>
+    <color name="line">#FFD5D5D5</color>
 </resources>

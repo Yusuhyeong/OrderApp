@@ -12,6 +12,7 @@ import com.samgye.orderapp.adapter.NoticeListAdapter
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.NoticeItem
 import com.samgye.orderapp.databinding.FragmentNoticeListBinding
+import com.samgye.orderapp.utils.SystemUtil
 
 class NoticeListFragment : Fragment() {
     private val TAG = this::class.java.simpleName
@@ -42,7 +43,7 @@ class NoticeListFragment : Fragment() {
                     NoticeItem(
                         noticeSeq = noticeInfo.noticeSeq,
                         noticeTitle = noticeInfo.noticeTitle,
-                        regDttm = noticeInfo.regDttm,
+                        regDttm = SystemUtil.formatToDateOnly(noticeInfo.regDttm),
                         regrNm = noticeInfo.regrNm
                     )
                 } ?: emptyList()
