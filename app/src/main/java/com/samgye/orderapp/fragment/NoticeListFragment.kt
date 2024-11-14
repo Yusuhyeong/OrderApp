@@ -14,10 +14,11 @@ import com.samgye.orderapp.data.NoticeItem
 import com.samgye.orderapp.databinding.FragmentNoticeListBinding
 import com.samgye.orderapp.utils.SystemUtil
 
-class NoticeListFragment : Fragment() {
+class NoticeListFragment(viewModel: NoticeViewModel) : Fragment() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: FragmentNoticeListBinding
     private lateinit var noticeListAdapter: NoticeListAdapter
+    private val noticeViewModel = viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,7 @@ class NoticeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNoticeListBinding.inflate(layoutInflater, container, false)
-        val noticeViewModel = ViewModelProvider(this)[NoticeViewModel::class.java]
+//        val noticeViewModel = ViewModelProvider(this)[NoticeViewModel::class.java]
         binding.noticeViewModel = noticeViewModel
         binding.lifecycleOwner = this
 

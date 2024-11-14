@@ -13,10 +13,11 @@ import com.samgye.orderapp.api.request.NoticeDetailRequest
 import com.samgye.orderapp.data.NoticeDetail
 import com.samgye.orderapp.databinding.FragmentNoticeDetailBinding
 
-class NoticeDetailFragment(noticeSeq: Int) : Fragment() {
+class NoticeDetailFragment(noticeSeq: Int, viewModel: NoticeViewModel) : Fragment() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: FragmentNoticeDetailBinding
     private val noticeDetailRequest = NoticeDetailRequest(noticeSeq)
+    private val noticeViewModel = viewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -26,10 +27,11 @@ class NoticeDetailFragment(noticeSeq: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNoticeDetailBinding.inflate(layoutInflater, container, false)
-        val noticeViewModel = ViewModelProvider(this)[NoticeViewModel::class.java]
+//        val noticeViewModel = ViewModelProvider(this)[NoticeViewModel::class.java]
         binding.noticeViewModel = noticeViewModel
         binding.lifecycleOwner = this
 
+        noticeViewModel.setDetailLoading(true)
         ApiClient.instance.getDetailNotice(noticeDetailRequest) { notice, error ->
             if (error != null) {
                 Log.e(TAG, "getDetailNotice error")
@@ -40,6 +42,8 @@ class NoticeDetailFragment(noticeSeq: Int) : Fragment() {
                     Log.d(TAG, "SUCCESS")
                 }
             }
+
+            noticeViewModel.setDetailLoading(false)
         }
 
         return binding.root

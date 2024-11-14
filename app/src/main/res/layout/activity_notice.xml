@@ -44,6 +44,7 @@
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:layout_marginLeft="5dp"
+                android:onClick="@{(v)->notice_view_model.backClick()}"
                 android:src="@drawable/icon_arrow_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
