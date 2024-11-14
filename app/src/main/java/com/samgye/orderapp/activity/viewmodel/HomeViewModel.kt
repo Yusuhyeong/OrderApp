@@ -5,9 +5,9 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.samgye.orderapp.R
 import com.samgye.orderapp.data.MyData
 import com.samgye.orderapp.api.ApiClient
-import com.samgye.orderapp.api.request.NoticeDetailRequest
 import com.samgye.orderapp.data.NoticeInfo
 
 class HomeViewModel : ViewModel() {
@@ -43,8 +43,15 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun noticeClick() {
-        _is_category_notice_click.value = false
+    fun noticeClick(view: View) {
+        when(view.id) {
+            R.id.cl_notice_in_menu -> {
+                _is_category_notice_click.value = true
+            }
+            R.id.cl_notice -> {
+                _is_category_notice_click.value = false
+            }
+        }
     }
 
     fun menuClick(view: View) {

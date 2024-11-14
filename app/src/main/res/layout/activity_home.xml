@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:onClick="@{(v)->home_view_model.noticeClick()}"
+                    android:onClick="@{(v)->home_view_model.noticeClick(v)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -706,7 +706,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_margin="10dp"
-                    android:onClick="@{(v)->home_view_model.menuCategoryClick(v)}"
+                    android:onClick="@{(v)->home_view_model.noticeClick(v)}"
                     app:layout_constraintBottom_toTopOf="@id/cl_dummy_in_menu"
                     app:layout_constraintStart_toEndOf="@id/cl_find_store_in_menu"
                     app:layout_constraintEnd_toEndOf="parent"

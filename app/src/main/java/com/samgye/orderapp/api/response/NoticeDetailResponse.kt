@@ -15,7 +15,7 @@ data class NoticeDetailResponse(
     @Expose
     val regDttm: String?,
     @Expose
-    val regrUuid: String?,
+    val regrNm: String?,
     @Expose
     val noticeImg: String?
     ) : Parcelable

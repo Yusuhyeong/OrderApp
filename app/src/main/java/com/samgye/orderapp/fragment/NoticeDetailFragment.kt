@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.samgye.orderapp.R
 import com.samgye.orderapp.activity.viewmodel.NoticeViewModel
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.api.request.NoticeDetailRequest
@@ -17,7 +16,7 @@ import com.samgye.orderapp.databinding.FragmentNoticeDetailBinding
 class NoticeDetailFragment(noticeSeq: Int) : Fragment() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: FragmentNoticeDetailBinding
-    val noticeDetailRequest = NoticeDetailRequest(noticeSeq)
+    private val noticeDetailRequest = NoticeDetailRequest(noticeSeq)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -36,8 +35,8 @@ class NoticeDetailFragment(noticeSeq: Int) : Fragment() {
                 Log.e(TAG, "getDetailNotice error")
             } else {
                 if (notice != null) {
-                    val noticeData = NoticeDetail(notice.data?.noticeSeq, notice.data?.noticeTitle, notice.data?.noticeCont, notice.data?.regDttm, notice.data?.regrUuid, notice.data?.noticeImg)
-                    noticeViewModel.setNoticeData(noticeData)
+                    val noticeData = NoticeDetail(notice.data?.noticeSeq, notice.data?.noticeTitle, notice.data?.noticeCont, notice.data?.regDttm, notice.data?.regrNm, notice.data?.noticeImg)
+                    noticeViewModel.setNoticeDetailData(noticeData)
                     Log.d(TAG, "SUCCESS")
                 }
             }

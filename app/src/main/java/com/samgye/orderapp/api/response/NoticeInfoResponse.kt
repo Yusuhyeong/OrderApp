@@ -9,6 +9,10 @@ data class NoticeInfoResponse(
     @Expose
     val noticeSeq: Int,
     @Expose
-    val noticeTitle: String
+    val noticeTitle: String,
+    @Expose
+    val regDttm: String,
+    @Expose
+    val regrNm: String
 ) : Parcelable
 

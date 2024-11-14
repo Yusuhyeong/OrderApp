@@ -41,6 +41,10 @@ class NoticeActivity : AppCompatActivity() {
             noticeDetailFragment = NoticeDetailFragment(noticeSeq)
             fragmentTransaction.replace(R.id.fl_notice, noticeDetailFragment)
             fragmentTransaction.commit()
+        } else {
+            noticeListFragment = NoticeListFragment()
+            fragmentTransaction.replace(R.id.fl_notice, noticeListFragment)
+            fragmentTransaction.commit()
         }
     }
 }
