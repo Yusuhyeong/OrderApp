@@ -32,11 +32,6 @@ class NoticeViewModel : ViewModel() {
     val is_detail_loading: LiveData<Boolean>
         get() = _is_detail_loading
 
-    init {
-        _is_go_home.value = true
-        _is_back_click.value = false
-    }
-
     fun setNoticeDetailData(noticeDetail: NoticeDetail) {
         _noticeData.value = noticeDetail
         _is_notice_img.value = noticeDetail.noticeImg.isNullOrEmpty()
@@ -45,12 +40,11 @@ class NoticeViewModel : ViewModel() {
     }
 
     fun backClick() {
-        if (_is_go_home.value == true) {
-            _is_back_click.value = true
-        } else {
-            _is_go_home.value = true
-            _is_back_click.value = false
-        }
+        _is_back_click.value = true
+    }
+
+    fun setIsBackClick() {
+        _is_back_click.value = false
     }
 
     fun noticeClick(seq: Int) {

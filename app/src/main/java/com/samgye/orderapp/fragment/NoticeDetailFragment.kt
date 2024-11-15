@@ -27,7 +27,6 @@ class NoticeDetailFragment(noticeSeq: Int, viewModel: NoticeViewModel) : Fragmen
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNoticeDetailBinding.inflate(layoutInflater, container, false)
-//        val noticeViewModel = ViewModelProvider(this)[NoticeViewModel::class.java]
         binding.noticeViewModel = noticeViewModel
         binding.lifecycleOwner = this
 

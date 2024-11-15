@@ -13,7 +13,6 @@ import com.samgye.orderapp.fragment.NoticeListFragment
 class NoticeActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: ActivityNoticeBinding
-//    private val fragmentTransaction = supportFragmentManager.beginTransaction()
     private var isFromCategory: Boolean? = null
     private lateinit var noticeListFragment: NoticeListFragment
     private lateinit var noticeDetailFragment: NoticeDetailFragment
@@ -36,24 +35,22 @@ class NoticeActivity : AppCompatActivity() {
         viewModel.select_seq.observe(this) { seq ->
             Log.d(TAG, "select_seq observe")
             if (seq != null) {
-//                if (::noticeListFragment.isInitialized) {
-                    val fragmentTransaction = supportFragmentManager.beginTransaction()
-                    noticeDetailFragment = NoticeDetailFragment(seq, viewModel)
-                    fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment")
-                    fragmentTransaction.show(noticeListFragment).hide(noticeListFragment).commit()
-                    viewModel.setIsGoHome(false)
-//                }
+                val fragmentTransaction = supportFragmentManager.beginTransaction()
+                noticeDetailFragment = NoticeDetailFragment(seq, viewModel)
+                fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment").addToBackStack(null).commit()
             }
+            Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
         }
 
-        viewModel.is_back_click.observe(this) { back ->
-            if (back) {
-                finish()
-            } else {
-                if (::noticeDetailFragment.isInitialized && ::noticeListFragment.isInitialized) {
-                    val fragmentTransaction = supportFragmentManager.beginTransaction()
-                    fragmentTransaction.show(noticeListFragment).remove(noticeDetailFragment).commit()
-                    viewModel.setIsGoHome(true)
+        viewModel.is_back_click.observe(this) { isBackClick ->
+            if (isBackClick) {
+                Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+                Log.d(TAG, "is_back_click observe")
+                if (supportFragmentManager.backStackEntryCount > 0) {
+                    supportFragmentManager.popBackStack()
+                    viewModel.setIsBackClick()
+                } else {
+                    super.onBackPressed()
                 }
             }
         }
@@ -64,18 +61,21 @@ class NoticeActivity : AppCompatActivity() {
         if (isFromCategory == false) {
             val noticeSeq = intent.getIntExtra("noticeSeq", 1)
             noticeDetailFragment = NoticeDetailFragment(noticeSeq, viewModel)
-            fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment")
-            fragmentTransaction.show(noticeDetailFragment)
+            fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment").commit()
         } else {
             noticeListFragment = NoticeListFragment(viewModel)
-            fragmentTransaction.add(R.id.fl_notice, noticeListFragment, "NoticeListFragment")
-            fragmentTransaction.show(noticeListFragment)
+            fragmentTransaction.add(R.id.fl_notice, noticeListFragment, "NoticeListFragment").commit()
         }
-        fragmentTransaction.commit()
+
+        Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
     }
 
     override fun onBackPressed() {
-        // 원하는 동작을 여기에 작성
-        viewModel.backClick()
+        Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
