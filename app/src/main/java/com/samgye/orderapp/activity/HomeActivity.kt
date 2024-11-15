@@ -75,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
             when(id) {
                 // id별 행동 추가
                 R.id.cl_login_annotation.toString(), R.id.tv_menu_login_btn.toString() -> { // 카카오 로그인 (홈 화면)
-                    Log.d(TAG, "카카오 로그인 클릭")
+                    Log.d(TAG, "로그인 클릭")
                     val loginIntent = Intent(this, LoginActivity::class.java)
                     loginLauncher.launch(loginIntent)
                 }

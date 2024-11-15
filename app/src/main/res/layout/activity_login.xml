@@ -23,7 +23,6 @@
             android:layout_marginBottom="15dp"
             android:text="KAKAO LOGIN"
             android:textSize="20dp"
-            android:onClick="@{(v)->login_view_model.kakaoLoginCheck()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -35,7 +34,6 @@
             android:layout_marginBottom="15dp"
             android:text="GOOGLE LOGIN"
             android:textSize="20dp"
-            android:onClick="@{(v)->login_view_model.kakaoLoginCheck()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tv_test_kakao" />

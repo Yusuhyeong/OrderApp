@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "289118716115",
+    "project_id": "baeknyeonsamgyetang",
+    "storage_bucket": "baeknyeonsamgyetang.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289118716115:android:f3e7dcc2bc489d6a199426",
+        "android_client_info": {
+          "package_name": "com.samgye.orderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289118716115-r3jh1kdhvqh6re0d5rphanjgtd912isf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samgye.orderapp",
+            "certificate_hash": "e95d1d1214d6196e84770b0770729cfb6e91295e"
+          }
+        },
+        {
+          "client_id": "289118716115-ujs0h8pni715jiosnkn4msp9689uhapd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQDdrF4SR-oBwEnDwS2yQKJG2LeRtM6U4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289118716115-ujs0h8pni715jiosnkn4msp9689uhapd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

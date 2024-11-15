@@ -21,9 +21,9 @@ class ApiClient (
     private val tokenManagerProvider: TokenManagerProvider = TokenManagerProvider.instance,
     private val apiBasic: ApiBasicService = ApiFactory.apiBasic.create(ApiBasicService::class.java)
 ) {
-    fun loginKakao(
+    fun login(
         id: String,
-        type: String = "kakao",
+        type: String,
         callback: (token: TokenResponse?, error: Throwable?) -> Unit
     ) = manager.login(LoginRequest(snsId = id, snsType = type), callback)
 
