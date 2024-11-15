@@ -16,7 +16,7 @@ class LoginViewModel : ViewModel() {
     private val _user_accesstoken = MutableLiveData<String>()
     val user_accesstoken: LiveData<String>
         get() = _user_accesstoken
-    fun loginCheck() {
+    fun kakaoLoginCheck() {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(Samgye.applicationContext)) { // 카카오톡 app 설치 유무 확인
             UserApiClient.instance.loginWithKakaoTalk(Samgye.applicationContext) { token, error ->
                 if (error != null) {
@@ -28,7 +28,7 @@ class LoginViewModel : ViewModel() {
 
                     UserApiClient.instance.loginWithKakaoAccount(
                         Samgye.applicationContext,
-                        callback = callback
+                        callback = kakaoCallback
                     )
 
                 } else if (token != null) {
@@ -39,7 +39,7 @@ class LoginViewModel : ViewModel() {
         } else {
             UserApiClient.instance.loginWithKakaoAccount(
                 Samgye.applicationContext,
-                callback = callback
+                callback = kakaoCallback
             )
         }
     }
@@ -73,7 +73,7 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+    private val kakaoCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오 계정으로 로그인 실패! " + error.message)
             Log.d(TAG, "로그인 실패")
