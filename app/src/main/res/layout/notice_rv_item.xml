@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{(v)->notice_view_model.noticeClick(notice_item.component1())}" >
+        android:onClick="@{(v)->notice_view_model.noticeClick(notice_item.noticeSeq)}" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_notice_line"
@@ -34,7 +34,7 @@
             android:id="@+id/tv_notice_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{notice_item.component2()}"
+            android:text="@{notice_item.noticeTitle}"
             android:textSize="16dp"
             android:gravity="left"
             android:fontFamily="@font/pretendard_medium"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@{notice_item.component3()}"
+            android:text="@{notice_item.regDttm}"
             android:textSize="10dp"
             android:textColor="@color/font_down"
             app:layout_constraintEnd_toEndOf="parent"

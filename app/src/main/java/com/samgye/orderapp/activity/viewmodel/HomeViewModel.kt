@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.samgye.orderapp.data.MyData
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.NoticeInfo
 
@@ -16,12 +15,6 @@ class HomeViewModel : ViewModel() {
     private val _is_menu_visible = MutableLiveData<Boolean>(false)
     val is_menu_visible: LiveData<Boolean>
         get() = _is_menu_visible
-    private val _is_login_status = MutableLiveData<Boolean>(ApiClient.instance.hasToken())
-    val is_login_status: LiveData<Boolean>
-        get() = _is_login_status
-    private val _user_data = MutableLiveData<MyData>()
-    val user_data: LiveData<MyData>
-        get() = _user_data
     private val _noticeData = MutableLiveData<NoticeInfo>()
     val noticeData: LiveData<NoticeInfo>
         get() = _noticeData
@@ -47,21 +40,7 @@ class HomeViewModel : ViewModel() {
         _selected_id.value = view.id.toString()
     }
 
-    fun setLoginStatus(isLogin: Boolean) {
-        _is_login_status.value = isLogin
-    }
-
-    fun setUserData(data: MyData) {
-        _user_data.value = data
-    }
-
     fun setNoticeInfo(noticeInfo: NoticeInfo) {
         _noticeData.value = noticeInfo
-    }
-
-    fun clearHome() {
-        _user_data.value = null
-        _is_login_status.value = false
-        _is_menu_visible.value = false
     }
 }

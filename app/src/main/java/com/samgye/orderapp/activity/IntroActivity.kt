@@ -6,21 +6,19 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Parcelable
-import android.util.Log
-import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
-import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.util.Utility
-import com.samgye.orderapp.R
+import com.samgye.orderapp.MyApp
+import com.samgye.orderapp.activity.viewmodel.LoginViewModel
+import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.databinding.ActivityIntroBinding
 
 class IntroActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: ActivityIntroBinding
+    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var userInfoViewModel: UserInfoViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,72 +26,44 @@ class IntroActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        startTimer(isNetworkConnected())
-    }
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        val app = applicationContext as MyApp
+        userInfoViewModel = app.userInfoViewModel
 
-    private fun startTimer (isNetwork: Boolean) {
-        if (isNetwork)  {
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (ApiClient.instance.hasToken()) {
-                    ApiClient.instance.refreshAccessToken() { _, error ->
-                        if (error != null) {
-                            Log.e(TAG, "refresh token error")
-                            finish() // 임시 코드
-                        } else {
-                            ApiClient.instance.userInfo() { result, error ->
-                                if (error != null) {
-                                    // 에러
-                                    Log.e(TAG, "userInfo failed: ${error.message}")
-                                    // 팝업 후 finish (에러 코드)
-                                    finish() // 임시 코드
-                                } else if(result != null) {
-                                    Log.d(TAG, "UserInfoSuccess")
-                                    if (result.username == null) {
-                                        Log.d(TAG, "username is empty. go to set username")
-                                        val userNameIntent = Intent(this, UserNameActivity::class.java)
-                                        startActivity(userNameIntent)
-                                        finish()
-                                    } else {
-                                        Log.d("UserInfoSuccess", "username is not empty")
-                                        val homeIntent = Intent(this, HomeActivity::class.java)
-                                        homeIntent.putExtra("username", result.username)
-                                        homeIntent.putExtra("snsType", result.snsType)
 
-                                        ApiClient.instance.userPointInfo() { point, error ->
-                                            if (error != null) {
-                                                Log.e(TAG, "pointInfo fail:  ${error.message}")
-                                                // 팝업 후 finish (에러 코드)
-                                                finish()
-                                            } else if (point != null) {
-                                                Log.d(TAG, "point is not null, point : $point")
-                                                homeIntent.putExtra("point", point.point)
+        if (isNetworkConnected()) {
+            if (ApiClient.instance.hasToken()) {
+                loginViewModel.refreshToken()
+            } else {
+                val homeIntent = Intent(this, HomeActivity::class.java)
+                startActivity(homeIntent)
+            }
+        }
 
-                                                startActivity(homeIntent)
-                                                finish()
-                                            } else {
-                                                Log.d(TAG, "point is null")
-                                                // 팝업 후 finish (에러 코드)
-                                                finish()
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    Log.d(TAG, "user has not token")
-                    val homeIntent = Intent(this, HomeActivity::class.java)
-                    homeIntent.putExtra("username", "")
-                    homeIntent.putExtra("snsType", "")
-                    homeIntent.putExtra("point", 0)
-                    startActivity(homeIntent)
-                    finish()
-                }
-            }, 2000)
-        } else {
-            // 팝업 띄우고 확인 시 finish (네트워크)
-            finish() // 임시 코드
+        loginViewModel.is_token_refresh.observe(this) { refresh ->
+            if (refresh) {
+                userInfoViewModel.loadUserInfo()
+            } else {
+                // error
+                finish()
+            }
+        }
+
+        userInfoViewModel.is_username_null.observe(this) { isNull ->
+            if (isNull) {
+                val usernameIntent = Intent(this, UserNameActivity::class.java)
+                startActivity(usernameIntent)
+            }
+        }
+
+        userInfoViewModel.user_info.observe(this) { userInfo ->
+            userInfo?.let {
+                val homeIntent = Intent(this, HomeActivity::class.java)
+                startActivity(homeIntent)
+            } ?: run {
+                // error
+                finish()
+            }
         }
     }
 
