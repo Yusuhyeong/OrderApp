@@ -42,29 +42,29 @@ class NoticeActivity : AppCompatActivity() {
             Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
         }
 
-        viewModel.is_back_click.observe(this) { isBackClick ->
-            if (isBackClick) {
-                Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
-                Log.d(TAG, "is_back_click observe")
-                if (supportFragmentManager.backStackEntryCount > 0) {
-                    supportFragmentManager.popBackStack()
-                    viewModel.setIsBackClick()
-                } else {
-                    super.onBackPressed()
-                }
+        binding.ivNoticeBack.setOnClickListener {
+            Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+            Log.d(TAG, "is_back_click observe")
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                supportFragmentManager.popBackStack()
+//                    viewModel.setIsBackClick()
+            } else {
+                super.onBackPressed()
             }
         }
     }
 
     private fun setFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        if (isFromCategory == false) {
-            val noticeSeq = intent.getIntExtra("noticeSeq", 1)
-            noticeDetailFragment = NoticeDetailFragment(noticeSeq, viewModel)
-            fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment").commit()
-        } else {
+        val seq = intent.getIntExtra("noticeSeq", -1)
+        if (seq == -1) {
+            // noticeList
             noticeListFragment = NoticeListFragment(viewModel)
             fragmentTransaction.add(R.id.fl_notice, noticeListFragment, "NoticeListFragment").commit()
+        } else {
+            // noticeDetail
+            noticeDetailFragment = NoticeDetailFragment(seq, viewModel)
+            fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment").commit()
         }
 
         Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")

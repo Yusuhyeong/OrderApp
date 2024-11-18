@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.samgye.orderapp.R
 import com.samgye.orderapp.data.MyData
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.NoticeInfo
@@ -20,15 +19,12 @@ class HomeViewModel : ViewModel() {
     private val _is_login_status = MutableLiveData<Boolean>(ApiClient.instance.hasToken())
     val is_login_status: LiveData<Boolean>
         get() = _is_login_status
-    private val _userData = MutableLiveData<MyData>()
-    val userData: LiveData<MyData>
-        get() = _userData
+    private val _user_data = MutableLiveData<MyData>()
+    val user_data: LiveData<MyData>
+        get() = _user_data
     private val _noticeData = MutableLiveData<NoticeInfo>()
     val noticeData: LiveData<NoticeInfo>
         get() = _noticeData
-    private val _is_category_notice_click = MutableLiveData<Boolean>()
-    val is_category_notice_click: LiveData<Boolean>
-        get() = _is_category_notice_click
 
     init {
         ApiClient.instance.getLatestNotice() { notice, error ->
@@ -43,23 +39,11 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun noticeClick(view: View) {
-        when(view.id) {
-            R.id.cl_notice_in_menu -> {
-                _is_category_notice_click.value = true
-            }
-            R.id.cl_notice -> {
-                _is_category_notice_click.value = false
-            }
-        }
+    fun setMenuVisible(status: Boolean) {
+        _is_menu_visible.value = status
     }
 
-    fun menuClick(view: View) {
-        _selected_id.value = view.id.toString()
-        _is_menu_visible.value = _is_menu_visible.value?.not() ?: false
-    }
-
-    fun menuCategoryClick(view: View) {
+    fun getClickId(view: View) {
         _selected_id.value = view.id.toString()
     }
 
@@ -68,7 +52,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun setUserData(data: MyData) {
-        _userData.value = data
+        _user_data.value = data
     }
 
     fun setNoticeInfo(noticeInfo: NoticeInfo) {
@@ -76,7 +60,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun clearHome() {
-        _userData.value = null
+        _user_data.value = null
         _is_login_status.value = false
         _is_menu_visible.value = false
     }

@@ -20,10 +20,6 @@ class NoticeViewModel : ViewModel() {
     val select_seq: LiveData<Int>
         get() = _select_seq
 
-    private val _is_back_click = MutableLiveData<Boolean>()
-    val is_back_click: LiveData<Boolean>
-        get() = _is_back_click
-
     private val _is_detail_loading = MutableLiveData<Boolean>()
     val is_detail_loading: LiveData<Boolean>
         get() = _is_detail_loading
@@ -33,18 +29,8 @@ class NoticeViewModel : ViewModel() {
         _is_notice_img.value = noticeDetail.noticeImg.isNullOrEmpty()
     }
 
-    fun backClick() {
-        _is_back_click.value = true
-    }
-
-    fun setIsBackClick() {
-        _is_back_click.value = false
-    }
-
     fun noticeClick(seq: Int) {
         _select_seq.value = seq
-        Log.d("TEST", "click $seq")
-        Log.d("TEST", "Updated select_seq: ${_select_seq.value}")
     }
 
     fun setDetailLoading(loading: Boolean) {

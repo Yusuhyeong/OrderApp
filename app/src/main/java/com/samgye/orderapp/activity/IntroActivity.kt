@@ -56,8 +56,8 @@ class IntroActivity : AppCompatActivity() {
                                     } else {
                                         Log.d("UserInfoSuccess", "username is not empty")
                                         val homeIntent = Intent(this, HomeActivity::class.java)
-                                        val bundle = Bundle()
-                                        bundle.putParcelable("userInfo", result)
+                                        homeIntent.putExtra("username", result.username)
+                                        homeIntent.putExtra("snsType", result.snsType)
 
                                         ApiClient.instance.userPointInfo() { point, error ->
                                             if (error != null) {
@@ -66,8 +66,7 @@ class IntroActivity : AppCompatActivity() {
                                                 finish()
                                             } else if (point != null) {
                                                 Log.d(TAG, "point is not null, point : $point")
-                                                bundle.putInt("userPoint", point.point)
-                                                homeIntent.putExtras(bundle)
+                                                homeIntent.putExtra("point", point.point)
 
                                                 startActivity(homeIntent)
                                                 finish()
@@ -85,10 +84,9 @@ class IntroActivity : AppCompatActivity() {
                 } else {
                     Log.d(TAG, "user has not token")
                     val homeIntent = Intent(this, HomeActivity::class.java)
-                    val bundle = Bundle()
-                    bundle.putParcelable("userInfo", null)
-                    bundle.putInt("userPoint", 0)
-                    homeIntent.putExtras(bundle)
+                    homeIntent.putExtra("username", "")
+                    homeIntent.putExtra("snsType", "")
+                    homeIntent.putExtra("point", 0)
                     startActivity(homeIntent)
                     finish()
                 }

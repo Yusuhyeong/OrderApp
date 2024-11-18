@@ -33,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
         binding.homeViewModel = viewModel
         binding.lifecycleOwner = this
 
+        // 유저 정보 확인
         if (initUserData() != null) {
             Log.d(TAG, "username : ${initUserData()?.userName}, snsType : ${initUserData()?.snsType}, point : ${initUserData()?.point}")
             val myData = MyData(initUserData()?.userName, initUserData()?.snsType, initUserData()?.point)
@@ -56,6 +57,7 @@ class HomeActivity : AppCompatActivity() {
                     viewModel.setUserData(myData)
                     Log.d(TAG, "username : ${myData.userName}, snsType : ${myData.snsType}, point : ${myData.point}")
                     binding.homeViewModel?.setLoginStatus(ApiClient.instance.hasToken())
+                    viewModel.setMenuVisible(false)
                 }
             }
         }
@@ -102,37 +104,39 @@ class HomeActivity : AppCompatActivity() {
                 R.id.cl_event_in_menu.toString() -> { // 이벤트
                     Log.d(TAG, "이벤트 클릭")
                 }
-            }
-        }
-
-        viewModel.is_category_notice_click.observe(this) { isFromCategory ->
-            Log.d(TAG, "공지사항 클릭, isFromCategory : $isFromCategory")
-            val noticeIntent = Intent(this, NoticeActivity::class.java)
-            if (!isFromCategory) {
-                noticeIntent.putExtra("isFromCategory", isFromCategory)
-                noticeIntent.putExtra("noticeSeq", viewModel.noticeData.value?.noticeSeq)
-                startActivity(noticeIntent)
-            } else {
-                noticeIntent.putExtra("isFromCategory", isFromCategory)
-                startActivity(noticeIntent)
+                R.id.cl_notice.toString() -> {
+                    Log.d(TAG, "홈 화면 공지사항 클릭")
+                    val noticeIntent = Intent(this, NoticeActivity::class.java)
+                    noticeIntent.putExtra("noticeSeq", viewModel.noticeData.value?.noticeSeq)
+                    startActivity(noticeIntent)
+                }
+                R.id.cl_notice_in_menu.toString() -> {
+                    Log.d(TAG, "메뉴 화면 공지사항 클릭")
+                    val noticeIntent = Intent(this, NoticeActivity::class.java)
+                    startActivity(noticeIntent)
+                }
+                R.id.cl_dummy_menu.toString() -> {
+                    Log.d(TAG, "상단 메뉴 닫기")
+                    viewModel.setMenuVisible(false)
+                }
+                R.id.iv_menu.toString() -> {
+                    Log.d(TAG, "상단 메뉴 열기")
+                    viewModel.setMenuVisible(true)
+                }
             }
         }
     }
 
     private fun initUserData(): MyData? {
-        val userInfoResponse = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra<UserInfoResponse>("userInfo", UserInfoResponse::class.java)
-        } else {
-            intent.getParcelableExtra<UserInfoResponse>("userInfo")
-        }
+        val username = intent.getStringExtra("username")
+        val snsType = intent.getStringExtra("snsType")
+        val point = intent.getIntExtra("point", 0)
 
-        val userPoint = intent.getIntExtra("userPoint", 0)
-
-        return if (userInfoResponse == null) {
-            Log.d(TAG, "userInfoResponse is null")
+        return if (username.isNullOrEmpty() || snsType.isNullOrEmpty()) {
+            Log.d(TAG, "MyData is null")
             null
         } else {
-            MyData(userInfoResponse.username, userInfoResponse.snsType, userPoint)
+            MyData(username, snsType, point)
         }
     }
 }
