@@ -33,7 +33,7 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
                     username = result.username
                     snsType = result.snsType
 
-                    ApiClient.instance.userPointInfo() { point, error ->
+                    ApiClient.instance.userDetailInfo() { point, error ->
                         if (error != null) {
                             // error
                         } else {

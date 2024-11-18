@@ -14,7 +14,7 @@ interface ApiBearerService {
     @GET(Constants.USER_INFO_PATH)
     fun getUserInfo(): Call<BaseResponse<UserInfoResponse>>
     @GET(Constants.USER_POINT_INFO_PATH)
-    fun getUserPoint(): Call<BaseResponse<UserDetailResponse>>
+    fun getUserDetail(): Call<BaseResponse<UserDetailResponse>>
     @POST(Constants.USERNAME_UPDATE_PATH)
     fun updateUsername(@Body usernameRequest: UsernameRequest): Call <BaseResponse<Int>>
 }

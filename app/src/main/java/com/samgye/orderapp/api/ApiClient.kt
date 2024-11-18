@@ -81,8 +81,8 @@ class ApiClient (
         })
     }
 
-    fun userPointInfo(callback: (point: UserDetailResponse?, error: Throwable?) -> Unit) {
-        apiBearer.getUserPoint().enqueue(object : Callback<BaseResponse<UserDetailResponse>> {
+    fun userDetailInfo(callback: (point: UserDetailResponse?, error: Throwable?) -> Unit) {
+        apiBearer.getUserDetail().enqueue(object : Callback<BaseResponse<UserDetailResponse>> {
             override fun onResponse(
                 call: Call<BaseResponse<UserDetailResponse>>,
                 response: Response<BaseResponse<UserDetailResponse>>
