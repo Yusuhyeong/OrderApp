@@ -105,7 +105,8 @@ class LoginActivity : AppCompatActivity() {
                         finish() // 임시 코드
                     } else if (result?.username != null) {
                         val resultIntent = Intent().apply {
-                            putExtra("result", result)
+                            putExtra("username", result.username)
+                            putExtra("snsType", result.snsType)
                         }
 
                         ApiClient.instance.userPointInfo() {point, error ->
@@ -206,7 +207,8 @@ class LoginActivity : AppCompatActivity() {
                     finish() // 임시 코드
                 } else if (result?.username != null) {
                     val resultIntent = Intent().apply {
-                        putExtra("result", result)
+                        putExtra("username", result.username)
+                        putExtra("snsType", result.snsType)
                     }
 
                     ApiClient.instance.userPointInfo() {point, error ->

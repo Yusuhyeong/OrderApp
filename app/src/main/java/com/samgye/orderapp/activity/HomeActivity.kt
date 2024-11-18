@@ -45,15 +45,16 @@ class HomeActivity : AppCompatActivity() {
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 Log.d(TAG, "Result Ok from LoginActivity")
-                val resultData = result.data?.getParcelableExtra<UserInfoResponse>("result")
+                val username = result.data?.getStringExtra("username")
+                val snsType = result.data?.getStringExtra("snsType")
                 val point = result.data?.getIntExtra("userPoint", 0)
-                if (resultData == null || point == null) {
+                if (username == null || point == null) {
                     // 팝업 후 finish
                     Log.d(TAG, "data 없음")
                     finish() // 임시 코드
                 } else {
                     Log.d(TAG, "data 있음")
-                    val myData = MyData(resultData.username, resultData.snsType, point)
+                    val myData = MyData(username, snsType, point)
                     viewModel.setUserData(myData)
                     Log.d(TAG, "username : ${myData.userName}, snsType : ${myData.snsType}, point : ${myData.point}")
                     binding.homeViewModel?.setLoginStatus(ApiClient.instance.hasToken())
