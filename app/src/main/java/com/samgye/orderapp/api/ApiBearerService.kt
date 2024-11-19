@@ -2,6 +2,8 @@ package com.samgye.orderapp.api
 
 import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.api.response.BaseResponse
+import com.samgye.orderapp.api.response.ResponseMenuData
+import com.samgye.orderapp.api.response.ResponseMenuList
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.api.response.UserDetailResponse
 import com.samgye.orderapp.utils.Constants
@@ -17,4 +19,6 @@ interface ApiBearerService {
     fun getUserDetail(): Call<BaseResponse<UserDetailResponse>>
     @POST(Constants.USERNAME_UPDATE_PATH)
     fun updateUsername(@Body usernameRequest: UsernameRequest): Call <BaseResponse<Int>>
+    @GET(Constants.MENU_INFO_PATH)
+    fun getMenuInfo(): Call<BaseResponse<List<ResponseMenuData<List<ResponseMenuList>>>>>
 }
