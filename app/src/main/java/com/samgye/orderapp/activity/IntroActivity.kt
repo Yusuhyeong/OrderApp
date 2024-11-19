@@ -9,15 +9,19 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.activity.viewmodel.LoginViewModel
+import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.api.ApiClient
+import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityIntroBinding
+import com.samgye.orderapp.fragment.CommonPopupFragment
 
 class IntroActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: ActivityIntroBinding
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var userInfoViewModel: UserInfoViewModel
+    private lateinit var popupViewModel: PopupViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,7 @@ class IntroActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         val app = applicationContext as MyApp
         userInfoViewModel = app.userInfoViewModel
+        popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
 
 
         if (isNetworkConnected()) {
@@ -45,7 +50,7 @@ class IntroActivity : AppCompatActivity() {
                 userInfoViewModel.loadUserInfo()
             } else {
                 // error
-                finish()
+                showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)
             }
         }
 
@@ -62,7 +67,18 @@ class IntroActivity : AppCompatActivity() {
                 startActivity(homeIntent)
             } ?: run {
                 // error
-                finish()
+                showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)
+            }
+        }
+
+        popupViewModel.popupEvent.observe(this) { event ->
+            when (event) {
+                "confirm" -> {
+                    finish()
+                }
+                "cancel" -> {
+                    finish()
+                }
             }
         }
     }
@@ -73,5 +89,11 @@ class IntroActivity : AppCompatActivity() {
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
 
         return networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
+        val popupData = PopupData(title, detail, isOneBtn)
+        val popup = CommonPopupFragment(popupData, popupViewModel)
+        popup.show(supportFragmentManager, "CommonPopup")
     }
 }
