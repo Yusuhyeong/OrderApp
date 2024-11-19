@@ -14,29 +14,97 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".activity.LoginActivity">
 
-        <com.shobhitpuri.custombuttons.GoogleSignInButton
-            android:id="@+id/btn_google_login"
-            android:layout_width="208dp"
-            android:layout_height="50dp"
-            android:text="구글 로그인"
-            android:textColor="@color/font"
-            android:layout_marginBottom="15dp"
-            android:fontFamily="@font/pretendard_bold"
-            app:layout_constraintStart_toStartOf="@id/btn_kakao_login"
-            app:layout_constraintEnd_toEndOf="@id/btn_kakao_login"
-            app:layout_constraintBottom_toTopOf="@id/btn_kakao_login" />
-
         <ImageView
-            android:id="@+id/btn_kakao_login"
-            android:layout_width="200dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/img_kakao_login"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="150dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_google_login"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/border_radus_login_button_12px"
+            android:backgroundTint="@color/google_login_btn"
+            android:elevation="2dp"
+            android:layout_marginBottom="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent" >
+
+            <ImageView
+                android:id="@+id/iv_google_login"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_google_login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_google_login"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:text="구글 로그인"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/font"
+                app:layout_constraintStart_toEndOf="@id/iv_google_login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_kakao_login"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:elevation="2dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border_radus_login_button_12px"
+            android:backgroundTint="@color/kakao_login_btn"
+            app:layout_constraintStart_toStartOf="@id/cl_google_login"
+            app:layout_constraintEnd_toEndOf="@id/cl_google_login"
+            app:layout_constraintBottom_toTopOf="@id/cl_google_login" >
+
+            <ImageView
+                android:id="@+id/iv_kakao_lgoin"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_kakao_login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_kakao_login"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:text="카카오 로그인"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/font"
+                app:layout_constraintStart_toEndOf="@id/iv_kakao_lgoin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

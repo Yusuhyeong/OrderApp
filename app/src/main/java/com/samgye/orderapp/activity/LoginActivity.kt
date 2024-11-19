@@ -92,11 +92,11 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        binding.btnGoogleLogin.setOnClickListener {
+        binding.clGoogleLogin.setOnClickListener {
             googleLoginCheck()
         }
 
-        binding.btnKakaoLogin.setOnClickListener {
+        binding.clKakaoLogin.setOnClickListener {
             kakaoLoginCheck()
         }
 
