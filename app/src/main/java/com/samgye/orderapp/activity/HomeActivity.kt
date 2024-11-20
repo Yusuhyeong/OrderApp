@@ -58,11 +58,13 @@ class HomeActivity : AppCompatActivity() {
                 R.id.cl_store_eat.toString(), R.id.cl_order_in_menu.toString() -> { // 매장 식사
                     Log.d(TAG, "매장 식사 클릭")
                     val menuListIntent = Intent(this, MenuListActivity::class.java)
+                    menuListIntent.putExtra("title", "매장 식사")
                     startActivity(menuListIntent)
                 }
                 R.id.cl_take_out.toString() -> { // 포장 주문
                     Log.d(TAG, "포장 주문 클릭")
                     val menuListIntent = Intent(this, MenuListActivity::class.java)
+                    menuListIntent.putExtra("title", "포장 주문")
                     startActivity(menuListIntent)
                 }
                 R.id.tv_menu_logout.toString() -> { // 로그아웃

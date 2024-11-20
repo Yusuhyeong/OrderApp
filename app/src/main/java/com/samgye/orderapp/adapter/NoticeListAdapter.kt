@@ -11,9 +11,9 @@ import com.samgye.orderapp.databinding.NoticeRvItemBinding
 
 class NoticeListAdapter(private val viewModel: NoticeViewModel) : ListAdapter<NoticeItem, NoticeListAdapter.NoticeViewHolder>(DiffCallback()) {
     class NoticeViewHolder(val binding: NoticeRvItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(viewModel: NoticeViewModel, agoraItem: NoticeItem) {
+        fun bind(viewModel: NoticeViewModel, noticeItem: NoticeItem) {
             binding.noticeViewModel = viewModel
-            binding.noticeItem = agoraItem
+            binding.noticeItem = noticeItem
         }
     }
 

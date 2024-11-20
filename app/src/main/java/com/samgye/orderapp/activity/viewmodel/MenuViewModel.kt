@@ -14,9 +14,16 @@ class MenuViewModel: ViewModel() {
     val menu_data: LiveData<List<CategoryInfo>>
         get() = _menu_data
 
-    fun loadMenuData() {
+    private val _menu_list_title = MutableLiveData<String>()
+    val menu_list_title: LiveData<String>
+        get() = _menu_list_title
+
+
+    fun loadMenuData(title: String) {
+        _menu_list_title.value = title
         ApiClient.instance.getMenuInfo() { menu, error ->
             if (error != null) {
+                _menu_data.value = null
                 // error
             } else {
                 if (menu != null) {
