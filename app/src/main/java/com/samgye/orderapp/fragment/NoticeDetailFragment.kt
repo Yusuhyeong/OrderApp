@@ -29,20 +29,7 @@ class NoticeDetailFragment(noticeSeq: Int, viewModel: NoticeViewModel) : Fragmen
         binding.noticeViewModel = noticeViewModel
         binding.lifecycleOwner = this
 
-        noticeViewModel.setDetailLoading(true)
-        ApiClient.instance.getDetailNotice(noticeDetailRequest) { notice, error ->
-            if (error != null) {
-                Log.e(TAG, "getDetailNotice error")
-            } else {
-                if (notice != null) {
-                    val noticeData = NoticeDetail(notice.data?.noticeSeq, notice.data?.noticeTitle, notice.data?.noticeCont, notice.data?.regDttm, notice.data?.regrNm, notice.data?.noticeImg)
-                    noticeViewModel.setNoticeDetailData(noticeData)
-                    Log.d(TAG, "SUCCESS")
-                }
-            }
-
-            noticeViewModel.setDetailLoading(false)
-        }
+        noticeViewModel.loadNoticeDetail()
 
         return binding.root
     }

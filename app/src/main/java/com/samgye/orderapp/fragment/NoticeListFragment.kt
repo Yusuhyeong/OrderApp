@@ -36,22 +36,10 @@ class NoticeListFragment(viewModel: NoticeViewModel) : Fragment() {
         noticeListAdapter = NoticeListAdapter(noticeViewModel)
         binding.rvNoticeList.adapter = noticeListAdapter
 
-        ApiClient.instance.getAllNotice { notice, error ->
-            if (error != null) {
-                Log.d(TAG, "ERROR")
-            } else {
-                val noticeItems: List<NoticeItem> = notice?.data?.map { noticeInfo ->
-                    NoticeItem(
-                        noticeSeq = noticeInfo.noticeSeq,
-                        noticeTitle = noticeInfo.noticeTitle,
-                        regDttm = SystemUtil.formatToDateOnly(noticeInfo.regDttm),
-                        regrNm = noticeInfo.regrNm
-                    )
-                } ?: emptyList()
+        noticeViewModel.loadNoticeList()
 
-                noticeListAdapter.submitList(noticeItems)
-            }
-
+        noticeViewModel.notice_list.observe(requireActivity()) { list ->
+            noticeListAdapter.submitList(list)
         }
 
         return binding.root

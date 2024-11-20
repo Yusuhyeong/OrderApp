@@ -18,4 +18,7 @@
     <string name="event">이벤트</string>
     <string name="cacel">취소</string>
     <string name="confirm">확인</string>
+
+    <!-- google login string -->
+    <string name="default_web_client_id">289118716115-ujs0h8pni715jiosnkn4msp9689uhapd.apps.googleusercontent.com</string>
 </resources>

@@ -32,9 +32,10 @@ class NoticeActivity : AppCompatActivity() {
 
         setFragment()
 
+        // list에서 click, home에서 상단 공지사항 click의 경우
         viewModel.select_seq.observe(this) { seq ->
             Log.d(TAG, "select_seq observe")
-            if (seq != null) {
+            if (seq != null && !viewModel.notice_list.value.isNullOrEmpty()) {
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
                 noticeDetailFragment = NoticeDetailFragment(seq, viewModel)
                 fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment").addToBackStack(null).commit()
@@ -63,6 +64,7 @@ class NoticeActivity : AppCompatActivity() {
             fragmentTransaction.add(R.id.fl_notice, noticeListFragment, "NoticeListFragment").commit()
         } else {
             // noticeDetail
+            viewModel.noticeClick(seq)
             noticeDetailFragment = NoticeDetailFragment(seq, viewModel)
             fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment").commit()
         }
