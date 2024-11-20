@@ -18,8 +18,11 @@ import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.LoginViewModel
+import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
+import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityLoginBinding
+import com.samgye.orderapp.fragment.CommonPopupFragment
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
@@ -27,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var userInfoViewModel: UserInfoViewModel
+    private lateinit var popupViewModel: PopupViewModel
 
     // google login callback
     private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -71,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate()")
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
@@ -79,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         val app = applicationContext as MyApp
         userInfoViewModel = app.userInfoViewModel
+        popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
 
         binding.loginViewModel = loginViewModel
         binding.lifecycleOwner = this
@@ -101,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginViewModel.is_login_end.observe(this) { isEnd ->
+            Log.d(TAG, "is_login_end observe")
             if (isEnd) {
                 userInfoViewModel.loadUserInfo()
             } else {
@@ -110,6 +117,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         userInfoViewModel.is_username_null.observe(this) { isNull ->
+            Log.d(TAG, "is_username_null observe")
             if (isNull) {
                 val usernameIntent = Intent(this, UserNameActivity::class.java)
                 startActivity(usernameIntent)
@@ -118,11 +126,25 @@ class LoginActivity : AppCompatActivity() {
         }
 
         userInfoViewModel.user_info.observe(this) { userInfo ->
+            Log.d(TAG, "user_info observe")
             userInfo?.let {
-                finish()
+                if (userInfo.loginStatus) {
+                    finish()
+                }
             } ?: run {
                 // error
-                finish()
+                showPopup("로그인 실패", "sns 로그인에 실패하였습니다.\n홈 화면으로 이동합니다.", false)
+            }
+        }
+
+        popupViewModel.popupEvent.observe(this) { event ->
+            when (event) {
+                "confirm" -> {
+                    finish()
+                }
+                "cancel" -> {
+                    finish()
+                }
             }
         }
     }
@@ -175,5 +197,11 @@ class LoginActivity : AppCompatActivity() {
                 callback = kakaoCallback
             )
         }
+    }
+
+    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
+        val popupData = PopupData(title, detail, isOneBtn)
+        val popup = CommonPopupFragment(popupData, popupViewModel)
+        popup.show(supportFragmentManager, "CommonPopup")
     }
 }

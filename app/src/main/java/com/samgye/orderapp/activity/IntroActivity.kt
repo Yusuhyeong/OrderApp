@@ -54,6 +54,7 @@ class IntroActivity : AppCompatActivity() {
             } else {
                 // error
                 showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)
+                ApiClient.instance.logout()
             }
         }
 

@@ -9,7 +9,7 @@ import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.NoticeInfo
 
 class HomeViewModel : ViewModel() {
-    val _selected_id = SingleLiveEvent<String>()
+    val selected_id = SingleLiveEvent<String>()
     private val _is_menu_visible = MutableLiveData<Boolean>(false)
     val is_menu_visible: LiveData<Boolean>
         get() = _is_menu_visible
@@ -31,7 +31,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun clickMenu(view: View) {
-        _selected_id.value = view.id.toString()
+        selected_id.value = view.id.toString()
     }
 
     fun setMenuVisible(status: Boolean) {

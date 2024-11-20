@@ -13,9 +13,11 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
     val user_info: LiveData<UserInfo>
         get() = _user_info
 
-    private val _is_username_null = MutableLiveData<Boolean>()
-    val is_username_null: LiveData<Boolean>
-        get() = _is_username_null
+//    private val _is_username_null = MutableLiveData<Boolean>()
+//    val is_username_null: LiveData<Boolean>
+//        get() = _is_username_null
+
+    val is_username_null = SingleLiveEvent<Boolean>()
 
     fun loadUserInfo() {
         ApiClient.instance.userInfo() { result, error ->
@@ -25,10 +27,10 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
             val loginStatus = ApiClient.instance.hasToken()
 
             if (error != null) {
-                // error
+                _user_info.value = null
             } else {
                 if (result?.username == null) {
-                    _is_username_null.value = true
+                    is_username_null.value = true
                 } else {
                     username = result.username
                     snsType = result.snsType
@@ -55,7 +57,7 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun clearUserInfo() {
-        val userInfo = UserInfo(null, null, null, false)
+        val userInfo = UserInfo(null, null, null, ApiClient.instance.hasToken())
         _user_info.value = userInfo
     }
 }
