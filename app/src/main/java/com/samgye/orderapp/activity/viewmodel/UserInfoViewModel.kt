@@ -55,6 +55,7 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun clearUserInfo() {
-        _user_info.value = null
+        val userInfo = UserInfo(null, null, null, false)
+        _user_info.value = userInfo
     }
 }

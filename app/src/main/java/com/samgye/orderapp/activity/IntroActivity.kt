@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.activity.viewmodel.LoginViewModel
@@ -40,8 +41,10 @@ class IntroActivity : AppCompatActivity() {
             if (ApiClient.instance.hasToken()) {
                 loginViewModel.refreshToken()
             } else {
+                Log.d(TAG, "HomeActivity로 이동. no user")
                 val homeIntent = Intent(this, HomeActivity::class.java)
                 startActivity(homeIntent)
+                finish()
             }
         }
 
@@ -58,13 +61,16 @@ class IntroActivity : AppCompatActivity() {
             if (isNull) {
                 val usernameIntent = Intent(this, UserNameActivity::class.java)
                 startActivity(usernameIntent)
+                finish()
             }
         }
 
         userInfoViewModel.user_info.observe(this) { userInfo ->
             userInfo?.let {
+                Log.d(TAG, "HomeActivity로 이동")
                 val homeIntent = Intent(this, HomeActivity::class.java)
                 startActivity(homeIntent)
+                finish()
             } ?: run {
                 // error
                 showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)
