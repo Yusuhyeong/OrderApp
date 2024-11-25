@@ -64,8 +64,13 @@ class MenuListActivity : AppCompatActivity() {
                 categoryListAdapter.submitList(menuData)
             } ?: run {
                 // error
-                showPopup("메뉴 조회 오류", "메뉴를 가져오는데 실패했습니다.\n홈 화면으로 이동합니다.", false)
+                showPopup("메뉴 조회 오류", "메뉴를 가져오는데 실패했습니다.\n홈 화면으로 이동합니다.", true)
             }
+        }
+
+        binding.ivMenuListBack.setOnClickListener {
+            Log.d(TAG, "menu list activity finish")
+            finish()
         }
 
         popupViewModel.popupEvent.observe(this) { event ->

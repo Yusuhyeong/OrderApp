@@ -14,4 +14,5 @@
 
     <color name="kakao_login_btn">#FEE500</color>
     <color name="google_login_btn">#FFFFFF</color>
+    <color name="google_login_stroke_btn">#EFEFEF</color>
 </resources>

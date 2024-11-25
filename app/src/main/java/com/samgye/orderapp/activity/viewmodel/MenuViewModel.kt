@@ -27,6 +27,7 @@ class MenuViewModel: ViewModel() {
                 // error
             } else {
                 if (menu != null) {
+                    menu
                     val categoryList = menu.map { responseCategory ->
                         CategoryInfo(
                             categorySeq = responseCategory.categorySeq,
@@ -44,7 +45,32 @@ class MenuViewModel: ViewModel() {
                         )
                     }
 
-                    _menu_data.postValue(categoryList)
+                    val popularMenuList = menu.flatMap { responseCategory ->
+                        responseCategory.menu?.filter { it.popularYn == "Y" }?.map { responseMenu ->
+                            MenuInfo(
+                                menuSeq = responseMenu.menuSeq,
+                                menuTitle = responseMenu.menuTitle,
+                                menuInfo = responseMenu.menuInfo,
+                                menuImgUrl = responseMenu.menuImgUrl,
+                                menuPrice = responseMenu.menuPrice,
+                                popularYn = responseMenu.popularYn
+                            )
+                        } ?: emptyList()
+                    }
+
+                    val finalCategoryList = if (popularMenuList.isNotEmpty()) {
+                        listOf(
+                            CategoryInfo(
+                                categorySeq = 0,
+                                categoryNm = "인기메뉴",
+                                menu = popularMenuList
+                            )
+                        ) + categoryList
+                    } else {
+                        categoryList
+                    }
+
+                    _menu_data.value = finalCategoryList
                 }
             }
         }

@@ -18,24 +18,25 @@
         tools:context=".activity.LoginActivity">
 
         <ImageView
+            android:id="@+id/iv_logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/icon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="150dp" />
+            android:layout_marginTop="100dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_google_login"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="@drawable/border_radus_login_button_12px"
-            android:backgroundTint="@color/google_login_btn"
-            android:elevation="2dp"
-            android:layout_marginBottom="50dp"
+            android:background="@drawable/border_radius_login_google_12px"
+            app:layout_constraintVertical_bias="0"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_kakao_login"
             app:layout_constraintBottom_toBottomOf="parent" >
 
             <ImageView
@@ -70,13 +71,13 @@
             android:id="@+id/cl_kakao_login"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:elevation="2dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/border_radus_login_button_12px"
-            android:backgroundTint="@color/kakao_login_btn"
+            app:layout_constraintVertical_bias="0"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/border_radius_login_kakao_12px"
             app:layout_constraintStart_toStartOf="@id/cl_google_login"
             app:layout_constraintEnd_toEndOf="@id/cl_google_login"
-            app:layout_constraintBottom_toTopOf="@id/cl_google_login" >
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_logo" >
 
             <ImageView
                 android:id="@+id/iv_kakao_lgoin"
@@ -103,6 +104,70 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/line_middle"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp"
+            android:background="@color/google_login_stroke_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_google_login" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_middle"
+            app:layout_constraintBottom_toBottomOf="parent" >
+
+            <TextView
+                android:id="@+id/tv_homepage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/homepage"
+                android:fontFamily="@font/pretendard_regular"
+                android:textColor="@color/font_gray"
+                android:textSize="14dp"
+                android:layout_marginRight="10dp"
+                android:gravity="top|center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/line_bottom_middle" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/line_bottom_middle"
+                android:layout_width="1dp"
+                android:layout_height="16dp"
+                android:background="@color/font_gray"
+                app:layout_constraintStart_toEndOf="@id/tv_homepage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_service_center" />
+
+            <TextView
+                android:id="@+id/tv_service_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top|center"
+                android:text="@string/service_center"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:textColor="@color/font_gray"
+                android:textSize="14dp"
+                app:layout_constraintStart_toEndOf="@id/line_bottom_middle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
