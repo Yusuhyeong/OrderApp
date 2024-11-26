@@ -208,6 +208,7 @@
                         android:layout_marginTop="30dp"
                         android:visibility="@{user_view_model.user_info.loginStatus ? View.VISIBLE : View.GONE}"
                         android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font"
                         app:layout_constraintStart_toStartOf="@id/cl_store_eat"
                         app:layout_constraintTop_toBottomOf="@id/cl_login_annotation"
                         android:text="@{user_view_model.user_info.userName}" />
@@ -365,9 +366,9 @@
             android:id="@+id/cl_dummy_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:visibility="gone"
             android:visibility="@{home_view_model.is_menu_visible ? View.VISIBLE : View.GONE}"
             android:background="@color/dummy_background_color"
+            tools:visibility="visible"
             android:onClick="@{(v)->home_view_model.clickMenu(v)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -380,7 +381,7 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:background="@color/white"
-            tools:visibility="gone"
+            tools:visibility="visible"
             android:onClick="@{(v)->home_view_model.clickMenu(v)}"
             android:visibility="@{home_view_model.is_menu_visible ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
@@ -403,7 +404,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hello"
                     android:textSize="16dp"
-                    android:textColor="@color/font"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/pretendard_bold"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
@@ -415,10 +416,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/login_request"
-                    android:textColor="@color/font"
+                    android:textColor="@color/white"
                     android:textSize="20dp"
                     android:visibility="@{user_view_model.user_info.loginStatus ? View.GONE : View.VISIBLE}"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/pretendard_bold"
                     app:layout_constraintStart_toStartOf="@id/tv_menu_title"
                     app:layout_constraintTop_toBottomOf="@id/tv_menu_title" />
@@ -430,9 +431,9 @@
                     android:text="@{user_view_model.user_info.userName}"
                     android:textSize="20dp"
                     android:visibility="@{user_view_model.user_info.loginStatus ? View.VISIBLE : View.GONE}"
-                    android:textColor="@color/font"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/pretendard_bold"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="@id/tv_menu_title"
                     app:layout_constraintTop_toBottomOf="@id/tv_menu_login_annotation" />
 
@@ -442,7 +443,7 @@
                     android:text="@string/user_high"
                     android:textSize="18dp"
                     android:visibility="@{user_view_model.user_info.loginStatus ? View.VISIBLE : View.GONE}"
-                    android:textColor="@color/font"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/pretendard_medium"
                     app:layout_constraintStart_toEndOf="@id/tv_menu_username"
                     app:layout_constraintBottom_toBottomOf="@id/tv_menu_username" />
@@ -456,12 +457,12 @@
                     android:visibility="@{user_view_model.user_info.loginStatus ? View.GONE : View.VISIBLE}"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="5dp"
                     android:onClick="@{(v)->home_view_model.clickMenu(v)}"
                     app:layout_constraintVertical_bias="0"
                     android:layout_marginBottom="20dp"
-                    android:textColor="@color/font"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/pretendard_medium"
                     android:background="@drawable/border_radius_menu_button_40dp"
                     android:layout_marginTop="10dp"
@@ -478,10 +479,10 @@
                     android:visibility="@{user_view_model.user_info.loginStatus ? View.VISIBLE : View.GONE}"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="5dp"
                     android:onClick="@{(v)->home_view_model.clickMenu(v)}"
-                    android:textColor="@color/font"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/pretendard_medium"
                     android:background="@drawable/border_radius_menu_button_40dp"
                     android:layout_marginTop="10dp"
@@ -500,7 +501,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:onClick="@{(v)->home_view_model.clickMenu(v)}"
-                    android:textColor="@color/font"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/pretendard_medium"
                     android:background="@drawable/border_radius_menu_button_40dp"
                     android:layout_marginLeft="15dp"
@@ -511,7 +512,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
@@ -588,246 +589,278 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_category_in_menu"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_menu_info"
-                app:layout_constraintBottom_toTopOf="@id/cl_category_to_bottom_line" >
+                app:layout_constraintTop_toBottomOf="@id/cl_menu_info">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_order_in_menu"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
                     android:onClick="@{(v)->home_view_model.clickMenu(v)}"
-                    app:layout_constraintEnd_toStartOf="@id/cl_order_list_in_menu"
-                    app:layout_constraintBottom_toTopOf="@id/cl_find_store_in_menu"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent" >
 
                     <ImageView
-                        android:id="@+id/iv_order_in_menu"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:padding="10dp"
-                        android:src="@drawable/icon_order"
-                        app:layout_constraintBottom_toTopOf="@id/tv_order_in_menu"
+                        android:id="@+id/iv_order_in_menu_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/icon_menu_info"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_order_in_menu" />
 
                     <TextView
                         android:id="@+id/tv_order_in_menu"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:text="@string/order"
-                        android:textSize="16dp"
+                        android:textSize="20dp"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/font"
                         android:fontFamily="@font/pretendard_medium"
-                        android:gravity="center"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:gravity="left"
+                        app:layout_constraintStart_toEndOf="@id/iv_order_in_menu_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_order_in_menu_arrow" />
+
+                    <ImageView
+                        android:id="@+id/iv_order_in_menu_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_arrow_right"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_order_in_menu"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_order_in_menu" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_order_list_in_menu"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
                     android:onClick="@{(v)->home_view_model.clickMenu(v)}"
-                    app:layout_constraintStart_toEndOf="@id/cl_order_in_menu"
-                    app:layout_constraintBottom_toTopOf="@id/cl_notice_in_menu"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" >
+                    app:layout_constraintTop_toBottomOf="@id/cl_order_in_menu"
+                    app:layout_constraintStart_toStartOf="parent" >
 
                     <ImageView
-                        android:id="@+id/iv_order_list_in_menu"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:padding="10dp"
+                        android:id="@+id/iv_order_list_in_menu_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@drawable/icon_order_list"
-                        app:layout_constraintBottom_toTopOf="@id/tv_order_list_in_menu"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_order_list_in_menu" />
 
                     <TextView
                         android:id="@+id/tv_order_list_in_menu"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:text="@string/order_list"
-                        android:textSize="16dp"
+                        android:textSize="20dp"
                         android:textColor="@color/font"
+                        android:layout_marginLeft="10dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:gravity="center"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_order_list_in_menu"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_find_store_in_menu"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
-                    android:onClick="@{(v)->home_view_model.clickMenu(v)}"
-                    app:layout_constraintEnd_toStartOf="@id/cl_notice_in_menu"
-                    app:layout_constraintBottom_toTopOf="@id/cl_event_in_menu"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_order_in_menu" >
+                        android:gravity="left"
+                        app:layout_constraintStart_toEndOf="@id/iv_order_list_in_menu_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_order_list_in_menu_arrow" />
 
                     <ImageView
-                        android:id="@+id/iv_find_store_in_menu"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:src="@drawable/icon_find_store"
-                        android:padding="10dp"
-                        app:layout_constraintBottom_toTopOf="@id/tv_find_store_in_menu"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:id="@+id/iv_order_list_in_menu_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_arrow_right"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_find_store_in_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/find_store"
-                        android:textSize="16dp"
-                        android:textColor="@color/font"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:gravity="center"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_find_store_in_menu"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_order_list_in_menu" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_notice_in_menu"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
                     android:onClick="@{(v)->home_view_model.clickMenu(v)}"
-                    app:layout_constraintBottom_toTopOf="@id/cl_dummy_in_menu"
-                    app:layout_constraintStart_toEndOf="@id/cl_find_store_in_menu"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_order_list_in_menu" >
+                    app:layout_constraintTop_toBottomOf="@id/cl_order_list_in_menu"
+                    app:layout_constraintStart_toStartOf="parent" >
 
                     <ImageView
-                        android:id="@+id/iv_notice_in_menu"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:src="@drawable/icon_notice_black"
-                        android:padding="10dp"
-                        app:layout_constraintBottom_toTopOf="@id/tv_notice_in_menu"
+                        android:id="@+id/iv_notice_in_menu_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/icon_notice"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_notice_in_menu" />
 
                     <TextView
                         android:id="@+id/tv_notice_in_menu"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:text="@string/notice"
-                        android:textSize="16dp"
+                        android:textSize="18dp"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/font"
                         android:fontFamily="@font/pretendard_medium"
-                        android:gravity="center"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:gravity="left"
+                        app:layout_constraintStart_toEndOf="@id/iv_notice_in_menu_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_notice_in_menu_arrow" />
+                    <ImageView
+                        android:id="@+id/iv_notice_in_menu_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_arrow_right"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_notice_in_menu"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_notice_in_menu" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_event_in_menu"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
                     android:onClick="@{(v)->home_view_model.clickMenu(v)}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/cl_dummy_in_menu"
-                    app:layout_constraintTop_toBottomOf="@id/cl_find_store_in_menu"
-                    app:layout_constraintBottom_toBottomOf="parent" >
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_notice_in_menu"
+                    app:layout_constraintStart_toStartOf="parent" >
 
                     <ImageView
-                        android:id="@+id/iv_event_in_menu"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:id="@+id/iv_event_in_menu_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@drawable/icon_event"
-                        android:padding="10dp"
-                        app:layout_constraintBottom_toTopOf="@id/tv_event_in_menu"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_event_in_menu" />
 
                     <TextView
                         android:id="@+id/tv_event_in_menu"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:text="@string/event"
-                        android:textSize="16dp"
+                        android:textSize="18dp"
                         android:textColor="@color/font"
+                        android:layout_marginLeft="10dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:gravity="center"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_event_in_menu"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        android:gravity="left"
+                        app:layout_constraintStart_toEndOf="@id/iv_event_in_menu_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_event_in_menu_arrow" />
 
+                    <ImageView
+                        android:id="@+id/iv_event_in_menu_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_arrow_right"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_event_in_menu" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_dummy_in_menu"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
-                    app:layout_constraintStart_toEndOf="@id/cl_event_in_menu"
+                    android:id="@+id/cl_find_store_in_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    android:onClick="@{(v)->home_view_model.clickMenu(v)}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_notice_in_menu"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/cl_event_in_menu"
+                    app:layout_constraintStart_toStartOf="parent" >
+
+                    <ImageView
+                        android:id="@+id/iv_find_store_in_menu_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/icon_find_store"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_find_store_in_menu" />
+
+                    <TextView
+                        android:id="@+id/tv_find_store_in_menu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/find_store"
+                        android:textSize="18dp"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:gravity="left"
+                        app:layout_constraintStart_toEndOf="@id/iv_find_store_in_menu_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_find_store_in_menu_arrow" />
+
+                    <ImageView
+                        android:id="@+id/iv_find_store_in_menu_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_arrow_right"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_find_store_in_menu" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_category_to_bottom_line"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintVertical_bias="1"
+                android:layout_marginHorizontal="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_category_in_menu" >
+                app:layout_constraintTop_toBottomOf="@id/cl_category_in_menu"
+                app:layout_constraintBottom_toBottomOf="parent" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_category_to_bottom_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_menu_bottom_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:src="@drawable/logo4"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_category_to_bottom_line"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/iv_menu_bottom_logo"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:src="@drawable/logo4"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_category_to_bottom_line"
-                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

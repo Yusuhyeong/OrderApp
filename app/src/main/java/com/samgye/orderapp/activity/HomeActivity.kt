@@ -75,6 +75,8 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.tv_menu_my_info.toString() -> { // 내정보
                     Log.d(TAG, "내정보 클릭")
+                    val myInfoIntent = Intent(this, MyInfoActivity::class.java)
+                    startActivity(myInfoIntent)
                 }
                 R.id.cl_order_list_in_menu.toString() -> { // 주문 내역
                     Log.d(TAG, "주문 내역 클릭")
