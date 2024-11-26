@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.MyApp
@@ -55,23 +56,28 @@ class IntroActivity : AppCompatActivity() {
                 // error
                 showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)
                 ApiClient.instance.logout()
+                finish()
             }
         }
 
         userInfoViewModel.is_username_null.observe(this) { isNull ->
             if (isNull) {
-                val usernameIntent = Intent(this, UserNameActivity::class.java)
-                startActivity(usernameIntent)
-                finish()
+                Handler().postDelayed(Runnable {
+                    val usernameIntent = Intent(this, UserNameActivity::class.java)
+                    startActivity(usernameIntent)
+                    finish()
+                }, 3000)
             }
         }
 
         userInfoViewModel.user_info.observe(this) { userInfo ->
             userInfo?.let {
                 Log.d(TAG, "HomeActivity로 이동")
-                val homeIntent = Intent(this, HomeActivity::class.java)
-                startActivity(homeIntent)
-                finish()
+                Handler().postDelayed(Runnable {
+                    val homeIntent = Intent(this, HomeActivity::class.java)
+                    startActivity(homeIntent)
+                    finish()
+                }, 3000)
             } ?: run {
                 // error
                 showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)

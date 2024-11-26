@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="user_info_view_model"
+            type="com.samgye.orderapp.activity.viewmodel.UserInfoViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".activity.MyInfoActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_my_info_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/default_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_info"
+                android:textSize="18dp"
+                android:textColor="@color/font"
+                android:fontFamily="@font/pretendard_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_my_info_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/icon_arrow_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv_info"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_my_info_title"
+            app:layout_constraintVertical_bias="0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_user_name_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/icon"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        tools:text="유수형"
+                        android:text="@{user_info_view_model.user_info.userName}"
+                        android:textSize="20dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_bold"
+                        app:layout_constraintStart_toEndOf="@id/iv_logo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tv_thanks_info"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_high"
+                        android:textSize="20dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_bold"
+                        app:layout_constraintStart_toEndOf="@id/tv_user_name"
+                        app:layout_constraintTop_toTopOf="@id/tv_user_name"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_user_name" />
+
+                    <TextView
+                        android:id="@+id/tv_thanks_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_info_thanks"
+                        android:textSize="16dp"
+                        android:textColor="@color/font"
+                        android:fontFamily="@font/pretendard_medium"
+                        app:layout_constraintStart_toStartOf="@id/tv_user_name"
+                        app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_point_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/border_radius_login_google_12px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_user_name_info" >
+
+                    <TextView
+                        android:id="@+id/tv_point_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/point"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textColor="@color/font_gray"
+                        android:textSize="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tv_point"/>
+
+                    <TextView
+                        android:id="@+id/tv_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        tools:text="0"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font"
+                        android:layout_marginBottom="20dp"
+                        android:text="@{String.valueOf(user_info_view_model.user_info.point)}"
+                        app:layout_constraintStart_toStartOf="@id/tv_point_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_point_title"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/p"
+                        android:textSize="18dp"
+                        android:layout_marginLeft="2dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font"
+                        app:layout_constraintTop_toTopOf="@id/tv_point"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_point"
+                        app:layout_constraintLeft_toRightOf="@id/tv_point" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_user_benefit_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginHorizontal="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_point_info" >
+
+                    <TextView
+                        android:id="@+id/tv_benefit_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_benefit_title"
+                        android:textSize="24dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_first_benefit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_benefit_title"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_first_benefit"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icon"
+                            android:layout_margin="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/first_benefit"
+                            android:textSize="20dp"
+                            android:textColor="@color/font"
+                            android:fontFamily="@font/pretendard_bold"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            app:layout_constraintStart_toEndOf="@id/iv_first_benefit"
+                            app:layout_constraintTop_toTopOf="@id/iv_first_benefit"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_first_benefit" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_second_benefit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cl_first_benefit"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_second_benefit"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icon"
+                            android:layout_margin="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/second_benefit"
+                            android:textSize="20dp"
+                            android:textColor="@color/font"
+                            android:fontFamily="@font/pretendard_bold"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            app:layout_constraintStart_toEndOf="@id/iv_second_benefit"
+                            app:layout_constraintTop_toTopOf="@id/iv_second_benefit"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_second_benefit" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_third_benefit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cl_second_benefit"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_third_benefit"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icon"
+                            android:layout_margin="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/third_benefit"
+                            android:textSize="20dp"
+                            android:textColor="@color/font"
+                            android:fontFamily="@font/pretendard_bold"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            app:layout_constraintStart_toEndOf="@id/iv_third_benefit"
+                            app:layout_constraintTop_toTopOf="@id/iv_third_benefit"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_third_benefit" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line_middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/google_login_stroke_btn"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_user_benefit_info" />
+
+                <TextView
+                    android:id="@+id/tv_info_setting_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_setting"
+                    android:textSize="18dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/font_gray"
+                    android:fontFamily="@font/pretendard_bold"
+                    app:layout_constraintTop_toBottomOf="@id/line_middle"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_info_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_info_setting_title"
+                    app:layout_constraintEnd_toEndOf="@id/tv_info_setting_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_info_setting_title" >
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_info_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                    <TextView
+                        android:id="@+id/tv_info_setting_try"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font"
+                        android:text="@string/info_setting_try"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font"
+                        android:text="@string/alarm_setting"
+                        app:layout_constraintStart_toEndOf="@id/gl_info_setting"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/google_login_stroke_btn"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_info_setting" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="40dp"
+                    android:layout_marginHorizontal="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" >
+
+                    <TextView
+                        android:id="@+id/tv_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/logout"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_user_out"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_out"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/font_gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_logout"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_logout" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/font_gray"
+                        app:layout_constraintStart_toStartOf="@id/tv_user_out"
+                        app:layout_constraintEnd_toEndOf="@id/tv_user_out"
+                        app:layout_constraintTop_toBottomOf="@id/tv_user_out" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
