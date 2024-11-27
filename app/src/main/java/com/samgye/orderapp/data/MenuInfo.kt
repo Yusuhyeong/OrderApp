@@ -6,5 +6,5 @@ data class MenuInfo (
     val menuInfo: String? = "",
     val menuImgUrl: String? = "",
     val menuPrice: String? = "",
-    val popularYn: String? = ""
+    val popularYn: Boolean? = false
 )

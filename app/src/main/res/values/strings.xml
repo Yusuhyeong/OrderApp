@@ -33,7 +33,8 @@
     <string name="order_type">주문방법</string>
     <string name="limit_pay">최수주문</string>
     <string name="location_info_title">위치안내</string>
-    <string name="location_info">경기 부천시 원미구 조마루로 2\n - 삼산체육관역 1번 출구에서 554m\n - 웅진플레이도시 1층</string>
+    <string name="location_info_first">경기 부천시 원미구 조마루로 2</string>
+    <string name="location_info_second">- 삼산체육관역 1번 출구에서 554m\n- 웅진플레이도시 1층</string>
 
     <!-- google login string -->
     <string name="default_web_client_id">289118716115-ujs0h8pni715jiosnkn4msp9689uhapd.apps.googleusercontent.com</string>

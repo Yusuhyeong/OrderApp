@@ -22,6 +22,10 @@ class MenuViewModel: ViewModel() {
     val choose_list_data: LiveData<ChooseListInfo>
         get() = _choose_list_data
 
+    private val _is_popular_menu = MutableLiveData<Boolean>()
+    val is_popular_menu: LiveData<Boolean>
+        get() = _is_popular_menu
+
 
     fun loadMenuData(title: String) {
         _menu_list_title.value = title
@@ -43,7 +47,7 @@ class MenuViewModel: ViewModel() {
                                     menuInfo = responseMenu.menuInfo,
                                     menuImgUrl = responseMenu.menuImgUrl,
                                     menuPrice = responseMenu.menuPrice,
-                                    popularYn = responseMenu.popularYn
+                                    popularYn = responseMenu.popularYn.equals("Y")
                                 )
                             }
                         )
@@ -57,7 +61,7 @@ class MenuViewModel: ViewModel() {
                                 menuInfo = responseMenu.menuInfo,
                                 menuImgUrl = responseMenu.menuImgUrl,
                                 menuPrice = responseMenu.menuPrice,
-                                popularYn = responseMenu.popularYn
+                                popularYn = true
                             )
                         } ?: emptyList()
                     }

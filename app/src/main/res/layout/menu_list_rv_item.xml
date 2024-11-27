@@ -18,13 +18,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="10dp">
+        android:background="@color/white"
+        android:paddingVertical="14dp">
 
         <ImageView
             android:id="@+id/iv_menu_img"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            tools:src="@drawable/icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cl_menu_list_info"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +53,16 @@
                 android:textColor="@color/font"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon"
+                android:layout_marginLeft="8dp"
+                android:visibility="@{menu_item.popularYn ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toEndOf="@id/tv_menu_title"
+                app:layout_constraintTop_toTopOf="@id/tv_menu_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_menu_title" />
 
             <TextView
                 android:id="@+id/tv_menu_info"
