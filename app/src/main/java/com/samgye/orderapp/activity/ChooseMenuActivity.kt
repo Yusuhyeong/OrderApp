@@ -2,18 +2,28 @@ package com.samgye.orderapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.samgye.orderapp.R
+import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.ChooseMenuViewModel
 import com.samgye.orderapp.activity.viewmodel.MenuViewModel
 import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.adapter.CategoryListAdapter
+import com.samgye.orderapp.data.CartMenuInfo
 import com.samgye.orderapp.databinding.ActivityChooseMenuBinding
 import com.samgye.orderapp.databinding.ActivityMenuListBinding
+import com.samgye.orderapp.utils.PersistentKVStore
+import com.samgye.orderapp.utils.SharedPrefsWrapper
 
 class ChooseMenuActivity : AppCompatActivity() {
+    private val TAG = this::class.java.simpleName
     private lateinit var binding: ActivityChooseMenuBinding
     private lateinit var chooseMenuViewModel: ChooseMenuViewModel
+    private val appCache: PersistentKVStore = SharedPrefsWrapper(Samgye.mSharedPreferences)
+    private val menuKey = "menuList"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +62,30 @@ class ChooseMenuActivity : AppCompatActivity() {
         }
 
         binding.tvChooseMenuOrder.setOnClickListener {
-            // 장바구니로 데이터 넣기
+            val menuSeq = chooseMenuViewModel.menu_seq.value ?: 0
+            val menuSize = chooseMenuViewModel.menu_size.value ?: 0
+
+            val cartMenuInfo = CartMenuInfo(
+                menuSeq = menuSeq,
+                menuSize = menuSize
+            )
+
+            val gson = Gson()
+
+            val beforeMenu = appCache.getString(menuKey, null)
+            val afterMenu: MutableList<CartMenuInfo> = if (beforeMenu != null) {
+                gson.fromJson(beforeMenu, object : TypeToken<MutableList<CartMenuInfo>>() {}.type)
+            } else {
+                mutableListOf()
+            }
+
+            afterMenu.addAll(listOf(cartMenuInfo))
+
+            val reCartMenuInfo = gson.toJson(afterMenu)
+            Log.d(TAG, "reCartMenuInfo : $reCartMenuInfo")
+            appCache.putString(menuKey, reCartMenuInfo)
+            appCache.commit()
+
             finish()
         }
     }

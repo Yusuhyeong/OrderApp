@@ -1,9 +1,12 @@
 package com.samgye.orderapp.activity.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
 import com.samgye.orderapp.api.ApiClient
+import com.samgye.orderapp.data.CartMenuInfo
 import com.samgye.orderapp.data.CategoryInfo
 import com.samgye.orderapp.data.ChooseListInfo
 import com.samgye.orderapp.data.MenuInfo
@@ -25,6 +28,10 @@ class MenuViewModel: ViewModel() {
     private val _is_popular_menu = MutableLiveData<Boolean>()
     val is_popular_menu: LiveData<Boolean>
         get() = _is_popular_menu
+
+    private val _cart_menu_list = MutableLiveData<List<CartMenuInfo>>()
+    val cart_menu_info: LiveData<List<CartMenuInfo>>
+        get() = _cart_menu_list
 
     fun loadMenuData(title: String) {
         _menu_list_title.value = title
@@ -87,5 +94,10 @@ class MenuViewModel: ViewModel() {
         val chooseListInfo = ChooseListInfo(menuTitle, menuInfo, menuSeq, 1, menuImgUrl, menuPrice.toInt())
 
         _choose_list_data.value = chooseListInfo
+    }
+
+    fun loadCartMenu(cartMenuInfo: List<CartMenuInfo>) {
+        _cart_menu_list.value = cartMenuInfo
+        Log.d("TEST_LOG", "loadCartMenu called: ${_cart_menu_list.value}")
     }
 }

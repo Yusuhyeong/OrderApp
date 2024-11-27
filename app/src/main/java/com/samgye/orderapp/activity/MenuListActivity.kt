@@ -5,18 +5,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.samgye.orderapp.MyApp
+import com.samgye.orderapp.R
+import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.MenuViewModel
 import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.adapter.CategoryListAdapter
 import com.samgye.orderapp.adapter.MenuListAdapter
 import com.samgye.orderapp.adapter.NoticeListAdapter
+import com.samgye.orderapp.api.TokenManager
+import com.samgye.orderapp.data.CartMenuInfo
 import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityMenuListBinding
 import com.samgye.orderapp.databinding.CategoryListRvItemBinding
 import com.samgye.orderapp.databinding.MenuListRvItemBinding
 import com.samgye.orderapp.fragment.CommonPopupFragment
+import com.samgye.orderapp.utils.PersistentKVStore
+import com.samgye.orderapp.utils.SharedPrefsWrapper
 
 class MenuListActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
@@ -24,6 +32,8 @@ class MenuListActivity : AppCompatActivity() {
     private lateinit var menuViewModel: MenuViewModel
     private lateinit var popupViewModel: PopupViewModel
     private lateinit var categoryListAdapter: CategoryListAdapter
+    private val appCache: PersistentKVStore = SharedPrefsWrapper(Samgye.mSharedPreferences)
+    private val menuKey = "menuList"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +101,29 @@ class MenuListActivity : AppCompatActivity() {
             startActivity(chooseMenuIntent)
         }
 
+        menuViewModel.cart_menu_info.observe(this) { cartList ->
+            var isEnable = false
+            var res: Int
+
+            if (cartList != null) {
+                isEnable = true
+                res = R.drawable.border_radius_state_true_12px
+                for (cart in cartList) {
+                    Log.d(TAG, "=====================================")
+                    Log.d(TAG, "menuSeq : ${cart.menuSeq}")
+                    Log.d(TAG, "menuSize : ${cart.menuSize}")
+                    Log.d(TAG, "=====================================")
+                }
+            } else {
+                Log.d(TAG, "No cart data available")
+                isEnable = false
+                res = R.drawable.border_radius_state_false_12px
+            }
+
+            binding.tvOrder.setBackgroundResource(res)
+            binding.tvOrder.isEnabled = isEnable
+        }
+
         popupViewModel.popupEvent.observe(this) { event ->
             when (event) {
                 "confirm" -> {
@@ -108,4 +141,21 @@ class MenuListActivity : AppCompatActivity() {
         val popup = CommonPopupFragment(popupData, popupViewModel)
         popup.show(supportFragmentManager, "CommonPopup")
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "MenuListActivity onResume")
+        val gson = Gson()
+        val cartJson = appCache.getString(menuKey, null)
+        if (cartJson != null) {
+            Log.d(TAG, "load cart data")
+            menuViewModel.loadCartMenu(gson.fromJson(cartJson, object : TypeToken<List<CartMenuInfo>>() {}.type))
+
+            // appCache.remove(menuKey).commit()는 현재 테스트용이므로 결제화면 구현시 주석처리
+            appCache.remove(menuKey).commit()
+        } else {
+            Log.d(TAG, "no cart data")
+        }
+    }
+
 }

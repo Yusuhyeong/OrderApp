@@ -6,10 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.samgye.orderapp.data.ChooseListInfo
 
 class ChooseMenuViewModel : ViewModel() {
-    private val _choose_list_data = MutableLiveData<ChooseListInfo>()
-    val choose_list_data: LiveData<ChooseListInfo>
-        get() = _choose_list_data
-
     private val _menu_title = MutableLiveData<String>()
     val menu_title: LiveData<String>
         get() = _menu_title
