@@ -61,6 +61,10 @@ class ChooseMenuActivity : AppCompatActivity() {
             binding.tvChooseMenuOrder.isEnabled = isEnable
         }
 
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
+
         binding.tvChooseMenuOrder.setOnClickListener {
             val menuSeq = chooseMenuViewModel.menu_seq.value ?: 0
             val menuSize = chooseMenuViewModel.menu_size.value ?: 0
