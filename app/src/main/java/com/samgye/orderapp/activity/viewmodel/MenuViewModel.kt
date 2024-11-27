@@ -26,7 +26,6 @@ class MenuViewModel: ViewModel() {
     val is_popular_menu: LiveData<Boolean>
         get() = _is_popular_menu
 
-
     fun loadMenuData(title: String) {
         _menu_list_title.value = title
         ApiClient.instance.getMenuInfo() { menu, error ->
@@ -82,5 +81,11 @@ class MenuViewModel: ViewModel() {
                 }
             }
         }
+    }
+
+    fun clickMenu(menuTitle: String, menuInfo: String, menuSeq: Int, menuImgUrl: String, menuPrice: String) {
+        val chooseListInfo = ChooseListInfo(menuTitle, menuInfo, menuSeq, 1, menuImgUrl, menuPrice.toInt())
+
+        _choose_list_data.value = chooseListInfo
     }
 }

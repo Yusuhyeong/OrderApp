@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingVertical="14dp">
+        android:paddingVertical="14dp"
+        android:onClick="@{(v)->menu_view_model.clickMenu(menu_item.menuTitle, menu_item.menuInfo, menu_item.menuSeq, menu_item.menuImgUrl, menu_item.menuPrice)}">
 
         <ImageView
             android:id="@+id/iv_menu_img"

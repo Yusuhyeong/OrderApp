@@ -1,5 +1,6 @@
 package com.samgye.orderapp.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -71,6 +72,23 @@ class MenuListActivity : AppCompatActivity() {
         binding.ivMenuListBack.setOnClickListener {
             Log.d(TAG, "menu list activity finish")
             finish()
+        }
+
+        menuViewModel.choose_list_data.observe(this) { chooseData ->
+            Log.d(TAG, "menuSeq : ${chooseData.menuSeq}")
+            Log.d(TAG, "menuSize : ${chooseData.menuSize}")
+            Log.d(TAG, "menuImgUrl : ${chooseData.menuImgUrl}")
+            Log.d(TAG, "menuPrice : ${chooseData.menuPrice}")
+            Log.d(TAG, "menuTitle : ${chooseData.menuTitle}")
+
+            val chooseMenuIntent = Intent(this, ChooseMenuActivity::class.java)
+            chooseMenuIntent.putExtra("menuTitle", chooseData.menuTitle)
+            chooseMenuIntent.putExtra("menuInfo", chooseData.menuInfo)
+            chooseMenuIntent.putExtra("menuSeq", chooseData.menuSeq)
+            chooseMenuIntent.putExtra("menuSize", chooseData.menuSize)
+            chooseMenuIntent.putExtra("menuImgUrl", chooseData.menuImgUrl)
+            chooseMenuIntent.putExtra("menuPrice", chooseData.menuPrice)
+            startActivity(chooseMenuIntent)
         }
 
         popupViewModel.popupEvent.observe(this) { event ->

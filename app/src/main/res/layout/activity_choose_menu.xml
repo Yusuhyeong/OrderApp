@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="choose_menu_view_model"
+            type="com.samgye.orderapp.activity.viewmodel.ChooseMenuViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".activity.ChooseMenuActivity">
+
+        <ImageView
+            android:id="@+id/iv_choose_menu_img"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:src="@drawable/samgye"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/icon_arrow_left"
+            app:layout_constraintStart_toStartOf="@id/iv_choose_menu_img"
+            app:layout_constraintTop_toTopOf="@id/iv_choose_menu_img" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_choose_menu_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_choose_menu_img" >
+
+            <TextView
+                android:id="@+id/tv_choose_menu_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{choose_menu_view_model.menu_title}"
+                tools:text="백년누룽지삼계탕"
+                android:textSize="20dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/font" />
+
+            <TextView
+                android:id="@+id/tv_choose_menu_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tv_choose_menu_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_choose_menu_title"
+                android:text="@{choose_menu_view_model.menu_info}"
+                tools:text="정보"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
+                android:textColor="@color/font_gray"
+                android:fontFamily="@font/pretendard_medium" />
+
+            <TextView
+                android:id="@+id/tv_choose_menu_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="가격"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/font"
+                android:textSize="20dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@id/tv_choose_menu_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_choose_menu_info" />
+
+            <TextView
+                android:id="@+id/tv_choose_menu_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@{String.valueOf(choose_menu_view_model.menu_price)}"
+                tools:text="18000"
+                android:textSize="20dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/font"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_choose_menu_price_title"
+                app:layout_constraintEnd_toStartOf="@id/tV_choose_menu_price_dummy"
+                app:layout_constraintTop_toTopOf="@id/tv_choose_menu_price_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_choose_menu_price_title" />
+
+            <TextView
+                android:id="@+id/tV_choose_menu_price_dummy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원"
+                android:textSize="20dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/font"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_choose_menu_price"
+                app:layout_constraintStart_toEndOf="@id/tv_choose_menu_price"
+                app:layout_constraintBottom_toBottomOf="@id/tv_choose_menu_price" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_choose_menu_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_choose_menu_info" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/line_choose_menu"
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:background="@color/google_login_stroke_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_choose_menu_size_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수량"
+                android:textSize="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/font"
+                app:layout_constraintTop_toBottomOf="@id/line_choose_menu"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="1"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/border_radius_login_google_12px"
+                app:layout_constraintStart_toEndOf="@id/tv_choose_menu_size_title"
+                app:layout_constraintTop_toTopOf="@id/tv_choose_menu_size_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_choose_menu_size_title"
+                app:layout_constraintEnd_toEndOf="parent" >
+
+                <ImageView
+                    android:id="@+id/iv_minus_size"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/icon_minus"
+                    android:layout_margin="8dp"
+                    android:onClick="@{(v)->choose_menu_view_model.minusSize()}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/line_minus" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line_minus"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/google_login_stroke_btn"
+                    app:layout_constraintStart_toEndOf="@id/iv_minus_size"
+                    app:layout_constraintEnd_toStartOf="@id/tv_menu_size"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_menu_size"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:text="@{String.valueOf(choose_menu_view_model.menu_size)}"
+                    tools:text="0"
+                    android:layout_marginHorizontal="12dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/font"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toEndOf="@id/line_minus"
+                    app:layout_constraintEnd_toStartOf="@id/line_plus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line_plus"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/google_login_stroke_btn"
+                    app:layout_constraintStart_toEndOf="@id/tv_menu_size"
+                    app:layout_constraintEnd_toStartOf="@id/iv_plus_size"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_plus_size"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/icon_plus"
+                    android:layout_margin="8dp"
+                    android:onClick="@{(v)->choose_menu_view_model.plusSize()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/line_plus" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_limit_price_info"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" >
+
+                <TextView
+                    android:id="@+id/tv_limit_price_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/limit_price"
+                    android:gravity="left|center"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_limit_price_info"/>
+
+                <TextView
+                    android:id="@+id/tv_limit_price_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/limit_price_int"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textSize="14dp"
+                    android:textColor="@color/font"
+                    android:gravity="left|center"
+                    app:layout_constraintTop_toBottomOf="@id/tv_limit_price_info_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_choose_menu_order"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/order"
+                android:textSize="16dp"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:enabled="false"
+                android:background="@drawable/border_radius_state_false_12px"
+                app:layout_constraintStart_toEndOf="@id/cl_limit_price_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

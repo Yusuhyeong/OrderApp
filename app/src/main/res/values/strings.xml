@@ -31,7 +31,9 @@
     <string name="user_out">회원 탈퇴</string>
     <string name="my_store">백년 누룽지 삼계탕</string>
     <string name="order_type">주문방법</string>
-    <string name="limit_pay">최수주문</string>
+    <string name="limit_pay">최소주문</string>
+    <string name="limit_price">최소주문금액</string>
+    <string name="limit_price_int">18000원</string>
     <string name="location_info_title">위치안내</string>
     <string name="location_info_first">경기 부천시 원미구 조마루로 2</string>
     <string name="location_info_second">- 삼산체육관역 1번 출구에서 554m\n- 웅진플레이도시 1층</string>
