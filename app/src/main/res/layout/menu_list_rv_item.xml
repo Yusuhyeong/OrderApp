@@ -17,13 +17,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp">
 
         <ImageView
             android:id="@+id/iv_menu_img"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="10dp"
+            tools:src="@drawable/icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cl_menu_list_info"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,9 +34,7 @@
             android:id="@+id/cl_menu_list_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
             app:layout_constraintEnd_toStartOf="@id/iv_menu_img"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,9 +45,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{menu_item.menuTitle}"
+                tools:text="title"
                 android:textSize="16dp"
                 android:gravity="left"
-                android:layout_marginLeft="5dp"
                 android:fontFamily="@font/pretendard_bold"
                 android:textColor="@color/font"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,10 +58,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{menu_item.menuInfo}"
+                tools:text="menuInfo"
                 android:textSize="14dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:textColor="@color/font_gray"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:gravity="left"
                 app:layout_constraintStart_toStartOf="@id/tv_menu_title"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,14 +73,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{menu_item.menuPrice}"
+                tools:text="menuPrice"
                 android:textSize="16dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:textColor="@color/font"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:gravity="left"
                 app:layout_constraintStart_toStartOf="@id/tv_menu_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_menu_info"
                 app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원"
+                android:textSize="16dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/font"
+                android:layout_marginLeft="3dp"
+                android:gravity="left"
+                app:layout_constraintStart_toEndOf="@id/tv_menu_price"
+                app:layout_constraintTop_toTopOf="@id/tv_menu_price"
+                app:layout_constraintBottom_toBottomOf="@id/tv_menu_price" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

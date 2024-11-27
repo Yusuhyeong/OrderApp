@@ -17,8 +17,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_height="wrap_content" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_line"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@color/google_login_stroke_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_category_title"
@@ -26,20 +34,28 @@
             android:layout_height="wrap_content"
             android:text="@{category_item.categoryNm}"
             android:textSize="20dp"
-            android:padding="10dp"
+            tools:text="category"
+            android:gravity="left"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/pretendard_bold"
             android:textColor="@color/font"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_line" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_menu_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_category_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_category_title"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

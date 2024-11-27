@@ -29,6 +29,11 @@
     <string name="info_setting_try">개인정보 변경</string>
     <string name="alarm_setting">알람 설정</string>
     <string name="user_out">회원 탈퇴</string>
+    <string name="my_store">백년 누룽지 삼계탕</string>
+    <string name="order_type">주문방법</string>
+    <string name="limit_pay">최수주문</string>
+    <string name="location_info_title">위치안내</string>
+    <string name="location_info">경기 부천시 원미구 조마루로 2\n - 삼산체육관역 1번 출구에서 554m\n - 웅진플레이도시 1층</string>
 
     <!-- google login string -->
     <string name="default_web_client_id">289118716115-ujs0h8pni715jiosnkn4msp9689uhapd.apps.googleusercontent.com</string>

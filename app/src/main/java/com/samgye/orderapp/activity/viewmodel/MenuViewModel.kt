@@ -5,18 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.CategoryInfo
+import com.samgye.orderapp.data.ChooseListInfo
 import com.samgye.orderapp.data.MenuInfo
 
 class MenuViewModel: ViewModel() {
     private val _menu_data = MutableLiveData<List<CategoryInfo>>()
 
-    // 외부에서 관찰할 수 있는 LiveData
     val menu_data: LiveData<List<CategoryInfo>>
         get() = _menu_data
 
     private val _menu_list_title = MutableLiveData<String>()
     val menu_list_title: LiveData<String>
         get() = _menu_list_title
+
+    private val _choose_list_data = MutableLiveData<ChooseListInfo>()
+    val choose_list_data: LiveData<ChooseListInfo>
+        get() = _choose_list_data
 
 
     fun loadMenuData(title: String) {
