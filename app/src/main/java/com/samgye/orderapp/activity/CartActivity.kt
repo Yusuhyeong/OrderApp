@@ -3,6 +3,7 @@ package com.samgye.orderapp.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -23,6 +24,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var userInfoViewModel: UserInfoViewModel
     private lateinit var cartViewModel: CartViewModel
     private lateinit var cartListAdapter: CartListAdapter
+    private lateinit var orderType: String
     private val menuKey = "menuList"
     private val appCache: PersistentKVStore = SharedPrefsWrapper(Samgye.mSharedPreferences)
 
@@ -43,6 +45,38 @@ class CartActivity : AppCompatActivity() {
 
         cartListAdapter = CartListAdapter(cartViewModel)
         binding.rvCartList.adapter = cartListAdapter
+
+        orderType = intent.getStringExtra("title").toString()
+
+        if (orderType == "store") {
+            cartViewModel.setOrderType(true)
+        } else {
+            cartViewModel.setOrderType(false)
+        }
+
+        cartViewModel.order_type.observe(this) { orderType ->
+            val storeStrokeRes: Int
+            val takeoutStrokeRes: Int
+            val storeFontRes: Int
+            val takeoutFontRes: Int
+
+            if (orderType == "store") {
+                storeStrokeRes = R.drawable.border_radius_black_stroke_5dp
+                takeoutStrokeRes = R.drawable.border_radius_gray_stroke_5dp
+                storeFontRes = ContextCompat.getColor(this, R.color.font)
+                takeoutFontRes = ContextCompat.getColor(this, R.color.font_gray)
+            } else {
+                storeStrokeRes = R.drawable.border_radius_gray_stroke_5dp
+                takeoutStrokeRes = R.drawable.border_radius_black_stroke_5dp
+                storeFontRes = ContextCompat.getColor(this, R.color.font_gray)
+                takeoutFontRes = ContextCompat.getColor(this, R.color.font)
+            }
+
+            binding.clOrderTypeStoreEat.setBackgroundResource(storeStrokeRes)
+            binding.clOrderTypeTakeOut.setBackgroundResource(takeoutStrokeRes)
+            binding.tvOrderTypeStoreEat.setTextColor(storeFontRes)
+            binding.tvOrderTypeTakeOut.setTextColor(takeoutFontRes)
+        }
 
         val gson = Gson()
         val cartJson = appCache.getString(menuKey, null)

@@ -119,11 +119,13 @@ class MenuListActivity : AppCompatActivity() {
 
         binding.tvOrder.setOnClickListener {
             val cartIntent = Intent(this, CartActivity::class.java)
+            cartIntent.putExtra("title", intent.getStringExtra("title").toString())
             startActivity(cartIntent)
         }
 
         binding.ivMenuListCart.setOnClickListener {
             val cartIntent = Intent(this, CartActivity::class.java)
+            cartIntent.putExtra("title", intent.getStringExtra("title").toString())
             startActivity(cartIntent)
         }
 

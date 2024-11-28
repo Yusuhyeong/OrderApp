@@ -10,6 +10,10 @@ class CartViewModel : ViewModel() {
     val cart_menu_info: LiveData<List<CartMenuInfo>>
         get() = _cart_menu_list
 
+    private val _order_type = MutableLiveData<String>()
+    val order_type: LiveData<String>
+        get() = _order_type
+
     private val _is_cart_exist = MutableLiveData<Boolean>()
     val is_cart_exist: LiveData<Boolean>
         get() = _is_cart_exist
@@ -20,5 +24,13 @@ class CartViewModel : ViewModel() {
 
     fun setIsCartExist(isExist: Boolean) {
         _is_cart_exist.value = isExist
+    }
+
+    fun setOrderType(orderType: Boolean) {
+        if (orderType) {
+            _order_type.value = "store"
+        } else {
+            _order_type.value = "takeout"
+        }
     }
 }
