@@ -67,7 +67,7 @@
                 android:layout_height="8dp"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="3dp"
-                android:visibility="@{menu_view_model.is_has_cart ? View.VISIBLE : View.GONE}"
+                android:visibility="@{menu_view_model.is_cart_exist ? View.VISIBLE : View.GONE}"
                 android:src="@drawable/icon_circle"
                 app:layout_constraintTop_toTopOf="@id/iv_menu_list_cart"
                 app:layout_constraintRight_toRightOf="@id/iv_menu_list_cart" />
@@ -251,7 +251,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

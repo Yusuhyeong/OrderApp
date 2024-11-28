@@ -7,21 +7,14 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.MenuViewModel
 import com.samgye.orderapp.activity.viewmodel.PopupViewModel
-import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.adapter.CategoryListAdapter
-import com.samgye.orderapp.adapter.MenuListAdapter
-import com.samgye.orderapp.adapter.NoticeListAdapter
-import com.samgye.orderapp.api.TokenManager
 import com.samgye.orderapp.data.CartMenuInfo
 import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityMenuListBinding
-import com.samgye.orderapp.databinding.CategoryListRvItemBinding
-import com.samgye.orderapp.databinding.MenuListRvItemBinding
 import com.samgye.orderapp.fragment.CommonPopupFragment
 import com.samgye.orderapp.utils.PersistentKVStore
 import com.samgye.orderapp.utils.SharedPrefsWrapper
@@ -79,11 +72,6 @@ class MenuListActivity : AppCompatActivity() {
             }
         }
 
-        binding.ivMenuListBack.setOnClickListener {
-            Log.d(TAG, "menu list activity finish")
-            finish()
-        }
-
         menuViewModel.choose_list_data.observe(this) { chooseData ->
             Log.d(TAG, "menuSeq : ${chooseData.menuSeq}")
             Log.d(TAG, "menuSize : ${chooseData.menuSize}")
@@ -124,6 +112,21 @@ class MenuListActivity : AppCompatActivity() {
             binding.tvOrder.isEnabled = isEnable
         }
 
+        binding.ivMenuListBack.setOnClickListener {
+            Log.d(TAG, "menu list activity finish")
+            finish()
+        }
+
+        binding.tvOrder.setOnClickListener {
+            val cartIntent = Intent(this, CartActivity::class.java)
+            startActivity(cartIntent)
+        }
+
+        binding.ivMenuListCart.setOnClickListener {
+            val cartIntent = Intent(this, CartActivity::class.java)
+            startActivity(cartIntent)
+        }
+
         popupViewModel.popupEvent.observe(this) { event ->
             when (event) {
                 "confirm" -> {
@@ -158,7 +161,7 @@ class MenuListActivity : AppCompatActivity() {
             res = R.drawable.border_radius_state_true_12px
 
             // appCache.remove(menuKey).commit()는 현재 테스트용이므로 결제화면 구현시 주석처리
-            appCache.remove(menuKey).commit()
+//            appCache.remove(menuKey).commit()
         } else {
             Log.d(TAG, "no cart data")
             menuViewModel.setHasCart(false)

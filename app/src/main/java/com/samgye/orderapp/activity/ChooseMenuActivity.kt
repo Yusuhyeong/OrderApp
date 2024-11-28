@@ -9,12 +9,8 @@ import com.google.gson.reflect.TypeToken
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.ChooseMenuViewModel
-import com.samgye.orderapp.activity.viewmodel.MenuViewModel
-import com.samgye.orderapp.activity.viewmodel.PopupViewModel
-import com.samgye.orderapp.adapter.CategoryListAdapter
 import com.samgye.orderapp.data.CartMenuInfo
 import com.samgye.orderapp.databinding.ActivityChooseMenuBinding
-import com.samgye.orderapp.databinding.ActivityMenuListBinding
 import com.samgye.orderapp.utils.PersistentKVStore
 import com.samgye.orderapp.utils.SharedPrefsWrapper
 

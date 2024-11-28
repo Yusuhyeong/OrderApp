@@ -1,10 +1,8 @@
 package com.samgye.orderapp.activity.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.CartMenuInfo
 import com.samgye.orderapp.data.CategoryInfo
@@ -33,9 +31,9 @@ class MenuViewModel: ViewModel() {
     val cart_menu_info: LiveData<List<CartMenuInfo>>
         get() = _cart_menu_list
 
-    private val _is_has_cart = MutableLiveData<Boolean>()
-    val is_has_cart: LiveData<Boolean>
-        get() = _is_has_cart
+    private val _is_cart_exist = MutableLiveData<Boolean>()
+    val is_cart_exist: LiveData<Boolean>
+        get() = _is_cart_exist
 
     fun loadMenuData(title: String) {
         _menu_list_title.value = title
@@ -102,10 +100,9 @@ class MenuViewModel: ViewModel() {
 
     fun loadCartMenu(cartMenuInfo: List<CartMenuInfo>) {
         _cart_menu_list.value = cartMenuInfo
-        Log.d("TEST_LOG", "loadCartMenu called: ${_cart_menu_list.value}")
     }
 
     fun setHasCart(isHasCart: Boolean) {
-        _is_has_cart.value = isHasCart
+        _is_cart_exist.value = isHasCart
     }
 }

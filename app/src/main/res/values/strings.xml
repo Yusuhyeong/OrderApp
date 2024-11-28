@@ -37,7 +37,20 @@
     <string name="location_info_title">위치안내</string>
     <string name="location_info_first">경기 부천시 원미구 조마루로 2</string>
     <string name="location_info_second">- 삼산체육관역 1번 출구에서 554m\n- 웅진플레이도시 1층</string>
-
+    <string name="insert_cart">장바구니에 담기</string>
+    <string name="cart">장바구니</string>
+    <string name="cart_info">장바구니 내역</string>
+    <string name="cart_add">장바구니 추가</string>
+    <string name="can_use_point">잔액 : </string>
+    <string name="all_user_point">전액</string>
+    <string name="check_order_price">결제금액을 확인해주세요</string>
+    <string name="order_price">주문금액</string>
+    <string name="order_point">사용 포인트</string>
+    <string name="won">원</string>
+    <string name="minus">-</string>
+    <string name="total_order_price">총 주문 금액</string>
+    <string name="price">가격 :</string>
+    <string name="delete_menu">메뉴 삭제</string>
     <!-- google login string -->
     <string name="default_web_client_id">289118716115-ujs0h8pni715jiosnkn4msp9689uhapd.apps.googleusercontent.com</string>
 </resources>
