@@ -147,15 +147,26 @@ class MenuListActivity : AppCompatActivity() {
         Log.d(TAG, "MenuListActivity onResume")
         val gson = Gson()
         val cartJson = appCache.getString(menuKey, null)
+        var res: Int
+        var isEnable = false
+
         if (cartJson != null) {
             Log.d(TAG, "load cart data")
+            menuViewModel.setHasCart(true)
+            isEnable = true
             menuViewModel.loadCartMenu(gson.fromJson(cartJson, object : TypeToken<List<CartMenuInfo>>() {}.type))
+            res = R.drawable.border_radius_state_true_12px
 
             // appCache.remove(menuKey).commit()는 현재 테스트용이므로 결제화면 구현시 주석처리
             appCache.remove(menuKey).commit()
         } else {
             Log.d(TAG, "no cart data")
+            menuViewModel.setHasCart(false)
+            isEnable = false
+            res = R.drawable.border_radius_state_false_12px
         }
-    }
 
+        binding.tvOrder.setBackgroundResource(res)
+        binding.tvOrder.isEnabled = isEnable
+    }
 }

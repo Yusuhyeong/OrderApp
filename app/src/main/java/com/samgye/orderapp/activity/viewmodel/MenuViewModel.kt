@@ -33,6 +33,10 @@ class MenuViewModel: ViewModel() {
     val cart_menu_info: LiveData<List<CartMenuInfo>>
         get() = _cart_menu_list
 
+    private val _is_has_cart = MutableLiveData<Boolean>()
+    val is_has_cart: LiveData<Boolean>
+        get() = _is_has_cart
+
     fun loadMenuData(title: String) {
         _menu_list_title.value = title
         ApiClient.instance.getMenuInfo() { menu, error ->
@@ -99,5 +103,9 @@ class MenuViewModel: ViewModel() {
     fun loadCartMenu(cartMenuInfo: List<CartMenuInfo>) {
         _cart_menu_list.value = cartMenuInfo
         Log.d("TEST_LOG", "loadCartMenu called: ${_cart_menu_list.value}")
+    }
+
+    fun setHasCart(isHasCart: Boolean) {
+        _is_has_cart.value = isHasCart
     }
 }

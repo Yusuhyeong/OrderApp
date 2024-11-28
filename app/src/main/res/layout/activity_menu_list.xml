@@ -50,6 +50,28 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
+            <ImageView
+                android:id="@+id/iv_menu_list_cart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_cart"
+                android:padding="8dp"
+                android:layout_marginRight="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_is_cart"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:visibility="@{menu_view_model.is_has_cart ? View.VISIBLE : View.GONE}"
+                android:src="@drawable/icon_circle"
+                app:layout_constraintTop_toTopOf="@id/iv_menu_list_cart"
+                app:layout_constraintRight_toRightOf="@id/iv_menu_list_cart" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView

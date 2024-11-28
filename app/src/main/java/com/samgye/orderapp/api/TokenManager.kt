@@ -77,6 +77,7 @@ class TokenManager(
     override fun clear() {
         currentToken = null
         appCache.remove(tokenKey).commit()
+        appCache.remove(menuList).commit()
     }
 
     companion object {
@@ -89,6 +90,7 @@ class TokenManager(
 
         /** @suppress */
         const val tokenKey = "com.samgye.orderapp.oauth_token"
+        const val menuList = "menuList"
     }
 }
 
