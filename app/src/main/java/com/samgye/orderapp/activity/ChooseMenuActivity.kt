@@ -66,12 +66,18 @@ class ChooseMenuActivity : AppCompatActivity() {
         }
 
         binding.tvChooseMenuOrder.setOnClickListener {
-            val menuSeq = chooseMenuViewModel.menu_seq.value ?: 0
-            val menuSize = chooseMenuViewModel.menu_size.value ?: 0
+            val menuSeq = chooseMenuViewModel.menu_seq.value
+            val menuSize = chooseMenuViewModel.menu_size.value
+            val menuTitle = chooseMenuViewModel.menu_title.value
+            val menuImgUrl = chooseMenuViewModel.menu_img_url.value
+            val menuPrice = chooseMenuViewModel.menu_price.value
 
             val cartMenuInfo = CartMenuInfo(
                 menuSeq = menuSeq,
-                menuSize = menuSize
+                menuSize = menuSize,
+                menuTitle = menuTitle,
+                menuImgUrl =  menuImgUrl,
+                menuPrice = menuPrice
             )
 
             val gson = Gson()
