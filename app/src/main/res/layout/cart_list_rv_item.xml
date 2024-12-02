@@ -75,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
+            android:text="@{String.valueOf(cart_item.menuSize * cart_item.menuPrice)}"
             tools:text="18000"
             android:textSize="20dp"
             android:textColor="@color/font"

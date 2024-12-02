@@ -133,6 +133,7 @@
                             app:layout_constraintTop_toBottomOf="@id/rv_cart_list" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_cart_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
@@ -309,7 +310,8 @@
                             android:id="@+id/tv_use_point"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@{String.valueOf(cart_view_model.use_point)}"
+                            tools:text="0"
                             android:textSize="16dp"
                             android:fontFamily="@font/pretendard_medium"
                             android:textColor="@color/font_gray"
@@ -387,6 +389,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:text="@{String.valueOf(cart_view_model.total_price)}"
                             tools:text="18000"
                             android:textSize="16dp"
                             android:fontFamily="@font/pretendard_medium"
@@ -443,6 +446,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:text="@{String.valueOf(cart_view_model.use_point)}"
                             tools:text="450"
                             android:textSize="16dp"
                             android:fontFamily="@font/pretendard_medium"
@@ -493,6 +497,7 @@
                             android:id="@+id/tv_total_order_price"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(cart_view_model.puchase_price)}"
                             tools:text="17550"
                             android:gravity="right"
                             android:textSize="20dp"

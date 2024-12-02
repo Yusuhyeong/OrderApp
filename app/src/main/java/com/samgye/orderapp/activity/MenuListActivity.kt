@@ -80,6 +80,7 @@ class MenuListActivity : AppCompatActivity() {
             Log.d(TAG, "menuTitle : ${chooseData.menuTitle}")
 
             val chooseMenuIntent = Intent(this, ChooseMenuActivity::class.java)
+            chooseMenuIntent.putExtra("title", menuViewModel.menu_list_title.value)
             chooseMenuIntent.putExtra("menuTitle", chooseData.menuTitle)
             chooseMenuIntent.putExtra("menuInfo", chooseData.menuInfo)
             chooseMenuIntent.putExtra("menuSeq", chooseData.menuSeq)

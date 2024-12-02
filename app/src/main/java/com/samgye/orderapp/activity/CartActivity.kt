@@ -2,6 +2,8 @@ package com.samgye.orderapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -47,7 +49,9 @@ class CartActivity : AppCompatActivity() {
 
         orderType = intent.getStringExtra("title").toString()
 
-        if (orderType == "store") {
+        Log.d(TAG, "orderType: $orderType")
+
+        if (orderType == "매장 식사") {
             cartViewModel.setOrderType(true)
         } else {
             cartViewModel.setOrderType(false)
@@ -59,7 +63,7 @@ class CartActivity : AppCompatActivity() {
             val storeFontRes: Int
             val takeoutFontRes: Int
 
-            if (orderType == "store") {
+            if (orderType == "매장 식사") {
                 storeStrokeRes = R.drawable.border_radius_black_stroke_5dp
                 takeoutStrokeRes = R.drawable.border_radius_gray_stroke_5dp
                 storeFontRes = ContextCompat.getColor(this, R.color.font)
@@ -83,6 +87,7 @@ class CartActivity : AppCompatActivity() {
         if (cartJson != null) {
             Log.d(TAG, "load cart data")
             cartViewModel.loadCartMenu(gson.fromJson(cartJson, object : TypeToken<List<CartMenuInfo>>() {}.type))
+            cartViewModel.setTotalPrice()
         } else {
             Log.d(TAG, "no cart data")
             cartViewModel.loadCartMenu(emptyList())
@@ -104,6 +109,8 @@ class CartActivity : AppCompatActivity() {
                 cartViewModel.setIsCartExist(true)
                 Log.d(TAG, list.toString())
                 cartListAdapter.submitList(list)
+
+                cartViewModel.setTotalPrice()
             }
 
             binding.tvOrder.setBackgroundResource(res)
@@ -113,6 +120,37 @@ class CartActivity : AppCompatActivity() {
         binding.ivCartBack.setOnClickListener {
             finish()
         }
+
+        binding.clCartAdd.setOnClickListener {
+            finish()
+        }
+
+        binding.etUsePoint.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (!s.isNullOrEmpty()) {
+                    val currentPoint = s.toString().toInt()
+                    val maxPoint = userInfoViewModel.user_info.value?.point ?: 0
+
+                    if (currentPoint > maxPoint) {
+                        cartViewModel.setUsePoint(maxPoint.toString())
+                        binding.etUsePoint.setText(maxPoint.toString())
+                        binding.etUsePoint.setSelection(maxPoint.toString().length)
+                    } else {
+                        cartViewModel.setUsePoint(s.toString())
+                    }
+                } else {
+                    cartViewModel.setUsePoint("0")
+                }
+            }
+
+        })
     }
 
     override fun onPause() {
