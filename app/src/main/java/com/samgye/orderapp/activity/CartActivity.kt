@@ -30,7 +30,6 @@ class CartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart)
 
         binding = ActivityCartBinding.inflate(layoutInflater)
         val view = binding.root
@@ -86,18 +85,55 @@ class CartActivity : AppCompatActivity() {
             cartViewModel.loadCartMenu(gson.fromJson(cartJson, object : TypeToken<List<CartMenuInfo>>() {}.type))
         } else {
             Log.d(TAG, "no cart data")
+            cartViewModel.loadCartMenu(emptyList())
         }
 
-        cartViewModel.cart_menu_info.observe(this) { list ->
+        cartViewModel.cart_menu_list.observe(this) { list ->
+            val res: Int
+            var isEnable = false
+
             if (list.isEmpty()) {
                 // 비어있을 때, 비어있는 화면 보여주기
+                res = R.drawable.border_radius_state_false_12px
+                isEnable = false
                 cartViewModel.setIsCartExist(false)
             } else {
                 // 주문 화면 보여주기
+                res = R.drawable.border_radius_state_true_12px
+                isEnable = true
                 cartViewModel.setIsCartExist(true)
                 Log.d(TAG, list.toString())
                 cartListAdapter.submitList(list)
             }
+
+            binding.tvOrder.setBackgroundResource(res)
+            binding.tvOrder.isEnabled = isEnable
+        }
+
+        binding.ivCartBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "CartActivity onPause()")
+
+        val cartMenuList = cartViewModel.cart_menu_list.value
+
+        if (cartMenuList?.isEmpty() == true) {
+            Log.d(TAG, "empty, remove")
+
+            appCache.remove(menuKey)
+            appCache.commit()
+        } else {
+            Log.d(TAG, "not empty, save")
+
+            val gson = Gson()
+            val cartJson = gson.toJson(cartMenuList)
+
+            appCache.putString(menuKey, cartJson)
+            appCache.commit()
         }
     }
 }

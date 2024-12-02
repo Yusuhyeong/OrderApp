@@ -152,11 +152,11 @@ class MenuListActivity : AppCompatActivity() {
         Log.d(TAG, "MenuListActivity onResume")
         val gson = Gson()
         val cartJson = appCache.getString(menuKey, null)
-        var res: Int
+        val res: Int
         var isEnable = false
 
         if (cartJson != null) {
-            Log.d(TAG, "load cart data")
+            Log.d(TAG, "load cart data, $cartJson")
             menuViewModel.setHasCart(true)
             isEnable = true
             menuViewModel.loadCartMenu(gson.fromJson(cartJson, object : TypeToken<List<CartMenuInfo>>() {}.type))

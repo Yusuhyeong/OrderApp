@@ -67,25 +67,60 @@ class ChooseMenuActivity : AppCompatActivity() {
             val menuTitle = chooseMenuViewModel.menu_title.value
             val menuImgUrl = chooseMenuViewModel.menu_img_url.value
             val menuPrice = chooseMenuViewModel.menu_price.value
+            var isChange = false
 
-            val cartMenuInfo = CartMenuInfo(
-                menuSeq = menuSeq,
-                menuSize = menuSize,
-                menuTitle = menuTitle,
-                menuImgUrl =  menuImgUrl,
-                menuPrice = menuPrice
-            )
+            var cartMenuInfo: CartMenuInfo
 
             val gson = Gson()
-
             val beforeMenu = appCache.getString(menuKey, null)
-            val afterMenu: MutableList<CartMenuInfo> = if (beforeMenu != null) {
-                gson.fromJson(beforeMenu, object : TypeToken<MutableList<CartMenuInfo>>() {}.type)
-            } else {
-                mutableListOf()
-            }
+            val afterMenu: MutableList<CartMenuInfo>
 
-            afterMenu.addAll(listOf(cartMenuInfo))
+            if (beforeMenu != null) {
+                val beforeCartList: MutableList<CartMenuInfo> = gson.fromJson(beforeMenu, object : TypeToken<List<CartMenuInfo>>() {}.type)
+
+                for(i: Int in beforeCartList.indices) {
+                    if (beforeCartList[i].menuSeq == menuSeq) {
+                        isChange = true
+                        cartMenuInfo = CartMenuInfo(
+                            menuSeq = menuSeq,
+                            menuSize = beforeCartList[i].menuSize?.plus(menuSize!!),
+                            menuTitle = menuTitle,
+                            menuImgUrl =  menuImgUrl,
+                            menuPrice = menuPrice
+                        )
+                        beforeCartList[i] = cartMenuInfo
+                        break
+                    } else {
+                        isChange = false
+                    }
+                }
+
+                if (isChange) {
+                    afterMenu = beforeCartList
+                } else {
+                    afterMenu = gson.fromJson(beforeMenu, object : TypeToken<MutableList<CartMenuInfo>>() {}.type)
+                    cartMenuInfo = CartMenuInfo(
+                        menuSeq = menuSeq,
+                        menuSize = menuSize,
+                        menuTitle = menuTitle,
+                        menuImgUrl =  menuImgUrl,
+                        menuPrice = menuPrice
+                    )
+                    afterMenu.addAll(listOf(cartMenuInfo))
+                }
+            } else {
+                afterMenu = mutableListOf()
+
+                cartMenuInfo = CartMenuInfo(
+                    menuSeq = menuSeq,
+                    menuSize = menuSize,
+                    menuTitle = menuTitle,
+                    menuImgUrl =  menuImgUrl,
+                    menuPrice = menuPrice
+                )
+
+                afterMenu.add(cartMenuInfo)
+            }
 
             val reCartMenuInfo = gson.toJson(afterMenu)
             Log.d(TAG, "reCartMenuInfo : $reCartMenuInfo")

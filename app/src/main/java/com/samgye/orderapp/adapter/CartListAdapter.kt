@@ -14,6 +14,20 @@ class CartListAdapter(private val viewModel: CartViewModel) : ListAdapter<CartMe
         fun bind(viewModel: CartViewModel, cartMenuInfo: CartMenuInfo) {
             binding.cartViewModel = viewModel
             binding.cartItem = cartMenuInfo
+
+            binding.ivMinusSize.setOnClickListener {
+                if (cartMenuInfo.menuSize!! > 0) {
+                    val updatedItem = cartMenuInfo.copy(menuSize = cartMenuInfo.menuSize - 1)
+                    viewModel.updateCartMenu(updatedItem)
+                }
+            }
+
+            binding.ivPlusSize.setOnClickListener {
+                if (cartMenuInfo.menuSize!! > 0) {
+                    val updatedItem = cartMenuInfo.copy(menuSize = cartMenuInfo.menuSize + 1)
+                    viewModel.updateCartMenu(updatedItem)
+                }
+            }
         }
     }
 

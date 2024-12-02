@@ -171,18 +171,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_menu"
-            android:layout_marginTop="16dp"
-            android:textSize="18dp"
-            android:textColor="@color/font"
-            android:fontFamily="@font/pretendard_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_menu_size_change" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
