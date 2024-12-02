@@ -79,6 +79,8 @@ class CartActivity : AppCompatActivity() {
             binding.clOrderTypeTakeOut.setBackgroundResource(takeoutStrokeRes)
             binding.tvOrderTypeStoreEat.setTextColor(storeFontRes)
             binding.tvOrderTypeTakeOut.setTextColor(takeoutFontRes)
+
+            cartViewModel.checkCanOrder()
         }
 
         val gson = Gson()
@@ -94,23 +96,29 @@ class CartActivity : AppCompatActivity() {
         }
 
         cartViewModel.cart_menu_list.observe(this) { list ->
-            val res: Int
-            var isEnable = false
-
             if (list.isEmpty()) {
-                // 비어있을 때, 비어있는 화면 보여주기
-                res = R.drawable.border_radius_state_false_12px
-                isEnable = false
                 cartViewModel.setIsCartExist(false)
             } else {
-                // 주문 화면 보여주기
-                res = R.drawable.border_radius_state_true_12px
-                isEnable = true
                 cartViewModel.setIsCartExist(true)
                 Log.d(TAG, list.toString())
                 cartListAdapter.submitList(list)
 
                 cartViewModel.setTotalPrice()
+            }
+
+            cartViewModel.checkCanOrder()
+        }
+
+        cartViewModel.is_can_order.observe(this) {
+            val res: Int
+            var isEnable = false
+
+            if (it) {
+                res = R.drawable.border_radius_state_true_12px
+                isEnable = true
+            } else {
+                res = R.drawable.border_radius_state_false_12px
+                isEnable = false
             }
 
             binding.tvOrder.setBackgroundResource(res)

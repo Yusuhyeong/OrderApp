@@ -31,6 +31,9 @@ class CartViewModel : ViewModel() {
     val puchase_price: LiveData<Int>
         get() = _puchase_price
 
+    private val _is_can_order = MutableLiveData<Boolean>()
+    val is_can_order: LiveData<Boolean>
+        get() = _is_can_order
 
     fun loadCartMenu(cartMenuList: List<CartMenuInfo>) {
         _cart_menu_list.value = cartMenuList
@@ -95,6 +98,21 @@ class CartViewModel : ViewModel() {
             _puchase_price.value = totalPrice?.minus(point)
         } else {
             _puchase_price.value = totalPrice
+        }
+    }
+
+    fun checkCanOrder() {
+        val orderType = _order_type.value
+        val totalPrice = _total_price.value
+
+        if (orderType == "포장 주문") {
+            if (totalPrice != null) {
+                _is_can_order.value = totalPrice > 18000
+            } else {
+                _is_can_order.value = false
+            }
+        } else {
+            _is_can_order.value = true
         }
     }
 }
