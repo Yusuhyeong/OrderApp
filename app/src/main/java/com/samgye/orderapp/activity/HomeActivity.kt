@@ -3,14 +3,19 @@ package com.samgye.orderapp.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
+import com.samgye.orderapp.adapter.EventListAdapter
 import com.samgye.orderapp.api.ApiClient
+import com.samgye.orderapp.data.EventInfo
 import com.samgye.orderapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
@@ -18,6 +23,12 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var userInfoViewModel: UserInfoViewModel
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var eventListAdapter: EventListAdapter
+
+    private val handler = Handler(Looper.getMainLooper())
+    private var currentPage = 0
+    private var totalPage = 0
+    private var eventListSize = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +43,46 @@ class HomeActivity : AppCompatActivity() {
         binding.homeViewModel = homeViewModel
         binding.userViewModel = userInfoViewModel
         binding.lifecycleOwner = this
+
+        eventListAdapter = EventListAdapter(homeViewModel, this)
+        binding.vpEvent.adapter = eventListAdapter
+        binding.vpEvent.registerOnPageChangeCallback(pageChangeCallback)
+
+        homeViewModel.loadEventInfo()
+
+        homeViewModel.event_list.observe(this) { baseEventList ->
+            if (baseEventList != null) {
+                Log.d(TAG, "eventList size : ${baseEventList.size}")
+                eventListSize = baseEventList.size
+
+                val eventList: MutableList<EventInfo> = mutableListOf()
+                for (i: Int in 0..<50) {
+                    for (element in baseEventList) {
+                        eventList.add(element)
+                    }
+                }
+                totalPage = eventList.size
+
+                eventListAdapter.submitList(eventList)
+                currentPage = eventListSize * 25 + 1
+                homeViewModel.setCurrentPage(currentPage, eventListSize)
+                homeViewModel.setTotalPage(eventListSize)
+                binding.vpEvent.setCurrentItem(currentPage, true)
+                startAutoScroll()
+            }
+        }
+
+        // event banner click event 처리
+        homeViewModel.click_event_info.observe(this) { eventInfo ->
+            if (eventInfo != null) {
+                Log.d(TAG, "eventTitle : ${eventInfo.eventTitle}")
+                Log.d(TAG, "eventCont : ${eventInfo.eventCont}")
+                Log.d(TAG, "eventSeq : ${eventInfo.eventSeq}")
+                Log.d(TAG, "eventDttm : ${eventInfo.eventDttm}")
+                Log.d(TAG, "eventUuid : ${eventInfo.eventUuid}")
+                Log.d(TAG, "eventImg : ${eventInfo.eventImg}")
+            }
+        }
 
         homeViewModel.is_menu_visible.observe(this) { visible ->
             Log.d(TAG, "menu status : $visible")
@@ -108,5 +159,30 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            currentPage = position
+            homeViewModel.setCurrentPage(currentPage, eventListSize)
+            startAutoScroll()
+        }
+    }
+
+    private fun startAutoScroll() {
+        handler.removeCallbacksAndMessages(null)
+
+        val runnable = object : Runnable {
+            override fun run() {
+                if (totalPage > 0) {
+                    currentPage += 1
+//                    currentPage = (currentPage + 1) % totalPage
+                    binding.vpEvent.setCurrentItem(currentPage, true)
+                    handler.postDelayed(this, 3000)
+                }
+            }
+        }
+        handler.postDelayed(runnable, 3000)
     }
 }
