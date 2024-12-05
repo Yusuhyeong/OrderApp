@@ -10,6 +10,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.MyApp
+import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.LoginViewModel
 import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
@@ -33,8 +34,7 @@ class IntroActivity : AppCompatActivity() {
         setContentView(view)
 
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        val app = applicationContext as MyApp
-        userInfoViewModel = app.userInfoViewModel
+        userInfoViewModel = Samgye.userInfoViewModel
         popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
 
 

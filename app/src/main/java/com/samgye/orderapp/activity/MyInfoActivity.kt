@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
+import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.databinding.ActivityMyInfoBinding
 
@@ -18,8 +19,7 @@ class MyInfoActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val app = applicationContext as MyApp
-        userInfoViewModel = app.userInfoViewModel
+        userInfoViewModel = Samgye.userInfoViewModel
 
         binding.userInfoViewModel = userInfoViewModel
         binding.lifecycleOwner = this

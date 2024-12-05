@@ -82,8 +82,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        val app = applicationContext as MyApp
-        userInfoViewModel = app.userInfoViewModel
+        userInfoViewModel = Samgye.userInfoViewModel
         popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
 
         binding.loginViewModel = loginViewModel

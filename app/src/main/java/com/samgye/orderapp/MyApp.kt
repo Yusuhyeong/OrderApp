@@ -17,7 +17,7 @@ class MyApp: Application() {
         userInfoViewModel = ViewModelProvider(
             ViewModelStore(),
             ViewModelProvider.AndroidViewModelFactory(this)
-        ).get(UserInfoViewModel::class.java)
+        )[UserInfoViewModel::class.java]
 
         KakaoSdk.init(this.applicationContext, "1625c91b92367b550db25405ba1d235e")
         val keyHash = Utility.getKeyHash(this)
@@ -25,5 +25,6 @@ class MyApp: Application() {
 
         Samgye.applicationContext = this
         Samgye.mSharedPreferences = this.getSharedPreferences("samgyeOrderApp", Context.MODE_PRIVATE)
+        Samgye.userInfoViewModel = this.userInfoViewModel
     }
 }

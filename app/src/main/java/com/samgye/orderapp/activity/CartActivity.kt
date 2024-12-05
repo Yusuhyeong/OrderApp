@@ -37,8 +37,7 @@ class CartActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
-        val app = applicationContext as MyApp
-        userInfoViewModel = app.userInfoViewModel
+        userInfoViewModel = Samgye.userInfoViewModel
 
         binding.cartViewModel = cartViewModel
         binding.userViewModel = userInfoViewModel

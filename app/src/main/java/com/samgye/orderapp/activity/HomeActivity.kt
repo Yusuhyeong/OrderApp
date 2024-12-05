@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
+import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.adapter.EventListAdapter
@@ -37,8 +38,7 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        val app = applicationContext as MyApp
-        userInfoViewModel = app.userInfoViewModel
+        userInfoViewModel = Samgye.userInfoViewModel
 
         binding.homeViewModel = homeViewModel
         binding.userViewModel = userInfoViewModel
@@ -177,7 +177,6 @@ class HomeActivity : AppCompatActivity() {
             override fun run() {
                 if (totalPage > 0) {
                     currentPage += 1
-//                    currentPage = (currentPage + 1) % totalPage
                     binding.vpEvent.setCurrentItem(currentPage, true)
                     handler.postDelayed(this, 3000)
                 }
