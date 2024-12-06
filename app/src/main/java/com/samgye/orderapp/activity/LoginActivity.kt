@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         userInfoViewModel = Samgye.userInfoViewModel
-        popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
+        popupViewModel = Samgye.popupViewModel
 
         binding.loginViewModel = loginViewModel
         binding.lifecycleOwner = this

@@ -32,7 +32,7 @@ class UserNameActivity : AppCompatActivity() {
         setContentView(view)
 
         userInfoViewModel = Samgye.userInfoViewModel
-        popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
+        popupViewModel = Samgye.popupViewModel
 
         binding.userViewModel = userInfoViewModel
         binding.lifecycleOwner = this

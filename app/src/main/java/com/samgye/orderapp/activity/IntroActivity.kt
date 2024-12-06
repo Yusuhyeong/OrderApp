@@ -35,7 +35,7 @@ class IntroActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         userInfoViewModel = Samgye.userInfoViewModel
-        popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
+        popupViewModel = Samgye.popupViewModel
 
 
         if (isNetworkConnected()) {

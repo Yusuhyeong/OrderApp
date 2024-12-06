@@ -13,11 +13,14 @@ import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
+import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.adapter.EventListAdapter
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.EventInfo
+import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityHomeBinding
+import com.samgye.orderapp.fragment.CommonPopupFragment
 
 class HomeActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
@@ -25,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var userInfoViewModel: UserInfoViewModel
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var eventListAdapter: EventListAdapter
+    private lateinit var popupViewModel: PopupViewModel
 
     private val handler = Handler(Looper.getMainLooper())
     private var currentPage = 0
@@ -39,6 +43,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(view)
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         userInfoViewModel = Samgye.userInfoViewModel
+        popupViewModel = Samgye.popupViewModel
 
         binding.homeViewModel = homeViewModel
         binding.userViewModel = userInfoViewModel
@@ -108,21 +113,27 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.cl_store_eat.toString(), R.id.cl_order_in_menu.toString() -> { // 매장 식사
                     Log.d(TAG, "매장 식사 클릭")
-                    val menuListIntent = Intent(this, MenuListActivity::class.java)
-                    menuListIntent.putExtra("title", "매장 식사")
-                    startActivity(menuListIntent)
+                    if (!ApiClient.instance.hasToken()) {
+                        showPopup("로그인", "로그인 후\n해당 서비스를 이용해주세요.", true)
+                    } else {
+                        val menuListIntent = Intent(this, MenuListActivity::class.java)
+                        menuListIntent.putExtra("title", "매장 식사")
+                        startActivity(menuListIntent)
+                    }
                 }
                 R.id.cl_take_out.toString() -> { // 포장 주문
                     Log.d(TAG, "포장 주문 클릭")
-                    val menuListIntent = Intent(this, MenuListActivity::class.java)
-                    menuListIntent.putExtra("title", "포장 주문")
-                    startActivity(menuListIntent)
+                    if (!ApiClient.instance.hasToken()) {
+                        showPopup("로그인", "로그인 후\n해당 서비스를 이용해주세요.", true)
+                    } else {
+                        val menuListIntent = Intent(this, MenuListActivity::class.java)
+                        menuListIntent.putExtra("title", "포장 주문")
+                        startActivity(menuListIntent)
+                    }
                 }
                 R.id.tv_menu_logout.toString() -> { // 로그아웃
                     Log.d(TAG, "로그 아웃 클릭")
-                    ApiClient.instance.logout()
-                    userInfoViewModel.clearUserInfo()
-                    homeViewModel.setMenuVisible(false)
+                    showPopup("로그아웃", "로그아웃을 진행하시겠습니까?", false)
                 }
                 R.id.tv_menu_my_info.toString() -> { // 내정보
                     Log.d(TAG, "내정보 클릭")
@@ -131,6 +142,11 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.cl_order_list_in_menu.toString() -> { // 주문 내역
                     Log.d(TAG, "주문 내역 클릭")
+                    if (!ApiClient.instance.hasToken()) {
+                        showPopup("로그인", "로그인 후\n해당 서비스를 이용해주세요.", true)
+                    } else {
+                        // 추가
+                    }
                 }
                 R.id.cl_find_store_in_menu.toString() -> { // 가게 찾기
                     Log.d(TAG, "가게 찾기 클릭")
@@ -145,7 +161,7 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(noticeIntent)
                 }
                 R.id.cl_notice_in_menu.toString() -> {
-                    Log.d(TAG, "메뉴 화면 공지사항 클릭")
+                    Log.d(TAG, "메뉴 화면 클릭")
                     val noticeIntent = Intent(this, NoticeActivity::class.java)
                     startActivity(noticeIntent)
                 }
@@ -156,6 +172,21 @@ class HomeActivity : AppCompatActivity() {
                 R.id.iv_menu.toString() -> {
                     Log.d(TAG, "상단 메뉴 열기")
                     homeViewModel.setMenuVisible(true)
+                }
+            }
+        }
+
+        popupViewModel.popupEvent.observe(this) { event ->
+            when(event) {
+                "confirm" -> {
+                    if (popupViewModel.popup_data.value?.title == "로그아웃") {
+                        ApiClient.instance.logout()
+                        userInfoViewModel.clearUserInfo()
+                        homeViewModel.setMenuVisible(false)
+                    } else {
+                        val loginIntent = Intent(this, LoginActivity::class.java)
+                        startActivity(loginIntent)
+                    }
                 }
             }
         }
@@ -183,5 +214,11 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         handler.postDelayed(runnable, 3000)
+    }
+
+    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
+        val popupData = PopupData(title, detail, isOneBtn)
+        val popup = CommonPopupFragment(popupData, popupViewModel)
+        popup.show(supportFragmentManager, "CommonPopup")
     }
 }

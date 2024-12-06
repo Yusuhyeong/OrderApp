@@ -17,6 +17,7 @@ class NoticeActivity : AppCompatActivity() {
     private lateinit var noticeListFragment: NoticeListFragment
     private lateinit var noticeDetailFragment: NoticeDetailFragment
     private lateinit var viewModel: NoticeViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notice)

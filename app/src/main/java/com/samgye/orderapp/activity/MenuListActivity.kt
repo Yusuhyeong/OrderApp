@@ -37,7 +37,7 @@ class MenuListActivity : AppCompatActivity() {
         setContentView(view)
 
         menuViewModel = ViewModelProvider(this)[MenuViewModel::class.java]
-        popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
+        popupViewModel = Samgye.popupViewModel
 
         binding.menuViewModel = menuViewModel
         binding.lifecycleOwner = this

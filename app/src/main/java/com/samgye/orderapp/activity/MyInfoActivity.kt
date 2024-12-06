@@ -26,7 +26,7 @@ class MyInfoActivity : AppCompatActivity() {
         setContentView(view)
 
         userInfoViewModel = Samgye.userInfoViewModel
-        popupViewModel = ViewModelProvider(this)[PopupViewModel::class.java]
+        popupViewModel = Samgye.popupViewModel
 
         binding.userInfoViewModel = userInfoViewModel
         binding.lifecycleOwner = this
