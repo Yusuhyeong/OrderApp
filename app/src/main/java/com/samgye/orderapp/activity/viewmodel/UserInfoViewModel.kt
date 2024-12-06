@@ -1,7 +1,6 @@
 package com.samgye.orderapp.activity.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,9 +19,7 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
     val username_value: LiveData<String>
         get() = _username_value
 
-    val _username_api_state = MutableLiveData<String>()
-    val username_api_state: LiveData<String>
-        get() = _username_api_state
+    val username_api_state = SingleLiveEvent<String>()
 
     fun loadUserInfo() {
         ApiClient.instance.userInfo() { result, error ->
@@ -50,7 +47,6 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
                                     // error
                                 } else {
                                     userPoint = point.point
-                                    _username_value.value = username
                                     val userInfo = UserInfo(username, snsType, userPoint, loginStatus)
 
                                     _user_info.value = userInfo
@@ -76,13 +72,13 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
         val username = UsernameRequest(username_value.value.toString())
         ApiClient.instance.updateUserName(username) { data, error ->
             if (error != null) {
-                _username_api_state.value = "error"
+                username_api_state.value = "error"
             } else {
                 if (data != null) {
                     if (data == 1) {
-                        _username_api_state.value = data.toString()
+                        username_api_state.value = data.toString()
                     } else {
-                        _username_api_state.value = data.toString()
+                        username_api_state.value = data.toString()
                     }
                 }
             }

@@ -7,13 +7,10 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
-import com.samgye.orderapp.api.ApiClient
-import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityUserNameBinding
 import com.samgye.orderapp.fragment.CommonPopupFragment
@@ -36,6 +33,8 @@ class UserNameActivity : AppCompatActivity() {
 
         binding.userViewModel = userInfoViewModel
         binding.lifecycleOwner = this
+
+        userInfoViewModel.setUsernameValue("")
 
         userInfoViewModel.username_api_state.observe(this) { state ->
             if (state != null) {
@@ -94,12 +93,15 @@ class UserNameActivity : AppCompatActivity() {
         })
 
         binding.ivUsernameBack.setOnClickListener {
-            val username = userInfoViewModel.username_value.value
+            val username = userInfoViewModel.user_info.value?.userName
+//            val username = userInfoViewModel.username_value.value
             if (username.isNullOrEmpty()) {
                 Log.d(TAG, "username $username")
                 showPopup("설정 확인", "닉네임 없이\n서비스를 이용하실 수 없습니다.", false)
             } else {
                 Log.d(TAG, "username $username")
+                userInfoViewModel.setUsernameValue(username)
+                binding.etUsernameSet.setText(username)
                 finish()
             }
         }
@@ -109,5 +111,17 @@ class UserNameActivity : AppCompatActivity() {
         val popupData = PopupData(title, detail, isOneBtn)
         val popup = CommonPopupFragment(popupData, popupViewModel)
         popup.show(supportFragmentManager, "CommonPopup")
+    }
+
+    override fun onBackPressed() {
+        val username = userInfoViewModel.user_info.value?.userName
+        if (username.isNullOrEmpty()) {
+            Log.d(TAG, "username $username")
+            showPopup("설정 확인", "닉네임 없이\n서비스를 이용하실 수 없습니다.", false)
+        } else {
+            userInfoViewModel.setUsernameValue(username)
+            binding.etUsernameSet.setText(username)
+            super.onBackPressed()
+        }
     }
 }

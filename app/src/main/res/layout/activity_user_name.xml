@@ -111,6 +111,8 @@
                 android:id="@+id/et_username_set"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:hint="@{user_view_model.user_info.userName}"
+                android:textColorHint="@color/font_gray"
                 android:maxLength="10"
                 android:background="@android:color/transparent"
                 android:textColor="@android:color/transparent"

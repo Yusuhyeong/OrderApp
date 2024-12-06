@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
-import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
@@ -179,7 +178,7 @@ class HomeActivity : AppCompatActivity() {
         popupViewModel.popupEvent.observe(this) { event ->
             when(event) {
                 "confirm" -> {
-                    if (popupViewModel.popup_data.value?.title == "로그아웃") {
+                    if (popupViewModel.popupData.value?.title == "로그아웃") {
                         ApiClient.instance.logout()
                         userInfoViewModel.clearUserInfo()
                         homeViewModel.setMenuVisible(false)
