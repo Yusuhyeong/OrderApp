@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.samgye.orderapp.api.ApiClient
+import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.data.UserInfo
 
 class UserInfoViewModel(application: Application) : AndroidViewModel(application) {
@@ -13,41 +14,47 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
     val user_info: LiveData<UserInfo>
         get() = _user_info
 
-//    private val _is_username_null = MutableLiveData<Boolean>()
-//    val is_username_null: LiveData<Boolean>
-//        get() = _is_username_null
-
     val is_username_null = SingleLiveEvent<Boolean>()
+
+    private val _username_value = MutableLiveData<String>()
+    val username_value: LiveData<String>
+        get() = _username_value
+
+    val _username_api_state = MutableLiveData<String>()
+    val username_api_state: LiveData<String>
+        get() = _username_api_state
 
     fun loadUserInfo() {
         ApiClient.instance.userInfo() { result, error ->
-            var username: String
-            var snsType: String
+            val username: String
+            val snsType: String
             var userPoint: Int
             val loginStatus = ApiClient.instance.hasToken()
 
             if (error != null) {
                 _user_info.value = null
             } else {
-                if (result?.username == null) {
-                    is_username_null.value = true
-                } else {
+                if (result != null) {
                     username = result.username
-                    snsType = result.snsType
+                    if (username.isNullOrEmpty()) {
+                        is_username_null.value = true
+                        _username_value.value = null
+                    } else {
+                        snsType = result.snsType
 
-                    ApiClient.instance.userDetailInfo() { point, error ->
-                        if (error != null) {
-                            // error
-                        } else {
-                            if (point?.point == null) {
+                        ApiClient.instance.userDetailInfo() { point, error ->
+                            if (error != null) {
                                 // error
                             } else {
-                                userPoint = point.point
+                                if (point?.point == null) {
+                                    // error
+                                } else {
+                                    userPoint = point.point
+                                    _username_value.value = username
+                                    val userInfo = UserInfo(username, snsType, userPoint, loginStatus)
 
-                                Log.d("UserInfoViewModel", "username : $username, snsType : $snsType, point : $userPoint, loginStatus: $loginStatus")
-                                val userInfo = UserInfo(username, snsType, userPoint, loginStatus)
-
-                                _user_info.value = userInfo
+                                    _user_info.value = userInfo
+                                }
                             }
                         }
                     }
@@ -59,5 +66,26 @@ class UserInfoViewModel(application: Application) : AndroidViewModel(application
     fun clearUserInfo() {
         val userInfo = UserInfo(null, null, null, ApiClient.instance.hasToken())
         _user_info.value = userInfo
+    }
+
+    fun setUsernameValue(username: String) {
+        _username_value.value = username
+    }
+
+    fun setUsername() {
+        val username = UsernameRequest(username_value.value.toString())
+        ApiClient.instance.updateUserName(username) { data, error ->
+            if (error != null) {
+                _username_api_state.value = "error"
+            } else {
+                if (data != null) {
+                    if (data == 1) {
+                        _username_api_state.value = data.toString()
+                    } else {
+                        _username_api_state.value = data.toString()
+                    }
+                }
+            }
+        }
     }
 }

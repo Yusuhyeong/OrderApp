@@ -2,7 +2,6 @@ package com.samgye.orderapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
@@ -13,7 +12,6 @@ class MyInfoActivity : AppCompatActivity() {
     private lateinit var userInfoViewModel: UserInfoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_info)
 
         binding = ActivityMyInfoBinding.inflate(layoutInflater)
         val view = binding.root
