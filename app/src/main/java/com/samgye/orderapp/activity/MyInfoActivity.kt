@@ -37,7 +37,7 @@ class MyInfoActivity : AppCompatActivity() {
         }
 
         binding.tvLogout.setOnClickListener {
-            showPopup("로그아웃", "로그아웃을\n진행하시겠습니까?", false)
+            showPopup("로그아웃", "로그아웃을 진행하시겠습니까?", false)
         }
 
         popupViewModel.popupEvent.observe(this) { event ->
