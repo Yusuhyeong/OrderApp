@@ -49,7 +49,6 @@ class NoticeActivity : AppCompatActivity() {
             Log.d(TAG, "is_back_click observe")
             if (supportFragmentManager.backStackEntryCount > 0) {
                 supportFragmentManager.popBackStack()
-//                    viewModel.setIsBackClick()
             } else {
                 super.onBackPressed()
             }

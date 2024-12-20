@@ -4,12 +4,13 @@ import android.util.Log
 import com.samgye.orderapp.api.network.ApiFactory
 import com.samgye.orderapp.api.request.LoginRequest
 import com.samgye.orderapp.api.request.NoticeDetailRequest
+import com.samgye.orderapp.api.request.OrderRequest
 import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.api.response.BaseResponse
 import com.samgye.orderapp.api.response.NoticeDetailResponse
 import com.samgye.orderapp.api.response.NoticeInfoResponse
-import com.samgye.orderapp.api.response.ResponseMenuData
-import com.samgye.orderapp.api.response.ResponseMenuList
+import com.samgye.orderapp.api.response.MenuDataResponse
+import com.samgye.orderapp.api.response.MenuListResponse
 import com.samgye.orderapp.api.response.TokenResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.api.response.UserDetailResponse
@@ -132,11 +133,11 @@ class ApiClient (
         })
     }
 
-    fun getMenuInfo(callback: (data: List<ResponseMenuData<List<ResponseMenuList>>>?, error: Throwable?) -> Unit) {
-        apiBearer.getMenuInfo().enqueue(object : Callback<BaseResponse<List<ResponseMenuData<List<ResponseMenuList>>>>> {
+    fun getMenuInfo(callback: (data: List<MenuDataResponse<List<MenuListResponse>>>?, error: Throwable?) -> Unit) {
+        apiBearer.getMenuInfo().enqueue(object : Callback<BaseResponse<List<MenuDataResponse<List<MenuListResponse>>>>> {
             override fun onResponse(
-                call: Call<BaseResponse<List<ResponseMenuData<List<ResponseMenuList>>>>>,
-                response: Response<BaseResponse<List<ResponseMenuData<List<ResponseMenuList>>>>>
+                call: Call<BaseResponse<List<MenuDataResponse<List<MenuListResponse>>>>>,
+                response: Response<BaseResponse<List<MenuDataResponse<List<MenuListResponse>>>>>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { data ->
@@ -150,7 +151,7 @@ class ApiClient (
             }
 
             override fun onFailure(
-                call: Call<BaseResponse<List<ResponseMenuData<List<ResponseMenuList>>>>>,
+                call: Call<BaseResponse<List<MenuDataResponse<List<MenuListResponse>>>>>,
                 t: Throwable
             ) {
                 callback(null, t)
@@ -226,6 +227,33 @@ class ApiClient (
 
             override fun onFailure(
                 call: Call<BaseResponse<List<NoticeInfoResponse>>>,
+                t: Throwable
+            ) {
+                callback(null, t)
+            }
+
+        })
+    }
+
+    fun orderMenu(orderRequest: OrderRequest, callback: (code: Int?, error: Throwable?) -> Unit) { // code : 2000 -> success, 4000 -> fail
+        apiBearer.orderMenu(orderRequest).enqueue(object : Callback<BaseResponse<Int>> {
+            override fun onResponse(
+                call: Call<BaseResponse<Int>>,
+                response: Response<BaseResponse<Int>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { response ->
+                        callback(response.code, null)
+                        return
+                    }
+                    callback(null, Throwable("응답오류. no Body"))
+                } else {
+                    callback(null, Throwable(response.errorBody().toString()))
+                }
+            }
+
+            override fun onFailure(
+                call: Call<BaseResponse<Int>>,
                 t: Throwable
             ) {
                 callback(null, t)

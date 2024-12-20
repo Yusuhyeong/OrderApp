@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-class ResponseMenuData<T>(
+class MenuDataResponse<T>(
     @Expose
     val categorySeq: Int?,
     @Expose

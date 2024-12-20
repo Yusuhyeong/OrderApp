@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class ResponseMenuList(
+class MenuListResponse(
     @Expose
     val menuSeq: Int?,
     @Expose

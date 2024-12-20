@@ -4,6 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.samgye.orderapp.api.ApiClient
+import com.samgye.orderapp.api.request.OrderMenuListRequest
+import com.samgye.orderapp.api.request.OrderRequest
 import com.samgye.orderapp.data.CartMenuInfo
 
 class CartViewModel : ViewModel() {
@@ -35,6 +38,10 @@ class CartViewModel : ViewModel() {
     val is_can_order: LiveData<Boolean>
         get() = _is_can_order
 
+    private val _order_state = MutableLiveData<String>()
+    val order_state: LiveData<String>
+        get() = _order_state
+
     fun loadCartMenu(cartMenuList: List<CartMenuInfo>) {
         _cart_menu_list.value = cartMenuList
     }
@@ -45,9 +52,9 @@ class CartViewModel : ViewModel() {
 
     fun setOrderType(orderType: Boolean) {
         if (orderType) {
-            _order_type.value = "매장 식사"
+            _order_type.value = "s"
         } else {
-            _order_type.value = "포장 주문"
+            _order_type.value = "t"
         }
     }
 
@@ -113,6 +120,42 @@ class CartViewModel : ViewModel() {
             }
         } else {
             _is_can_order.value = true
+        }
+    }
+
+    fun orderMenu() {
+        val orderType = order_type.value
+        val point = use_point.value
+
+        val menuList = cart_menu_list.value?.map { cartMenuInfo ->
+            OrderMenuListRequest(
+                menuSeq = cartMenuInfo.menuSeq,
+                menuSize = cartMenuInfo.menuSize
+            )
+        }
+
+        val orderRequest = OrderRequest(
+            orderType = orderType,
+            usePoint = point.toString(),
+            menuList = menuList
+        )
+
+        ApiClient.instance.orderMenu(orderRequest) { response, error ->
+            if (error == null) {
+                if (response == 2000) {
+                    // success
+                    Log.d("ORDER_TEST", "success")
+                    _order_state.value = "success"
+                } else {
+                    // fail
+                    Log.d("ORDER_TEST", "fail")
+                    _order_state.value = "server error"
+                }
+            } else {
+                // fail
+                Log.d("ORDER_TEST", "fail")
+                _order_state.value = error.message
+            }
         }
     }
 }

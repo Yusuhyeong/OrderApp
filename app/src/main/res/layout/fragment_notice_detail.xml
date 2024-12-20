@@ -18,13 +18,6 @@
         tools:context=".fragment.NoticeDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_loading"
-            android:background="@color/dummy_background_color"
-            android:visibility="@{notice_view_model.is_detail_loading ? View.VISIBLE : View.GONE}"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="@{notice_view_model.is_detail_loading ? View.GONE : View.VISIBLE}"
@@ -36,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{notice_view_model.notice_detail.noticeTitle}"
                 android:textSize="24dp"
+                tools:text="title"
                 android:gravity="left"
                 android:textColor="@color/font"
                 android:fontFamily="@font/pretendard_bold"
@@ -48,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:gravity="left"
+                tools:text="date"
                 android:text="@{notice_view_model.notice_detail.regDttm}"
                 android:textSize="18dp"
                 android:textColor="@color/font"
@@ -63,6 +58,7 @@
                 android:text="@{notice_view_model.notice_detail.regrUuid}"
                 android:textSize="18dp"
                 android:textColor="@color/font"
+                tools:text="name"
                 android:fontFamily="@font/pretendard_medium"
                 android:gravity="left"
                 android:layout_marginTop="10dp"
@@ -85,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                tools:src="@drawable/icon"
                 android:visibility="@{notice_view_model.is_notice_img ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{notice_view_model.notice_detail.noticeCont}"
                 android:textSize="18dp"
+                tools:text="cont"
                 android:textColor="@color/font"
                 android:fontFamily="@font/pretendard_medium"
                 android:gravity="left"
@@ -105,6 +103,13 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_notice_img" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_loading"
+            android:background="@color/dummy_background_color"
+            android:visibility="@{notice_view_model.is_detail_loading ? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 

@@ -43,7 +43,6 @@ class MenuViewModel: ViewModel() {
                 // error
             } else {
                 if (menu != null) {
-                    menu
                     val categoryList = menu.map { responseCategory ->
                         CategoryInfo(
                             categorySeq = responseCategory.categorySeq,

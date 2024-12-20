@@ -9,14 +9,16 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.CartViewModel
+import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.adapter.CartListAdapter
 import com.samgye.orderapp.data.CartMenuInfo
+import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityCartBinding
+import com.samgye.orderapp.fragment.CommonPopupFragment
 import com.samgye.orderapp.utils.PersistentKVStore
 import com.samgye.orderapp.utils.SharedPrefsWrapper
 
@@ -25,6 +27,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     private lateinit var userInfoViewModel: UserInfoViewModel
     private lateinit var cartViewModel: CartViewModel
+    private lateinit var popupViewModel: PopupViewModel
     private lateinit var cartListAdapter: CartListAdapter
     private lateinit var orderType: String
     private val menuKey = "menuList"
@@ -38,6 +41,7 @@ class CartActivity : AppCompatActivity() {
         setContentView(view)
         cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
         userInfoViewModel = Samgye.userInfoViewModel
+        popupViewModel = Samgye.popupViewModel
 
         binding.cartViewModel = cartViewModel
         binding.userViewModel = userInfoViewModel
@@ -62,7 +66,7 @@ class CartActivity : AppCompatActivity() {
             val storeFontRes: Int
             val takeoutFontRes: Int
 
-            if (orderType == "매장 식사") {
+            if (orderType == "s") {
                 storeStrokeRes = R.drawable.border_radius_black_stroke_5dp
                 takeoutStrokeRes = R.drawable.border_radius_gray_stroke_5dp
                 storeFontRes = ContextCompat.getColor(this, R.color.font)
@@ -124,6 +128,20 @@ class CartActivity : AppCompatActivity() {
             binding.tvOrder.isEnabled = isEnable
         }
 
+        cartViewModel.order_state.observe(this) { state ->
+            when (state) {
+                "success" -> {
+                    finish()
+                }
+                "server error" -> {
+                    showPopup("ERROR", "주문에 문제가 생겼습니다.\n다시 시도해주세요.", true)
+                }
+                else -> {
+                    showPopup("ERROR", state, true)
+                }
+            }
+        }
+
         binding.ivCartBack.setOnClickListener {
             finish()
         }
@@ -158,6 +176,29 @@ class CartActivity : AppCompatActivity() {
             }
 
         })
+
+        binding.clCartOrder.setOnClickListener {
+            showPopup("주문확인", "주문하시겠습니까?", false)
+        }
+
+        popupViewModel.popupEvent.observe(this) { event ->
+            if (popupViewModel.popupData.value?.title != "ERROR") {
+                when (event) {
+                    "confirm" -> {
+                        cartViewModel.orderMenu()
+                    }
+                    "cancel" -> {
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
+        val popupData = PopupData(title, detail, isOneBtn)
+        val popup = CommonPopupFragment(popupData, popupViewModel)
+        popup.show(supportFragmentManager, "CommonPopup")
     }
 
     override fun onPause() {
