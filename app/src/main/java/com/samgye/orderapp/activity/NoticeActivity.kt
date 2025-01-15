@@ -20,7 +20,6 @@ class NoticeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notice)
 
         binding = ActivityNoticeBinding.inflate(layoutInflater)
         val view = binding.root

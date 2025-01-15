@@ -154,7 +154,7 @@ class MenuListActivity : AppCompatActivity() {
         val gson = Gson()
         val cartJson = appCache.getString(menuKey, null)
         val res: Int
-        var isEnable = false
+        val isEnable: Boolean
 
         if (cartJson != null) {
             Log.d(TAG, "load cart data, $cartJson")
@@ -169,6 +169,7 @@ class MenuListActivity : AppCompatActivity() {
             Log.d(TAG, "no cart data")
             menuViewModel.setHasCart(false)
             isEnable = false
+            menuViewModel.loadCartMenu(emptyList())
             res = R.drawable.border_radius_state_false_12px
         }
 

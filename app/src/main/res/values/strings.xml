@@ -55,6 +55,7 @@
     <string name="username_sub_title">닉네임</string>
     <string name="store">저장하기</string>
     <string name="username_setting_title">닉네임 설정</string>
+    <string name="order_list_point_title">P 사용</string>
     <!-- google login string -->
     <string name="default_web_client_id">289118716115-ujs0h8pni715jiosnkn4msp9689uhapd.apps.googleusercontent.com</string>
 </resources>
