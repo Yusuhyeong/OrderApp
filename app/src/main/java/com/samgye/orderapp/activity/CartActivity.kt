@@ -1,5 +1,6 @@
 package com.samgye.orderapp.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -30,6 +31,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var popupViewModel: PopupViewModel
     private lateinit var cartListAdapter: CartListAdapter
     private lateinit var orderType: String
+    private var isOrderFinish: Boolean = false
     private val menuKey = "menuList"
     private val appCache: PersistentKVStore = SharedPrefsWrapper(Samgye.mSharedPreferences)
 
@@ -131,6 +133,12 @@ class CartActivity : AppCompatActivity() {
         cartViewModel.order_state.observe(this) { state ->
             when (state) {
                 "success" -> {
+                    Log.d(TAG, "주문 성공")
+                    isOrderFinish = true
+                    appCache.remove(menuKey).commit()
+                    userInfoViewModel.loadUserInfo()
+                    val intent = Intent(this, OrderListActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
                 "server error" -> {
@@ -187,9 +195,6 @@ class CartActivity : AppCompatActivity() {
                     "confirm" -> {
                         cartViewModel.orderMenu()
                     }
-                    "cancel" -> {
-
-                    }
                 }
             }
         }
@@ -205,21 +210,23 @@ class CartActivity : AppCompatActivity() {
         super.onPause()
         Log.d(TAG, "CartActivity onPause()")
 
-        val cartMenuList = cartViewModel.cart_menu_list.value
+        if (!isOrderFinish) {
+            val cartMenuList = cartViewModel.cart_menu_list.value
 
-        if (cartMenuList?.isEmpty() == true) {
-            Log.d(TAG, "empty, remove")
+            if (cartMenuList?.isEmpty() == true) {
+                Log.d(TAG, "empty, remove")
 
-            appCache.remove(menuKey)
-            appCache.commit()
-        } else {
-            Log.d(TAG, "not empty, save")
+                appCache.remove(menuKey)
+                appCache.commit()
+            } else {
+                Log.d(TAG, "not empty, save")
 
-            val gson = Gson()
-            val cartJson = gson.toJson(cartMenuList)
+                val gson = Gson()
+                val cartJson = gson.toJson(cartMenuList)
 
-            appCache.putString(menuKey, cartJson)
-            appCache.commit()
+                appCache.putString(menuKey, cartJson)
+                appCache.commit()
+            }
         }
     }
 }

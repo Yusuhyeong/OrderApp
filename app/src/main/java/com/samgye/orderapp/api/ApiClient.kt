@@ -11,6 +11,8 @@ import com.samgye.orderapp.api.response.NoticeDetailResponse
 import com.samgye.orderapp.api.response.NoticeInfoResponse
 import com.samgye.orderapp.api.response.MenuDataResponse
 import com.samgye.orderapp.api.response.MenuListResponse
+import com.samgye.orderapp.api.response.OrderListResponse
+import com.samgye.orderapp.api.response.OrderMenuResponse
 import com.samgye.orderapp.api.response.TokenResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.api.response.UserDetailResponse
@@ -254,6 +256,32 @@ class ApiClient (
 
             override fun onFailure(
                 call: Call<BaseResponse<Int>>,
+                t: Throwable
+            ) {
+                callback(null, t)
+            }
+
+        })
+    }
+    fun getOrderList(callback: (orderData: List<OrderListResponse<List<OrderMenuResponse>>>?, error: Throwable?) -> Unit) {
+        apiBearer.getOrderList().enqueue(object : Callback<BaseResponse<List<OrderListResponse<List<OrderMenuResponse>>>>> {
+            override fun onResponse(
+                call: Call<BaseResponse<List<OrderListResponse<List<OrderMenuResponse>>>>>,
+                response: Response<BaseResponse<List<OrderListResponse<List<OrderMenuResponse>>>>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { orderData ->
+                        callback(orderData.data, null)
+                        return
+                    }
+                    callback(null, Throwable("응답오류. no Body"))
+                } else {
+                    callback(null, Throwable(response.errorBody().toString()))
+                }
+            }
+
+            override fun onFailure(
+                call: Call<BaseResponse<List<OrderListResponse<List<OrderMenuResponse>>>>>,
                 t: Throwable
             ) {
                 callback(null, t)

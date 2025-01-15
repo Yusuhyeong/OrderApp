@@ -5,6 +5,8 @@ import com.samgye.orderapp.api.request.UsernameRequest
 import com.samgye.orderapp.api.response.BaseResponse
 import com.samgye.orderapp.api.response.MenuDataResponse
 import com.samgye.orderapp.api.response.MenuListResponse
+import com.samgye.orderapp.api.response.OrderListResponse
+import com.samgye.orderapp.api.response.OrderMenuResponse
 import com.samgye.orderapp.api.response.UserInfoResponse
 import com.samgye.orderapp.api.response.UserDetailResponse
 import com.samgye.orderapp.utils.Constants
@@ -24,4 +26,6 @@ interface ApiBearerService {
     fun getMenuInfo(): Call<BaseResponse<List<MenuDataResponse<List<MenuListResponse>>>>>
     @POST(Constants.MENU_ORDER_PATH)
     fun orderMenu(@Body orderRequest: OrderRequest) : Call <BaseResponse<Int>>
+    @GET(Constants.ORDER_LIST_PATH)
+    fun getOrderList() : Call<BaseResponse<List<OrderListResponse<List<OrderMenuResponse>>>>>
 }

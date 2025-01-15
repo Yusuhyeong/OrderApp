@@ -21,4 +21,5 @@ object Constants {
     const val NOTICE_DETAIL_PATH = "api/notice/getNoticeDetail"
     const val MENU_INFO_PATH = "/api/menuInfo/getMenuList"
     const val MENU_ORDER_PATH = "/api/order/orderMenu"
+    const val ORDER_LIST_PATH = "/api/order/getOrderList"
 }
