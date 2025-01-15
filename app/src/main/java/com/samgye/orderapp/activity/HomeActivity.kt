@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var popupViewModel: PopupViewModel
-
+    private var firstHome: Boolean = false
     private val handler = Handler(Looper.getMainLooper())
     private var currentPage = 0
     private var totalPage = 0
@@ -219,5 +219,15 @@ class HomeActivity : AppCompatActivity() {
         val popupData = PopupData(title, detail, isOneBtn)
         val popup = CommonPopupFragment(popupData, popupViewModel)
         popup.show(supportFragmentManager, "CommonPopup")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "HomeActivity onResume")
+        if (firstHome) {
+            userInfoViewModel.loadUserInfo()
+        } else {
+            firstHome = true
+        }
     }
 }
