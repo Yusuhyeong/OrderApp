@@ -12,7 +12,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/tv_popup_detail"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_medium"
             android:gravity="center"
@@ -48,10 +48,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_popup_btn"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,8 @@
                 android:id="@+id/tv_popup_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/border_radius_popup_cancel_10dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:paddingHorizontal="30dp"
@@ -79,7 +80,8 @@
                 android:id="@+id/tv_popup_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/border_radius_popup_confirm_10dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:paddingHorizontal="30dp"
