@@ -35,27 +35,40 @@ class OrderListActivity : AppCompatActivity() {
         setFragment()
 
         viewModel.loadOrderList()
+
+        viewModel.order_detail_info.observe(this) {
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            orderDetailFragment = OrderDetailFragment(viewModel)
+            fragmentTransaction.add(R.id.fl_notice, orderDetailFragment, "OrderDetailFragment").addToBackStack(null).commit()
+
+            Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+        }
+
+        binding.ivCartBack.setOnClickListener {
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+                supportFragmentManager.popBackStack()
+                Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+            } else {
+                super.onBackPressed()
+            }
+        }
     }
 
     private fun setFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         orderListFragment = OrderListFragment(viewModel)
         fragmentTransaction.add(R.id.fl_order_list, orderListFragment, "OrderListFragment").commit()
-        // order click 이벤트 발생시 detail로, 아니라면 list로
-        // 스택 관리는 해야함
-
-//        val seq = intent.getIntExtra("fromOrder", -1)
-//        if (seq == -1) {
-//            // noticeList
-//            orderListFragment = OrderListFragment(viewModel)
-//            fragmentTransaction.add(R.id.fl_notice, orderListFragment, "OrderListFragment").commit()
-//        } else {
-//            // noticeDetail
-//            viewModel.noticeClick(seq)
-//            noticeDetailFragment = NoticeDetailFragment(seq, viewModel)
-//            fragmentTransaction.add(R.id.fl_notice, noticeDetailFragment, "NoticeDetailFragment").commit()
-//        }
 
         Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+    }
+
+    override fun onBackPressed() {
+        Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

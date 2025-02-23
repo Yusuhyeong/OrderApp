@@ -19,6 +19,7 @@
         android:id="@+id/cl_order_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{(v)->order_list_view_model.clickOrderItem(order_list_item)}"
         android:background="@color/white"
         android:padding="16dp" >
 
