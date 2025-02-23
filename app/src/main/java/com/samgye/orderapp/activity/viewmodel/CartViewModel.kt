@@ -136,7 +136,7 @@ class CartViewModel : ViewModel() {
 
         val orderRequest = OrderRequest(
             orderType = orderType,
-            usePoint = point.toString(),
+            usePoint = point,
             menuList = menuList
         )
 

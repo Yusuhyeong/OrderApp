@@ -10,7 +10,7 @@ data class OrderRequest(
 
     @SerializedName("usePoint")
     @Expose
-    val usePoint: String?,
+    val usePoint: Int?,
 
     @SerializedName("menuList")
     @Expose
