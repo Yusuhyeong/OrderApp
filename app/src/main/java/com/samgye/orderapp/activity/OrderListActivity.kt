@@ -39,7 +39,7 @@ class OrderListActivity : AppCompatActivity() {
         viewModel.order_detail_info.observe(this) {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             orderDetailFragment = OrderDetailFragment(viewModel)
-            fragmentTransaction.add(R.id.fl_notice, orderDetailFragment, "OrderDetailFragment").addToBackStack(null).commit()
+            fragmentTransaction.add(R.id.fl_order_list, orderDetailFragment, "OrderDetailFragment").addToBackStack(null).commit()
 
             Log.d(TAG, "backStackCount : ${supportFragmentManager.backStackEntryCount}")
         }

@@ -15,7 +15,6 @@ import com.samgye.orderapp.databinding.FragmentNoticeDetailBinding
 class NoticeDetailFragment(noticeSeq: Int, viewModel: NoticeViewModel) : Fragment() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: FragmentNoticeDetailBinding
-    private val noticeDetailRequest = NoticeDetailRequest(noticeSeq)
     private val noticeViewModel = viewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

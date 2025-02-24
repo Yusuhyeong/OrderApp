@@ -145,6 +145,8 @@ class HomeActivity : AppCompatActivity() {
                         showPopup("로그인", "로그인 후\n해당 서비스를 이용해주세요.", true)
                     } else {
                         // 추가
+                        val intent = Intent(this, OrderListActivity::class.java)
+                        startActivity(intent)
                     }
                 }
                 R.id.cl_find_store_in_menu.toString() -> { // 가게 찾기
