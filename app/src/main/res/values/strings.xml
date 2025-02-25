@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OrderApp</string>
+    <string name="app_name">백년누룽지삼계탕</string>
     <string name="login_request">로그인 후 이용해주세요.</string>
     <string name="user_high">님</string>
     <string name="user_hello">님 안녕하세요.</string>
