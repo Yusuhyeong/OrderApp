@@ -1,5 +1,6 @@
 package com.samgye.orderapp.activity.viewmodel
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         super.setValue(value)
     }
 
+    @MainThread
     fun call() {
         value = null
     }
