@@ -5,13 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.samgye.orderapp.R
-import com.samgye.orderapp.activity.viewmodel.NoticeViewModel
 import com.samgye.orderapp.activity.viewmodel.OrderListViewModel
-import com.samgye.orderapp.api.ApiClient
-import com.samgye.orderapp.databinding.ActivityNoticeBinding
 import com.samgye.orderapp.databinding.ActivityOrderListBinding
-import com.samgye.orderapp.fragment.NoticeDetailFragment
-import com.samgye.orderapp.fragment.NoticeListFragment
 import com.samgye.orderapp.fragment.OrderDetailFragment
 import com.samgye.orderapp.fragment.OrderListFragment
 

@@ -10,12 +10,10 @@ import com.google.gson.reflect.TypeToken
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.MenuViewModel
-import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.adapter.CategoryListAdapter
 import com.samgye.orderapp.data.CartMenuInfo
-import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityMenuListBinding
-import com.samgye.orderapp.fragment.CommonPopupFragment
+import com.samgye.orderapp.fragment.AlertFragment
 import com.samgye.orderapp.utils.PersistentKVStore
 import com.samgye.orderapp.utils.SharedPrefsWrapper
 
@@ -23,7 +21,6 @@ class MenuListActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: ActivityMenuListBinding
     private lateinit var menuViewModel: MenuViewModel
-    private lateinit var popupViewModel: PopupViewModel
     private lateinit var categoryListAdapter: CategoryListAdapter
     private val appCache: PersistentKVStore = SharedPrefsWrapper(Samgye.mSharedPreferences)
     private val menuKey = "menuList"
@@ -37,7 +34,6 @@ class MenuListActivity : AppCompatActivity() {
         setContentView(view)
 
         menuViewModel = ViewModelProvider(this)[MenuViewModel::class.java]
-        popupViewModel = Samgye.popupViewModel
 
         binding.menuViewModel = menuViewModel
         binding.lifecycleOwner = this
@@ -68,7 +64,15 @@ class MenuListActivity : AppCompatActivity() {
                 categoryListAdapter.submitList(menuData)
             } ?: run {
                 // error
-                showPopup("메뉴 조회 오류", "메뉴를 가져오는데 실패했습니다.\n홈 화면으로 이동합니다.", true)
+                AlertFragment()
+                    .setTitle("메뉴 조회 오류")
+                    .setMessage("메뉴를 가져오는데 실패했습니다.\n" +
+                            "홈 화면으로 이동합니다.")
+                    .setIsOneBtn(true)
+                    .setPositiveButton {
+                        finish()
+                    }
+                    .show(supportFragmentManager, "AlertFragment")
             }
         }
 
@@ -129,23 +133,6 @@ class MenuListActivity : AppCompatActivity() {
             cartIntent.putExtra("title", intent.getStringExtra("title").toString())
             startActivity(cartIntent)
         }
-
-        popupViewModel.popupEvent.observe(this) { event ->
-            when (event) {
-                "confirm" -> {
-                    finish()
-                }
-                "cancel" -> {
-                    finish()
-                }
-            }
-        }
-    }
-
-    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
-        val popupData = PopupData(title, detail, isOneBtn)
-        val popup = CommonPopupFragment(popupData, popupViewModel)
-        popup.show(supportFragmentManager, "CommonPopup")
     }
 
     override fun onResume() {
@@ -162,9 +149,6 @@ class MenuListActivity : AppCompatActivity() {
             isEnable = true
             menuViewModel.loadCartMenu(gson.fromJson(cartJson, object : TypeToken<List<CartMenuInfo>>() {}.type))
             res = R.drawable.border_radius_state_true_12px
-
-            // appCache.remove(menuKey).commit()는 현재 테스트용이므로 결제화면 구현시 주석처리
-//            appCache.remove(menuKey).commit()
         } else {
             Log.d(TAG, "no cart data")
             menuViewModel.setHasCart(false)

@@ -12,14 +12,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.HomeViewModel
-import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.adapter.EventListAdapter
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.data.EventInfo
-import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityHomeBinding
-import com.samgye.orderapp.fragment.CommonPopupFragment
+import com.samgye.orderapp.fragment.AlertFragment
 
 class HomeActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
@@ -27,7 +25,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var userInfoViewModel: UserInfoViewModel
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var eventListAdapter: EventListAdapter
-    private lateinit var popupViewModel: PopupViewModel
     private var firstHome: Boolean = false
     private val handler = Handler(Looper.getMainLooper())
     private var currentPage = 0
@@ -42,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(view)
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         userInfoViewModel = Samgye.userInfoViewModel
-        popupViewModel = Samgye.popupViewModel
 
         binding.homeViewModel = homeViewModel
         binding.userViewModel = userInfoViewModel
@@ -113,7 +109,16 @@ class HomeActivity : AppCompatActivity() {
                 R.id.cl_store_eat.toString(), R.id.cl_order_in_menu.toString() -> { // 매장 식사
                     Log.d(TAG, "매장 식사 클릭")
                     if (!ApiClient.instance.hasToken()) {
-                        showPopup("로그인", "로그인 후\n해당 서비스를 이용해주세요.", true)
+                        AlertFragment()
+                            .setTitle("로그인")
+                            .setMessage("로그인 후\n" +
+                                    "해당 서비스를 이용해주세요.")
+                            .setIsOneBtn(true)
+                            .setPositiveButton {
+                                val loginIntent = Intent(this, LoginActivity::class.java)
+                                startActivity(loginIntent)
+                            }
+                            .show(supportFragmentManager, "AlertFragment")
                     } else {
                         val menuListIntent = Intent(this, MenuListActivity::class.java)
                         menuListIntent.putExtra("title", "매장 식사")
@@ -123,7 +128,16 @@ class HomeActivity : AppCompatActivity() {
                 R.id.cl_take_out.toString() -> { // 포장 주문
                     Log.d(TAG, "포장 주문 클릭")
                     if (!ApiClient.instance.hasToken()) {
-                        showPopup("로그인", "로그인 후\n해당 서비스를 이용해주세요.", true)
+                        AlertFragment()
+                            .setTitle("로그인")
+                            .setMessage("로그인 후\n" +
+                                    "해당 서비스를 이용해주세요.")
+                            .setIsOneBtn(true)
+                            .setPositiveButton {
+                                val loginIntent = Intent(this, LoginActivity::class.java)
+                                startActivity(loginIntent)
+                            }
+                            .show(supportFragmentManager, "AlertFragment")
                     } else {
                         val menuListIntent = Intent(this, MenuListActivity::class.java)
                         menuListIntent.putExtra("title", "포장 주문")
@@ -132,7 +146,16 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.tv_menu_logout.toString() -> { // 로그아웃
                     Log.d(TAG, "로그 아웃 클릭")
-                    showPopup("로그아웃", "로그아웃을 진행하시겠습니까?", false)
+                    AlertFragment()
+                        .setTitle("로그아웃")
+                        .setMessage("로그아웃을 진행하시겠습니까?")
+                        .setIsOneBtn(false)
+                        .setPositiveButton {
+                            ApiClient.instance.logout()
+                            userInfoViewModel.clearUserInfo()
+                            homeViewModel.setMenuVisible(false)
+                        }
+                        .show(supportFragmentManager, "AlertFragment")
                 }
                 R.id.tv_menu_my_info.toString() -> { // 내정보
                     Log.d(TAG, "내정보 클릭")
@@ -142,7 +165,16 @@ class HomeActivity : AppCompatActivity() {
                 R.id.cl_order_list_in_menu.toString() -> { // 주문 내역
                     Log.d(TAG, "주문 내역 클릭")
                     if (!ApiClient.instance.hasToken()) {
-                        showPopup("로그인", "로그인 후\n해당 서비스를 이용해주세요.", true)
+                        AlertFragment()
+                            .setTitle("로그인")
+                            .setMessage("로그인 후\n" +
+                                    "해당 서비스를 이용해주세요.")
+                            .setIsOneBtn(true)
+                            .setPositiveButton {
+                                val loginIntent = Intent(this, LoginActivity::class.java)
+                                startActivity(loginIntent)
+                            }
+                            .show(supportFragmentManager, "AlertFragment")
                     } else {
                         // 추가
                         val intent = Intent(this, OrderListActivity::class.java)
@@ -176,21 +208,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-
-        popupViewModel.popupEvent.observe(this) { event ->
-            when(event) {
-                "confirm" -> {
-                    if (popupViewModel.popupData.value?.title == "로그아웃") {
-                        ApiClient.instance.logout()
-                        userInfoViewModel.clearUserInfo()
-                        homeViewModel.setMenuVisible(false)
-                    } else {
-                        val loginIntent = Intent(this, LoginActivity::class.java)
-                        startActivity(loginIntent)
-                    }
-                }
-            }
-        }
     }
 
     private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
@@ -215,12 +232,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         handler.postDelayed(runnable, 3000)
-    }
-
-    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
-        val popupData = PopupData(title, detail, isOneBtn)
-        val popup = CommonPopupFragment(popupData, popupViewModel)
-        popup.show(supportFragmentManager, "CommonPopup")
     }
 
     override fun onResume() {

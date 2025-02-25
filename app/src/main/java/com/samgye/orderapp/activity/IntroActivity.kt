@@ -9,22 +9,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.LoginViewModel
-import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
 import com.samgye.orderapp.api.ApiClient
-import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityIntroBinding
-import com.samgye.orderapp.fragment.CommonPopupFragment
+import com.samgye.orderapp.fragment.AlertFragment
 
 class IntroActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private lateinit var binding: ActivityIntroBinding
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var userInfoViewModel: UserInfoViewModel
-    private lateinit var popupViewModel: PopupViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +31,6 @@ class IntroActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         userInfoViewModel = Samgye.userInfoViewModel
-        popupViewModel = Samgye.popupViewModel
-
 
         if (isNetworkConnected()) {
             if (ApiClient.instance.hasToken()) {
@@ -54,7 +48,16 @@ class IntroActivity : AppCompatActivity() {
                 userInfoViewModel.loadUserInfo()
             } else {
                 // error
-                showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)
+                if (!ApiClient.instance.hasToken()) {
+                    AlertFragment()
+                        .setTitle("로그인 실패")
+                        .setMessage("사용자 정보를 조회하는데 실패하였습니다.")
+                        .setIsOneBtn(true)
+                        .setPositiveButton {
+                            finish()
+                        }
+                        .show(supportFragmentManager, "AlertFragment")
+                }
                 ApiClient.instance.logout()
                 finish()
             }
@@ -80,17 +83,15 @@ class IntroActivity : AppCompatActivity() {
                 }, 3000)
             } ?: run {
                 // error
-                showPopup("로그인 실패", "사용자 정보를 조회하는데 실패하였습니다.", false)
-            }
-        }
-
-        popupViewModel.popupEvent.observe(this) { event ->
-            when (event) {
-                "confirm" -> {
-                    finish()
-                }
-                "cancel" -> {
-                    finish()
+                if (!ApiClient.instance.hasToken()) {
+                    AlertFragment()
+                        .setTitle("로그인 실패")
+                        .setMessage("사용자 정보를 조회하는데 실패하였습니다.")
+                        .setIsOneBtn(true)
+                        .setPositiveButton {
+                            finish()
+                        }
+                        .show(supportFragmentManager, "AlertFragment")
                 }
             }
         }
@@ -102,11 +103,5 @@ class IntroActivity : AppCompatActivity() {
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
 
         return networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
-
-    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
-        val popupData = PopupData(title, detail, isOneBtn)
-        val popup = CommonPopupFragment(popupData, popupViewModel)
-        popup.show(supportFragmentManager, "CommonPopup")
     }
 }

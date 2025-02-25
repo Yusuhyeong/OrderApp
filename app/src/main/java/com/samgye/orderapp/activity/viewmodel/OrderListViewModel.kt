@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.samgye.orderapp.api.ApiClient
-import com.samgye.orderapp.data.NoticeItem
 import com.samgye.orderapp.data.OrderDetailInfo
 import com.samgye.orderapp.data.OrderListInfo
 import com.samgye.orderapp.utils.SystemUtil

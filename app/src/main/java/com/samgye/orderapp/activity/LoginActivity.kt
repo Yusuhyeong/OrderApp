@@ -14,15 +14,12 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-import com.samgye.orderapp.MyApp
 import com.samgye.orderapp.R
 import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.LoginViewModel
-import com.samgye.orderapp.activity.viewmodel.PopupViewModel
 import com.samgye.orderapp.activity.viewmodel.UserInfoViewModel
-import com.samgye.orderapp.data.PopupData
 import com.samgye.orderapp.databinding.ActivityLoginBinding
-import com.samgye.orderapp.fragment.CommonPopupFragment
+import com.samgye.orderapp.fragment.AlertFragment
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
@@ -30,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var userInfoViewModel: UserInfoViewModel
-    private lateinit var popupViewModel: PopupViewModel
 
     // google login callback
     private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -83,7 +79,6 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         userInfoViewModel = Samgye.userInfoViewModel
-        popupViewModel = Samgye.popupViewModel
 
         binding.loginViewModel = loginViewModel
         binding.lifecycleOwner = this
@@ -132,18 +127,15 @@ class LoginActivity : AppCompatActivity() {
                 }
             } ?: run {
                 // error
-                showPopup("로그인 실패", "sns 로그인에 실패하였습니다.\n홈 화면으로 이동합니다.", false)
-            }
-        }
-
-        popupViewModel.popupEvent.observe(this) { event ->
-            when (event) {
-                "confirm" -> {
-                    finish()
-                }
-                "cancel" -> {
-                    finish()
-                }
+                AlertFragment()
+                    .setTitle("로그인 실패")
+                    .setMessage("sns 로그인에 실패하였습니다.\n" +
+                            "홈 화면으로 이동합니다.")
+                    .setIsOneBtn(true)
+                    .setPositiveButton {
+                        finish()
+                    }
+                    .show(supportFragmentManager, "AlertFragment")
             }
         }
     }
@@ -196,11 +188,5 @@ class LoginActivity : AppCompatActivity() {
                 callback = kakaoCallback
             )
         }
-    }
-
-    private fun showPopup(title: String, detail: String, isOneBtn: Boolean) {
-        val popupData = PopupData(title, detail, isOneBtn)
-        val popup = CommonPopupFragment(popupData, popupViewModel)
-        popup.show(supportFragmentManager, "CommonPopup")
     }
 }

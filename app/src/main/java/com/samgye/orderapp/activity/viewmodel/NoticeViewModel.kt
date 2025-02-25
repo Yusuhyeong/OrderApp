@@ -1,13 +1,11 @@
 package com.samgye.orderapp.activity.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.samgye.orderapp.api.ApiClient
 import com.samgye.orderapp.api.request.NoticeDetailRequest
 import com.samgye.orderapp.data.NoticeDetail
-import com.samgye.orderapp.data.NoticeInfo
 import com.samgye.orderapp.data.NoticeItem
 import com.samgye.orderapp.utils.SystemUtil
 
