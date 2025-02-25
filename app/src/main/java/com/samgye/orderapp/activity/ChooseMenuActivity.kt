@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.samgye.orderapp.R
@@ -11,6 +12,7 @@ import com.samgye.orderapp.Samgye
 import com.samgye.orderapp.activity.viewmodel.ChooseMenuViewModel
 import com.samgye.orderapp.data.CartMenuInfo
 import com.samgye.orderapp.databinding.ActivityChooseMenuBinding
+import com.samgye.orderapp.utils.Constants
 import com.samgye.orderapp.utils.PersistentKVStore
 import com.samgye.orderapp.utils.SharedPrefsWrapper
 
@@ -55,6 +57,13 @@ class ChooseMenuActivity : AppCompatActivity() {
 
             binding.tvChooseMenuOrder.setBackgroundResource(res)
             binding.tvChooseMenuOrder.isEnabled = isEnable
+
+            if (chooseMenuViewModel.menu_img_url.value != null) {
+                val imgUrl = Constants.IMG_BASE_URL + chooseMenuViewModel.menu_img_url.value
+                Glide.with(binding.ivChooseMenuImg.context)
+                    .load(imgUrl)
+                    .into(binding.ivChooseMenuImg)
+            }
         }
 
         binding.ivBack.setOnClickListener {

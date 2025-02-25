@@ -9,6 +9,7 @@ object Constants {
 
 //    const val BASE_URL = "http://10.112.59.189:8081/" // ㄷㅅ
     const val BASE_URL = "http://10.112.59.68:8081/" // ㄷㅅ
+    const val IMG_BASE_URL = "http://10.112.59.68:8081" // ㄷㅅ
 //    const val BASE_URL = "http://10.112.60.173:8081/" // ㅅㅎ
 
     const val LOGIN_PATH = "api/auth/login"
