@@ -19,24 +19,7 @@ class OrderListAdapter(private val viewModel: OrderListViewModel) : ListAdapter<
             if (orderListItem.menuList != null) {
                 for (i: Int in 0..<orderListItem.menuList.size) {
                     menuTitle.append("${orderListItem.menuList[i].menuTitle} X ${orderListItem.menuList[i].menuSize}, ")
-
-                    when (orderListItem.orderStat) {
-                        "0" -> {
-                            binding.tvOrderType.text = "주문 대기"
-                        }
-                        "1" -> {
-                            binding.tvOrderType.text = "조리 중"
-                        }
-                        "2" -> {
-                            binding.tvOrderType.text = "주문 취소"
-                        }
-                        "3" -> {
-                            binding.tvOrderType.text = "조리 완료"
-                        }
-                        "4" -> {
-                            binding.tvOrderType.text = "주문 완료"
-                        }
-                    }
+                    binding.tvOrderType.text = orderListItem.orderStat
                 }
 
                 menuTitle.setLength(menuTitle.length - 2)

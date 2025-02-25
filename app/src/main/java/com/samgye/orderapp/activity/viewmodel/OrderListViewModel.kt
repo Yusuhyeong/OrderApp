@@ -24,8 +24,19 @@ class OrderListViewModel: ViewModel() {
             } else if (orderList != null) {
                 val mappedOrderList = orderList.map { orderResponse ->
                     OrderListInfo(
-                        orderType = orderResponse.orderType,
-                        orderStat = orderResponse.orderStat,
+                        orderType = when (orderResponse.orderType) {
+                            "s" -> "매장 식사"
+                            "t" -> "포장 주문"
+                             else -> "알 수 없음"
+                        },
+                        orderStat = when (orderResponse.orderStat) {
+                            "0" -> "주문 대기"
+                            "1" -> "조리 중"
+                            "2" -> "주문 취소"
+                            "3" -> "조리 완료"
+                            "4" -> "주문 완료"
+                            else -> "알 수 없음"
+                        },
                         usePoint = orderResponse.usePoint,
                         regDttm = SystemUtil.formatToDateOnly(orderResponse.regDttm),
                         menuList = orderResponse.menus.map { menuResponse ->

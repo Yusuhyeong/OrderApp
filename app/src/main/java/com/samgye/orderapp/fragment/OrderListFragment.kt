@@ -28,7 +28,6 @@ class OrderListFragment(viewModel: OrderListViewModel) : Fragment() {
         binding.orderListViewModel = orderViewModel
         binding.lifecycleOwner = this
 
-//        noticeListAdapter = NoticeListAdapter(orderViewModel)
         orderListAdapter = OrderListAdapter(orderViewModel)
         binding.rvOrderList.adapter = orderListAdapter
 
